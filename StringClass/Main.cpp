@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <stdint.h>
 #include <intrin.h>
+#include <string>
 
 #include "PowerString.h"
 
@@ -151,6 +152,7 @@ int main() {
 		AssertString(newString, 153, 315);
 
 		string = "";
+//		string += Power::String::ToString(1) + '_' + 1.01f + '_' + 1.01 + '_' + true + '_' + false;
 		string += 1;
 		string += '_';
 		string += 1.01f;
@@ -210,6 +212,32 @@ int main() {
 		assert(string.EndsWith(otherString));
 		assert(string.EndsWith("Nein!"));
 		assert(string.EndsWith('!'));
+
+		for (int i = 0; i < measureCount; ++i) {
+			uint64_t startCount = __rdtsc();
+			std::string stdString = "asdf";
+			stdString = stdString + stdString;
+			uint64_t endCount = __rdtsc();
+			deltaTimes[i] = endCount - startCount;
+		}
+
+		averageTime = 0;
+		for (int i = 0; i < measureCount; ++i) averageTime += deltaTimes[i];
+		averageTime /= measureCount;
+		printf("STD average cycles taken: %lld\n", averageTime);
+
+		for (int i = 0; i < measureCount; ++i) {
+			uint64_t startCount = __rdtsc();
+			Power::String powerString = "asdf";
+			powerString = powerString + powerString;
+			uint64_t endCount = __rdtsc();
+			deltaTimes[i] = endCount - startCount;
+		}
+
+		averageTime = 0;
+		for (int i = 0; i < measureCount; ++i) averageTime += deltaTimes[i];
+		averageTime /= measureCount;
+		printf("POWER average cycles taken: %lld\n", averageTime);
 	}
 
 	printf("Total instances created: %d; Remaining instances: %d\n", Power::String::s_totalInstancesCreated_, Power::String::s_instanceCounter_);
