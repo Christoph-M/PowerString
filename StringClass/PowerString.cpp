@@ -112,14 +112,104 @@ namespace Power {
 		data_[lhs.length_] = rhs;
 	}
 
-	String::String(const String& lhs, const int rhs) :
+	String::String(const String& lhs, const int16_t rhs) :
 		size_(0),
 		length_(0),
 		data_(nullptr),
 		temp_(nullptr)
 	{
-		char buffer[11];
-		snprintf(buffer, 11, "%d", rhs);
+		char buffer[INT16_MAX_CHR_COUNT];
+		snprintf(buffer, INT16_MAX_CHR_COUNT, "%hd", rhs);
+		size_t rhsLength = strlen(buffer);
+		length_ = lhs.length_ + rhsLength;
+		size_ = length_ + 256;
+		data_ = new char[size_] { '\0' };
+		temp_ = new char[size_] { '\0' };
+		this->IncInstCounter();
+		memcpy(data_, lhs.data_, lhs.length_);
+		memcpy(data_ + lhs.length_, buffer, rhsLength);
+	}
+
+	String::String(const String& lhs, const uint16_t rhs) :
+		size_(0),
+		length_(0),
+		data_(nullptr),
+		temp_(nullptr)
+	{
+		char buffer[UINT16_MAX_CHR_COUNT];
+		snprintf(buffer, UINT16_MAX_CHR_COUNT, "%hu", rhs);
+		size_t rhsLength = strlen(buffer);
+		length_ = lhs.length_ + rhsLength;
+		size_ = length_ + 256;
+		data_ = new char[size_] { '\0' };
+		temp_ = new char[size_] { '\0' };
+		this->IncInstCounter();
+		memcpy(data_, lhs.data_, lhs.length_);
+		memcpy(data_ + lhs.length_, buffer, rhsLength);
+	}
+
+	String::String(const int32_t rhs, const String& lhs) :
+		size_(0),
+		length_(0),
+		data_(nullptr),
+		temp_(nullptr)
+	{
+		char buffer[INT32_MAX_CHR_COUNT];
+		snprintf(buffer, INT32_MAX_CHR_COUNT, "%d", rhs);
+		size_t rhsLength = strlen(buffer);
+		length_ = lhs.length_ + rhsLength;
+		size_ = length_ + 256;
+		data_ = new char[size_] { '\0' };
+		temp_ = new char[size_] { '\0' };
+		this->IncInstCounter();
+		memcpy(data_, lhs.data_, lhs.length_);
+		memcpy(data_ + lhs.length_, buffer, rhsLength);
+	}
+
+	String::String(const String& lhs, const uint32_t rhs) :
+		size_(0),
+		length_(0),
+		data_(nullptr),
+		temp_(nullptr)
+	{
+		char buffer[UINT32_MAX_CHR_COUNT];
+		snprintf(buffer, UINT32_MAX_CHR_COUNT, "%u", rhs);
+		size_t rhsLength = strlen(buffer);
+		length_ = lhs.length_ + rhsLength;
+		size_ = length_ + 256;
+		data_ = new char[size_] { '\0' };
+		temp_ = new char[size_] { '\0' };
+		this->IncInstCounter();
+		memcpy(data_, lhs.data_, lhs.length_);
+		memcpy(data_ + lhs.length_, buffer, rhsLength);
+	}
+
+	String::String(const String& lhs, const int64_t rhs) :
+		size_(0),
+		length_(0),
+		data_(nullptr),
+		temp_(nullptr)
+	{
+		char buffer[INT64_MAX_CHR_COUNT];
+		snprintf(buffer, INT64_MAX_CHR_COUNT, "%lld", rhs);
+		size_t rhsLength = strlen(buffer);
+		length_ = lhs.length_ + rhsLength;
+		size_ = length_ + 256;
+		data_ = new char[size_] { '\0' };
+		temp_ = new char[size_] { '\0' };
+		this->IncInstCounter();
+		memcpy(data_, lhs.data_, lhs.length_);
+		memcpy(data_ + lhs.length_, buffer, rhsLength);
+	}
+
+	String::String(const String& lhs, const uint64_t rhs) :
+		size_(0),
+		length_(0),
+		data_(nullptr),
+		temp_(nullptr)
+	{
+		char buffer[UINT64_MAX_CHR_COUNT];
+		snprintf(buffer, UINT64_MAX_CHR_COUNT, "%llu", rhs);
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + 256;
@@ -136,8 +226,8 @@ namespace Power {
 		data_(nullptr),
 		temp_(nullptr)
 	{
-		char buffer[9];
-		snprintf(buffer, 9, "%g", rhs);
+		char buffer[FLOAT_MAX_CHR_COUNT];
+		snprintf(buffer, FLOAT_MAX_CHR_COUNT, "%g", rhs);
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + 256;
@@ -154,8 +244,8 @@ namespace Power {
 		data_(nullptr),
 		temp_(nullptr)
 	{
-		char buffer[17];
-		snprintf(buffer, 17, "%g", rhs);
+		char buffer[DOUBLE_MAX_CHR_COUNT];
+		snprintf(buffer, DOUBLE_MAX_CHR_COUNT, "%g", rhs);
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + 256;
@@ -240,7 +330,7 @@ namespace Power {
 	}
 
 	void String::Insert(size_t index, const String& other) {
-		if (index > length_) index = length_;
+		if (index > length_) return;
 		size_t newLength = length_ + other.length_;
 		this->CheckSizeAndReallocate(newLength);
 		temp_[newLength] = '\0';
@@ -251,7 +341,7 @@ namespace Power {
 	}
 
 	void String::Insert(size_t index, const char* const other) {
-		if (index > length_) index = length_;
+		if (index > length_) return;
 		size_t otherLength = strlen(other);
 		size_t newLength = length_ + otherLength;
 		this->CheckSizeAndReallocate(newLength);
@@ -263,7 +353,7 @@ namespace Power {
 	}
 
 	void String::Insert(size_t index, const char* const other, size_t length) {
-		if (index > length_) index = length_;
+		if (index > length_) return;
 		size_t newLength = length_ + length;
 		this->CheckSizeAndReallocate(newLength);
 		temp_[newLength] = '\0';
@@ -274,7 +364,7 @@ namespace Power {
 	}
 
 	void String::Insert(size_t index, const char c) {
-		if (index > length_) index = length_;
+		if (index > length_) return;
 		size_t newLength = length_ + 1;
 		this->CheckSizeAndReallocate(newLength);
 		temp_[newLength] = '\0';
@@ -285,7 +375,7 @@ namespace Power {
 	}
 
 	void String::Remove(size_t index, size_t count) {
-		if (index >= length_) index = length_ - 1;
+		if (index >= length_) return;
 		if (count > length_ - index) count = length_ - index;
 		size_t newLength = length_ - count;
 		temp_[newLength] = '\0';
@@ -370,7 +460,7 @@ namespace Power {
 	}
 	
 	void String::Replace(size_t index, size_t count, const String& other) {
-		if (index > length_) index = length_;
+		if (index >= length_) return;
 		if (count > length_ - index) count = length_ - index;
 		size_t newLength = length_ - count + other.length_;
 		this->CheckSizeAndReallocate(newLength);
@@ -382,7 +472,7 @@ namespace Power {
 	}
 
 	void String::Replace(size_t index, size_t count, const char* const other) {
-		if (index > length_) index = length_;
+		if (index >= length_) return;
 		if (count > length_ - index) count = length_ - index;
 		size_t otherLength = strlen(other);
 		size_t newLength = length_ - count + otherLength;
@@ -395,7 +485,7 @@ namespace Power {
 	}
 
 	void String::Replace(size_t index, size_t count, const char* const other, size_t length) {
-		if (index > length_) index = length_;
+		if (index >= length_) return;
 		if (count > length_ - index) count = length_ - index;
 		size_t newLength = length_ - count + length;
 		this->CheckSizeAndReallocate(newLength);
@@ -407,7 +497,7 @@ namespace Power {
 	}
 
 	void String::Replace(size_t index, size_t count, const char c) {
-		if (index > length_) index = length_;
+		if (index >= length_) return;
 		if (count > length_ - index) count = length_ - index;
 		size_t newLength = length_ - count + 1;
 		this->CheckSizeAndReallocate(newLength);

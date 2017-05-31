@@ -1,5 +1,4 @@
 #include <assert.h>
-#include <stdint.h>
 #include <intrin.h>
 #include <string>
 
@@ -17,15 +16,15 @@ int main() {
 		Power::String string = "asd";
 		AssertString(string, 3);
 		char buffer[5] = "asdf";
-		string = Power::String(buffer, 4);
+		string = Power::String(buffer, static_cast<size_t>(4));
 		AssertString(string, 4);
-		string = Power::String("asdasd", 6);
+		string = Power::String("asdasd", static_cast<size_t>(6));
 		AssertString(string, 6);
 		string = buffer;
 		AssertString(string, 4);
 		string = "asdfghjk";
 		AssertString(string, 8);
-		Power::String otherString = Power::String("asdfg", 5);
+		Power::String otherString = Power::String("asdfg", static_cast<size_t>(5));
 		AssertString(otherString, 5);
 		string = otherString;
 		AssertString(string, 5);
@@ -41,7 +40,7 @@ int main() {
 		AssertString(string, 10);
 		assert(string == string.CString());
 
-		printf("String: %s\n", string.CString());
+		printf("String: %s\n", static_cast<char*>(string));
 
 		string += string;
 		otherString = string;
@@ -238,6 +237,26 @@ int main() {
 		for (int i = 0; i < measureCount; ++i) averageTime += deltaTimes[i];
 		averageTime /= measureCount;
 		printf("POWER average cycles taken: %lld\n", averageTime);
+
+		for (int i = 0; i < measureCount; ++i) {
+			uint64_t startCount = __rdtsc();
+			Power::String powerString = Power::String::ToString(static_cast<uint16_t>(5));
+			uint64_t endCount = __rdtsc();
+			deltaTimes[i] = endCount - startCount;
+		}
+
+		averageTime = 0;
+		for (int i = 0; i < measureCount; ++i) averageTime += deltaTimes[i];
+		averageTime /= measureCount;
+		printf("Average cycles taken: %lld\n", averageTime);
+
+		string = Power::String::ToString(std::numeric_limits<int16_t>::min());
+		printf("String: %s\n", string.CString());
+
+		string = "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM";
+		otherString = "ASDF";
+		string.Fill(otherString, 8, 16);
+		printf("String: %s\n", string.CString());
 	}
 
 	printf("Total instances created: %d; Remaining instances: %d\n", Power::String::s_totalInstancesCreated_, Power::String::s_instanceCounter_);

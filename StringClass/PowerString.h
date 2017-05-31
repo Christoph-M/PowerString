@@ -2,7 +2,17 @@
 
 #include <cstring>
 #include <cstdio>
-#include <limits>
+#include <inttypes.h>
+
+
+#define INT16_MAX_CHR_COUNT		 7
+#define UINT16_MAX_CHR_COUNT	 6
+#define INT32_MAX_CHR_COUNT		12
+#define UINT32_MAX_CHR_COUNT	11
+#define INT64_MAX_CHR_COUNT		21
+#define UINT64_MAX_CHR_COUNT	21
+#define FLOAT_MAX_CHR_COUNT		13
+#define DOUBLE_MAX_CHR_COUNT	18
 
 
 namespace Power {
@@ -11,20 +21,45 @@ namespace Power {
 		static String ToString(const char* const other)					{ return String(other);			}
 		static String ToString(const char* const other, size_t length)	{ return String(other, length); }
 		static String ToString(const char c)							{ return String(c);				}
-		static String ToString(const int value) {
-			char buffer[std::numeric_limits<int>::digits10];					// Test optimization
-			snprintf(buffer, std::numeric_limits<int>::digits10, "%d", value);
-			return String(buffer);				// Test if strlen is faster than memcpy full length
+		static String ToString(const int16_t value) {
+			char buffer[INT16_MAX_CHR_COUNT];
+			snprintf(buffer, INT16_MAX_CHR_COUNT, "%hd", value);
+			return String(buffer, INT16_MAX_CHR_COUNT);
+		}
+		static String ToString(const uint16_t value) {
+			char buffer[UINT16_MAX_CHR_COUNT];
+			snprintf(buffer, UINT16_MAX_CHR_COUNT, "%hu", value);
+			return String(buffer, UINT16_MAX_CHR_COUNT);
+		}
+		static String ToString(const int32_t value) {
+			char buffer[INT32_MAX_CHR_COUNT];
+			snprintf(buffer, INT32_MAX_CHR_COUNT, "%d", value);
+			return String(buffer, INT32_MAX_CHR_COUNT);
+		}
+		static String ToString(const uint32_t value) {
+			char buffer[UINT32_MAX_CHR_COUNT];
+			snprintf(buffer, UINT32_MAX_CHR_COUNT, "%u", value);
+			return String(buffer, UINT32_MAX_CHR_COUNT);
+		}
+		static String ToString(const int64_t value) {
+			char buffer[INT64_MAX_CHR_COUNT];
+			snprintf(buffer, INT64_MAX_CHR_COUNT, "%lld", value);
+			return String(buffer, INT64_MAX_CHR_COUNT);
+		}
+		static String ToString(const uint64_t value) {
+			char buffer[UINT64_MAX_CHR_COUNT];
+			snprintf(buffer, UINT64_MAX_CHR_COUNT, "%llu", value);
+			return String(buffer, UINT64_MAX_CHR_COUNT);
 		}
 		static String ToString(const float value) {
-			char buffer[std::numeric_limits<float>::digits10];
-			snprintf(buffer, std::numeric_limits<float>::digits10, "%g", value);
-			return String(buffer);
+			char buffer[FLOAT_MAX_CHR_COUNT];
+			snprintf(buffer, FLOAT_MAX_CHR_COUNT, "%g", value);
+			return String(buffer, FLOAT_MAX_CHR_COUNT);
 		}
 		static String ToString(const double value) {
-			char buffer[std::numeric_limits<double>::digits10];
-			snprintf(buffer, std::numeric_limits<double>::digits10, "%g", value);
-			return String(buffer);
+			char buffer[DOUBLE_MAX_CHR_COUNT];
+			snprintf(buffer, DOUBLE_MAX_CHR_COUNT, "%g", value);
+			return String(buffer, DOUBLE_MAX_CHR_COUNT);
 		}
 
 	public:
@@ -54,10 +89,15 @@ namespace Power {
 			length_ = 1;
 		}
 
-		inline String operator+(const String& other)		const { return String(*this, other); }		// Test optimization
+		inline String operator+(const String& other)		const { return String(*this, other); }
 		inline String operator+(const char* const other)	const { return String(*this, other); }
 		inline String operator+(const char c)				const { return String(*this, c);	 }
-		inline String operator+(const int value)			const { return String(*this, value); }
+		inline String operator+(const int16_t value)		const { return String(value, *this); }
+		inline String operator+(const uint16_t value)		const { return String(value, *this); }
+		inline String operator+(const int32_t value)		const { return String(value, *this); }
+		inline String operator+(const uint32_t value)		const { return String(value, *this); }
+		inline String operator+(const int64_t value)		const { return String(value, *this); }
+		inline String operator+(const uint64_t value)		const { return String(value, *this); }
 		inline String operator+(const float value)			const { return String(*this, value); }
 		inline String operator+(const double value)			const { return String(*this, value); }
 
@@ -80,9 +120,54 @@ namespace Power {
 			data_[length_ + 1] = '\0';
 			++length_;
 		}
-		inline void operator+=(const int value) {
-			char buffer[11];
-			snprintf(buffer, 11, "%d", value);
+		inline void operator+=(const int16_t value) {
+			char buffer[INT16_MAX_CHR_COUNT];
+			snprintf(buffer, INT16_MAX_CHR_COUNT, "%hd", value);
+			size_t otherLength = strlen(buffer);
+			size_t newLength = length_ + otherLength;
+			this->CheckSizeAndReallocate(newLength);
+			memcpy(data_ + length_, buffer, otherLength + 1);
+			length_ = newLength;
+		}
+		inline void operator+=(const uint16_t value) {
+			char buffer[UINT16_MAX_CHR_COUNT];
+			snprintf(buffer, UINT16_MAX_CHR_COUNT, "%hu", value);
+			size_t otherLength = strlen(buffer);
+			size_t newLength = length_ + otherLength;
+			this->CheckSizeAndReallocate(newLength);
+			memcpy(data_ + length_, buffer, otherLength + 1);
+			length_ = newLength;
+		}
+		inline void operator+=(const int32_t value) {
+			char buffer[INT32_MAX_CHR_COUNT];
+			snprintf(buffer, INT32_MAX_CHR_COUNT, "%d", value);
+			size_t otherLength = strlen(buffer);
+			size_t newLength = length_ + otherLength;
+			this->CheckSizeAndReallocate(newLength);
+			memcpy(data_ + length_, buffer, otherLength + 1);
+			length_ = newLength;
+		}
+		inline void operator+=(const uint32_t value) {
+			char buffer[UINT32_MAX_CHR_COUNT];
+			snprintf(buffer, UINT32_MAX_CHR_COUNT, "%u", value);
+			size_t otherLength = strlen(buffer);
+			size_t newLength = length_ + otherLength;
+			this->CheckSizeAndReallocate(newLength);
+			memcpy(data_ + length_, buffer, otherLength + 1);
+			length_ = newLength;
+		}
+		inline void operator+=(const int64_t value) {
+			char buffer[INT64_MAX_CHR_COUNT];
+			snprintf(buffer, INT64_MAX_CHR_COUNT, "%lld", value);
+			size_t otherLength = strlen(buffer);
+			size_t newLength = length_ + otherLength;
+			this->CheckSizeAndReallocate(newLength);
+			memcpy(data_ + length_, buffer, otherLength + 1);
+			length_ = newLength;
+		}
+		inline void operator+=(const uint64_t value) {
+			char buffer[UINT64_MAX_CHR_COUNT];
+			snprintf(buffer, UINT64_MAX_CHR_COUNT, "%llu", value);
 			size_t otherLength = strlen(buffer);
 			size_t newLength = length_ + otherLength;
 			this->CheckSizeAndReallocate(newLength);
@@ -90,8 +175,8 @@ namespace Power {
 			length_ = newLength;
 		}
 		inline void operator+=(const float value) {
-			char buffer[9];
-			snprintf(buffer, 9, "%g", value);
+			char buffer[FLOAT_MAX_CHR_COUNT];
+			snprintf(buffer, FLOAT_MAX_CHR_COUNT, "%g", value);
 			size_t otherLength = strlen(buffer);
 			size_t newLength = length_ + otherLength;
 			this->CheckSizeAndReallocate(newLength);
@@ -99,8 +184,8 @@ namespace Power {
 			length_ = newLength;
 		}
 		inline void operator+=(const double value) {
-			char buffer[17];
-			snprintf(buffer, 17, "%g", value);
+			char buffer[DOUBLE_MAX_CHR_COUNT];
+			snprintf(buffer, DOUBLE_MAX_CHR_COUNT, "%g", value);
 			size_t otherLength = strlen(buffer);
 			size_t newLength = length_ + otherLength;
 			this->CheckSizeAndReallocate(newLength);
@@ -109,13 +194,14 @@ namespace Power {
 		}
 
 		inline char operator[](size_t i) const { return *(data_ + i); }
+		inline operator char*() const { return data_; }
 
-		inline bool operator==(const String& other)		const	{ return memcmp(data_, other.data_, other.length_) == 0;	}	// Different lengths not accounted for; Test memcmp vs strcmp
-		inline bool operator==(const char* const other) const	{ return strcmp(data_, other) == 0;							}
-		inline bool operator==(const char c)			const	{ return length_ == 1 && *data_ == c;						}
-		inline bool operator!=(const String& other)		const	{ return memcmp(data_, other.data_, other.length_) != 0;	}
-		inline bool operator!=(const char* const other) const	{ return strcmp(data_, other) != 0;							}
-		inline bool operator!=(const char c)			const	{ return length_ > 1 || *data_ != c;						}
+		inline bool operator==(const String& other)		const	{ return length_ == other.length_ && memcmp(data_, other.data_, other.length_) == 0;	}
+		inline bool operator==(const char* const other) const	{ return strcmp(data_, other) == 0;														}
+		inline bool operator==(const char c)			const	{ return length_ == 1 && *data_ == c;													}
+		inline bool operator!=(const String& other)		const	{ return length_ != other.length_ || memcmp(data_, other.data_, other.length_) != 0;	}
+		inline bool operator!=(const char* const other) const	{ return strcmp(data_, other) != 0;														}
+		inline bool operator!=(const char c)			const	{ return length_ > 1 || *data_ != c;													}
 
 		inline size_t		Size()		const { return size_;	}
 		inline size_t		Length()	const { return length_;	}
@@ -197,7 +283,7 @@ namespace Power {
 			return String(data_ + begin, end - begin);
 		}
 
-		void Insert(size_t index, const String& other);		// Test optimization
+		void Insert(size_t index, const String& other);
 		void Insert(size_t index, const char* const other);
 		void Insert(size_t index, const char* const other, size_t length);
 		void Insert(size_t index, const char c);
@@ -292,13 +378,89 @@ namespace Power {
 		}
 		inline bool EndsWith(const char c) const { return data_[length_ - 1] == c; }
 
+		inline void Fill(const String& other) const {
+			int count = static_cast<int>(length_ / other.length_);
+			for (int i = 0; i < count; ++i) memcpy(data_ + i * other.length_, other.data_, other.length_);
+			memcpy(data_ + count * other.length_, other.data_, length_ % other.length_);
+		}
+		inline void Fill(const String& other, size_t begin) const {
+			if (begin > length_) return;
+			int count = static_cast<int>((length_ - begin) / other.length_);
+			for (int i = 0; i < count; ++i) memcpy(data_ + begin + i * other.length_, other.data_, other.length_);
+			memcpy(data_ + begin + count * other.length_, other.data_, (length_ - begin) % other.length_);
+		}
+		inline void Fill(const String& other, size_t begin, size_t end) const {
+			if (end > length_) end = length_;
+			if (begin > end) return;
+			int count = static_cast<int>((end - begin) / other.length_);
+			for (int i = 0; i < count; ++i) memcpy(data_ + begin + i * other.length_, other.data_, other.length_);
+			memcpy(data_ + begin + count + other.length_, other.data_, (end - begin) % other.length_);
+		}
+
+		inline void Fill(const char* const other) const {
+			size_t otherLength = strlen(other);
+			int count = static_cast<int>(length_ / otherLength);
+			for (int i = 0; i < count; ++i) memcpy(data_ + i * otherLength, other, otherLength);
+			memcpy(data_ + count * otherLength, other, length_ % otherLength);
+		}
+		inline void Fill(const char* const other, size_t begin) const {
+			if (begin > length_) return;
+			size_t otherLength = strlen(other);
+			int count = static_cast<int>((length_ - begin) / otherLength);
+			for (int i = 0; i < count; ++i) memcpy(data_ + begin + i * otherLength, other, otherLength);
+			memcpy(data_ + begin + count * otherLength, other, (length_ - begin) % otherLength);
+		}
+		inline void Fill(const char* const other, size_t begin, size_t end) const {
+			if (end > length_) end = length_;
+			if (begin > end) return;
+			size_t otherLength = strlen(other);
+			int count = static_cast<int>((end - begin) / otherLength);
+			for (int i = 0; i < count; ++i) memcpy(data_ + begin + i * otherLength, other, otherLength);
+			memcpy(data_ + begin + count * otherLength, other, (end - begin) % otherLength);
+		}
+
+		inline void Fill(size_t length, const char* const other) const {
+			int count = static_cast<int>(length_ / length);
+			for (int i = 0; i < count; ++i) memcpy(data_ + i * length, other, length);
+			memcpy(data_ + count * length, other, length_ % length);
+		}
+		inline void Fill(size_t length, const char* const other, size_t begin) const {
+			if (begin > length_) return;
+			int count = static_cast<int>((length_ - begin) / length);
+			for (int i = 0; i < count; ++i) memcpy(data_ + begin + i * length, other, length);
+			memcpy(data_ + begin + count * length, other, (length_ - begin) % length);
+		}
+		inline void Fill(size_t length, const char* const other, size_t begin, size_t end) const {
+			if (end > length_) end = length_;
+			if (begin > end) return;
+			int count = static_cast<int>((end - begin) / length);
+			for (int i = 0; i < count; ++i) memcpy(data_ + begin + i * length, other, length);
+			memcpy(data_ + begin + count * length, other, (end - begin) % length);
+		}
+
+		inline void Fill(const char c) const { memset(data_, c, length_); }
+		inline void Fill(const char c, size_t begin) const {
+			if (begin > length_) return;
+			memset(data_, c, length_ - begin);
+		}
+		inline void Fill(const char c, size_t begin, size_t end) const {
+			if (end > length_) end = length_;
+			if (begin > end) return;
+			memset(data_, c, end - begin);
+		}
+
 		~String();
 
 	private:
 		String(const String& lhs, const String& rhs);
 		String(const String& lhs, const char* const rhs);
 		String(const String& lhs, const char rhs);
-		String(const String& lhs, const int rhs);
+		String(const String& lhs, const int16_t rhs);
+		String(const String& lhs, const uint16_t rhs);
+		String(const int32_t rhs, const String& lhs);
+		String(const String& lhs, const uint32_t rhs);
+		String(const String& lhs, const int64_t rhs);
+		String(const String& lhs, const uint64_t rhs);
 		String(const String& lhs, const float rhs);
 		String(const String& lhs, const double rhs);
 
