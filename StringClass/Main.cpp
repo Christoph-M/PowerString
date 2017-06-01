@@ -11,6 +11,13 @@ void AssertString(Power::String& string, size_t length, size_t size = 0) {
 	assert(string.CString()[string.Length()] == '\0');
 }
 
+uint64_t CalcAverageTSC(uint64_t* data, uint32_t count) {
+	uint64_t averageTime = 0;
+	for (int i = 0; i < count; ++i) averageTime += data[i];
+	averageTime /= count;
+	return averageTime;
+}
+
 int main() {
 	{
 		Power::String string = "asd";
@@ -130,12 +137,8 @@ int main() {
 			deltaTimes[i] = endCount - startCount;
 		}
 
-		uint64_t averageTime = 0;
-		for (int i = 0; i < measureCount; ++i) averageTime += deltaTimes[i];
-		averageTime /= measureCount;
-
 		printf("String: %s\n", string.CString());
-		printf("Average cycles taken: %lld\n", averageTime);
+		printf("Average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
 
 		Power::String newString = Power::String(static_cast<size_t>(0));
 		AssertString(newString, 0, 1);
@@ -181,18 +184,15 @@ int main() {
 			deltaTimes[i] = endCount - startCount;
 		}
 
-		averageTime = 0;
-		for (int i = 0; i < measureCount; ++i) averageTime += deltaTimes[i];
-		averageTime /= measureCount;
-		printf("Average cycles taken: %lld\n", averageTime);
+		printf("Average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
 
 		string = "Halt Die Backen";
 		otherString = "Fresse";
 		printf("String: %s\n", string.CString());
-		string.Replace(string.IndexOf("Backen"), otherString);
+		string.Replace(string.LastIndexOf("Backen"), otherString);
 		AssertString(string, 15);
 		printf("String: %s\n", string.CString());
-		string.Replace(string.IndexOf(otherString), "Eier");
+		string.Replace(string.LastIndexOf(otherString), "Eier");
 		AssertString(string, 13);
 		printf("String: %s\n", string.CString());
 		string.Replace(string.IndexOf("Eier"), 'c');
@@ -215,28 +215,23 @@ int main() {
 		for (int i = 0; i < measureCount; ++i) {
 			uint64_t startCount = __rdtsc();
 			std::string stdString = "asdf";
-			stdString = stdString + stdString;
+			stdString.shrink_to_fit();
 			uint64_t endCount = __rdtsc();
 			deltaTimes[i] = endCount - startCount;
 		}
 
-		averageTime = 0;
-		for (int i = 0; i < measureCount; ++i) averageTime += deltaTimes[i];
-		averageTime /= measureCount;
-		printf("STD average cycles taken: %lld\n", averageTime);
+		printf("STD average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
 
 		for (int i = 0; i < measureCount; ++i) {
 			uint64_t startCount = __rdtsc();
 			Power::String powerString = "asdf";
-			powerString = powerString + powerString;
+			powerString.Concatenate(powerString);
 			uint64_t endCount = __rdtsc();
 			deltaTimes[i] = endCount - startCount;
+			AssertString(powerString, 8);
 		}
 
-		averageTime = 0;
-		for (int i = 0; i < measureCount; ++i) averageTime += deltaTimes[i];
-		averageTime /= measureCount;
-		printf("POWER average cycles taken: %lld\n", averageTime);
+		printf("POWER average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
 
 		for (int i = 0; i < measureCount; ++i) {
 			uint64_t startCount = __rdtsc();
@@ -245,10 +240,7 @@ int main() {
 			deltaTimes[i] = endCount - startCount;
 		}
 
-		averageTime = 0;
-		for (int i = 0; i < measureCount; ++i) averageTime += deltaTimes[i];
-		averageTime /= measureCount;
-		printf("Average cycles taken: %lld\n", averageTime);
+		printf("Average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
 
 		string = Power::String::ToString(std::numeric_limits<int16_t>::min());
 		printf("String: %s\n", string.CString());

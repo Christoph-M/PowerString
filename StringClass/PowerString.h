@@ -24,42 +24,42 @@ namespace Power {
 		static String ToString(const int16_t value) {
 			char buffer[INT16_MAX_CHR_COUNT];
 			snprintf(buffer, INT16_MAX_CHR_COUNT, "%hd", value);
-			return String(buffer, INT16_MAX_CHR_COUNT);
+			return String(buffer, static_cast<size_t>(INT16_MAX_CHR_COUNT));
 		}
 		static String ToString(const uint16_t value) {
 			char buffer[UINT16_MAX_CHR_COUNT];
 			snprintf(buffer, UINT16_MAX_CHR_COUNT, "%hu", value);
-			return String(buffer, UINT16_MAX_CHR_COUNT);
+			return String(buffer, static_cast<size_t>(UINT16_MAX_CHR_COUNT));
 		}
 		static String ToString(const int32_t value) {
 			char buffer[INT32_MAX_CHR_COUNT];
 			snprintf(buffer, INT32_MAX_CHR_COUNT, "%d", value);
-			return String(buffer, INT32_MAX_CHR_COUNT);
+			return String(buffer, static_cast<size_t>(INT32_MAX_CHR_COUNT));
 		}
 		static String ToString(const uint32_t value) {
 			char buffer[UINT32_MAX_CHR_COUNT];
 			snprintf(buffer, UINT32_MAX_CHR_COUNT, "%u", value);
-			return String(buffer, UINT32_MAX_CHR_COUNT);
+			return String(buffer, static_cast<size_t>(UINT32_MAX_CHR_COUNT));
 		}
 		static String ToString(const int64_t value) {
 			char buffer[INT64_MAX_CHR_COUNT];
 			snprintf(buffer, INT64_MAX_CHR_COUNT, "%lld", value);
-			return String(buffer, INT64_MAX_CHR_COUNT);
+			return String(buffer, static_cast<size_t>(INT64_MAX_CHR_COUNT));
 		}
 		static String ToString(const uint64_t value) {
 			char buffer[UINT64_MAX_CHR_COUNT];
 			snprintf(buffer, UINT64_MAX_CHR_COUNT, "%llu", value);
-			return String(buffer, UINT64_MAX_CHR_COUNT);
+			return String(buffer, static_cast<size_t>(UINT64_MAX_CHR_COUNT));
 		}
 		static String ToString(const float value) {
 			char buffer[FLOAT_MAX_CHR_COUNT];
 			snprintf(buffer, FLOAT_MAX_CHR_COUNT, "%g", value);
-			return String(buffer, FLOAT_MAX_CHR_COUNT);
+			return String(buffer, static_cast<size_t>(FLOAT_MAX_CHR_COUNT));
 		}
 		static String ToString(const double value) {
 			char buffer[DOUBLE_MAX_CHR_COUNT];
 			snprintf(buffer, DOUBLE_MAX_CHR_COUNT, "%g", value);
-			return String(buffer, DOUBLE_MAX_CHR_COUNT);
+			return String(buffer, static_cast<size_t>(DOUBLE_MAX_CHR_COUNT));
 		}
 
 	public:
@@ -92,12 +92,12 @@ namespace Power {
 		inline String operator+(const String& other)		const { return String(*this, other); }
 		inline String operator+(const char* const other)	const { return String(*this, other); }
 		inline String operator+(const char c)				const { return String(*this, c);	 }
-		inline String operator+(const int16_t value)		const { return String(value, *this); }
-		inline String operator+(const uint16_t value)		const { return String(value, *this); }
-		inline String operator+(const int32_t value)		const { return String(value, *this); }
-		inline String operator+(const uint32_t value)		const { return String(value, *this); }
-		inline String operator+(const int64_t value)		const { return String(value, *this); }
-		inline String operator+(const uint64_t value)		const { return String(value, *this); }
+		inline String operator+(const int16_t value)		const { return String(*this, value); }
+		inline String operator+(const uint16_t value)		const { return String(*this, value); }
+		inline String operator+(const int32_t value)		const { return String(*this, value); }
+		inline String operator+(const uint32_t value)		const { return String(*this, value); }
+		inline String operator+(const int64_t value)		const { return String(*this, value); }
+		inline String operator+(const uint64_t value)		const { return String(*this, value); }
 		inline String operator+(const float value)			const { return String(*this, value); }
 		inline String operator+(const double value)			const { return String(*this, value); }
 
@@ -115,10 +115,9 @@ namespace Power {
 			length_ = newLength;
 		}
 		inline void operator+=(const char c) {
-			this->CheckSizeAndReallocate(length_ + 1);
-			data_[length_] = c;
-			data_[length_ + 1] = '\0';
-			++length_;
+			this->CheckSizeAndReallocate(++length_);
+			data_[length_ - 1] = c;
+			data_[length_] = '\0';
 		}
 		inline void operator+=(const int16_t value) {
 			char buffer[INT16_MAX_CHR_COUNT];
@@ -207,28 +206,81 @@ namespace Power {
 		inline size_t		Length()	const { return length_;	}
 		inline const char*	CString()	const { return data_;	}
 
-		inline void ShrinkToFit() {		// Probably needs optimizing
+		inline void ShrinkToFit() {
+			if (length_ + 1 == size_) return;
 			size_ = length_ + 1;
-			memcpy(temp_, data_, length_);
-			delete[](data_);
-			--s_instanceCounter_;
-			data_ = new char[size_] { '\0' };
-			this->IncInstCounter();
-			memcpy(data_, temp_, length_);
 			delete[](temp_);
 			temp_ = new char[size_] { '\0' };
+			char* newData = new char[size_] { '\0' };
+			this->IncInstCounter();
+			memcpy(newData, data_, length_);
+			delete[](data_);
+			--s_instanceCounter_;
+			data_ = newData;
 		}
 
-		inline	int IndexOf(const String& other)							const { return this->IndexOf(other, 0, length_ - 1);		}
-		inline	int IndexOf(const String& other, size_t begin)				const { return this->IndexOf(other, begin, length_ - 1);	}
+		inline void Concatenate(const String& other) {
+			size_t newLength = length_ + other.length_;
+			this->CheckSizeAndReallocate(newLength);
+			memcpy(data_ + length_, other.data_, other.length_ + 1);
+			length_ = newLength;
+		}
+		inline void Concatenate(const char* const other) {
+			size_t otherLength = strlen(other);
+			size_t newLength = length_ + otherLength;
+			this->CheckSizeAndReallocate(newLength);
+			memcpy(data_ + length_, other, otherLength + 1);
+			length_ = newLength;
+		}
+		inline void Concatenate(const char* const other, size_t length) {
+			size_t newLength = length_ + length;
+			this->CheckSizeAndReallocate(newLength);
+			memcpy(data_ + length_, other, length + 1);
+			length_ = newLength;
+		}
+		inline void Concatenate(const char c) {
+			this->CheckSizeAndReallocate(++length_);
+			data_[length_ - 1] = c;
+			data_[length_] = '\0';
+		}
+
+		inline bool Contains(const String& other) const {
+			if (other.length_ > length_) return false;
+			for (size_t i = 0; i < length_ - other.length_; ++i) {
+				if (data_[i] != other.data_[0]) continue;
+				if (memcmp(data_ + i, other.data_, other.length_) == 0) return true;
+			}
+			return false;
+		}
+		inline bool Contains(const char* const other) const {
+			size_t otherLength = strlen(other);
+			if (otherLength > length_) return false;
+			for (size_t i = 0; i < length_ - otherLength; ++i) {
+				if (data_[i] != other[0]) continue;
+				if (memcmp(data_ + i, other, otherLength) == 0) return true;
+			}
+			return false;
+		}
+		inline bool Contains(const char* const other, size_t length) const {
+			if (length > length_) return false;
+			for (size_t i = 0; i < length_ - length; ++i) {
+				if (data_[i] != other[0]) continue;
+				if (memcmp(data_ + i, other, length) == 0) return true;
+			}
+			return false;
+		}
+		inline bool Contains(const char c) const { return strchr(data_, c); }
+
+		inline	int IndexOf(const String& other)							const { return this->IndexOf(other, 0, length_);		}
+		inline	int IndexOf(const String& other, size_t begin)				const { return this->IndexOf(other, begin, length_);	}
 				int IndexOf(const String& other, size_t begin, size_t end)	const;
 
-		inline	int IndexOf(const char* const other)							const { return this->IndexOf(other, 0, length_ - 1);		}
-		inline	int IndexOf(const char* const other, size_t begin)				const { return this->IndexOf(other, begin, length_ - 1);	}
+		inline	int IndexOf(const char* const other)							const { return this->IndexOf(other, 0, length_);		}
+		inline	int IndexOf(const char* const other, size_t begin)				const { return this->IndexOf(other, begin, length_);	}
 				int IndexOf(const char* const other, size_t begin, size_t end)	const;
 
-		inline	int IndexOf(size_t length, const char* const other)								const { return this->IndexOf(length, other, 0, length_ - 1);		}
-		inline	int IndexOf(size_t length, const char* const other, size_t begin)				const { return this->IndexOf(length, other, begin, length_ - 1);	}
+		inline	int IndexOf(size_t length, const char* const other)								const { return this->IndexOf(length, other, 0, length_);		}
+		inline	int IndexOf(size_t length, const char* const other, size_t begin)				const { return this->IndexOf(length, other, begin, length_);	}
 				int IndexOf(size_t length, const char* const other, size_t begin, size_t end)	const;
 
 		inline int IndexOf(const char c) const {
@@ -241,21 +293,21 @@ namespace Power {
 			return p ? p - data_ : -1;
 		}
 		inline int IndexOf(const char c, size_t begin, size_t end) const {
-			if (begin >= length_ || end >= length_) return -1;
+			if (begin >= length_ || end > length_) return -1;
 			for (size_t i = begin; i < end; ++i) if (data_[i] == c) return i;
 			return -1;
 		}
 
-		inline	int LastIndexOf(const String& other)							const { return this->LastIndexOf(other, 0, length_ - 1);		}
-		inline	int LastIndexOf(const String& other, size_t begin)				const { return this->LastIndexOf(other, begin, length_ - 1);	}
+		inline	int LastIndexOf(const String& other)							const { return this->LastIndexOf(other, 0, length_);		}
+		inline	int LastIndexOf(const String& other, size_t begin)				const { return this->LastIndexOf(other, begin, length_);	}
 				int LastIndexOf(const String& other, size_t begin, size_t end)	const;
 
-		inline	int LastIndexOf(const char* const other)							const { return this->LastIndexOf(other, 0, length_ - 1);		}
-		inline	int LastIndexOf(const char* const other, size_t begin)				const { return this->LastIndexOf(other, begin, length_ - 1);	}
+		inline	int LastIndexOf(const char* const other)							const { return this->LastIndexOf(other, 0, length_);		}
+		inline	int LastIndexOf(const char* const other, size_t begin)				const { return this->LastIndexOf(other, begin, length_);	}
 				int LastIndexOf(const char* const other, size_t begin, size_t end)	const;
 
-		inline	int LastIndexOf(size_t length, const char* const other)								const { return this->LastIndexOf(length, other, 0, length_ - 1);		}
-		inline	int LastIndexOf(size_t length, const char* const other, size_t begin)				const { return this->LastIndexOf(length, other, begin, length_ - 1);	}
+		inline	int LastIndexOf(size_t length, const char* const other)								const { return this->LastIndexOf(length, other, 0, length_);		}
+		inline	int LastIndexOf(size_t length, const char* const other, size_t begin)				const { return this->LastIndexOf(length, other, begin, length_);	}
 				int LastIndexOf(size_t length, const char* const other, size_t begin, size_t end)	const;
 
 		inline int LastIndexOf(const char c) const {
@@ -268,7 +320,7 @@ namespace Power {
 			return p ? p - data_ : -1;
 		}
 		inline int LastIndexOf(const char c, size_t begin, size_t end) const {
-			if (begin >= length_ || end >= length_) return -1;
+			if (begin >= length_ || end > length_) return -1;
 			for (size_t i = end; i >= begin; --i) if (data_[i] == c) return i;
 			return -1;
 		}
@@ -457,7 +509,7 @@ namespace Power {
 		String(const String& lhs, const char rhs);
 		String(const String& lhs, const int16_t rhs);
 		String(const String& lhs, const uint16_t rhs);
-		String(const int32_t rhs, const String& lhs);
+		String(const String& lhs, const int32_t rhs);
 		String(const String& lhs, const uint32_t rhs);
 		String(const String& lhs, const int64_t rhs);
 		String(const String& lhs, const uint64_t rhs);

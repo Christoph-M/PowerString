@@ -10,7 +10,6 @@ namespace Power {
 	{
 		this->IncInstCounter();
 	}
-	
 	String::String(size_t size) :
 		size_(size + 1),
 		length_(0),
@@ -19,7 +18,6 @@ namespace Power {
 	{
 		this->IncInstCounter();
 	}
-
 	String::String(const char* const data) :
 		size_(0),
 		length_(0),
@@ -33,7 +31,6 @@ namespace Power {
 		this->IncInstCounter();
 		memcpy(data_, data, length_);
 	}
-
 	String::String(const char c) :
 		size_(256),
 		length_(255),
@@ -42,8 +39,7 @@ namespace Power {
 	{
 		this->IncInstCounter();
 		memset(data_, c, length_);
-	}
-	
+	}	
 	String::String(const char* const data, size_t size) :
 		size_(size + 256),
 		length_(size),
@@ -53,7 +49,6 @@ namespace Power {
 		this->IncInstCounter();
 		memcpy(data_, data, length_);
 	}
-
 	String::String(const char c, size_t size) :
 		size_(size + 1),	// Why only + 1? -> To fill the new string with size amount of c
 		length_(size),
@@ -63,7 +58,6 @@ namespace Power {
 		this->IncInstCounter();
 		memset(data_, c, length_);
 	}
-
 	String::String(const String& other) :
 		size_(other.size_),
 		length_(other.length_),
@@ -73,7 +67,6 @@ namespace Power {
 		this->IncInstCounter();
 		memcpy(data_, other.data_, other.length_);
 	}
-
 	String::String(const String& lhs, const String& rhs) :
 		size_(lhs.length_ + rhs.length_ + 256),
 		length_(lhs.length_ + rhs.length_),
@@ -84,7 +77,6 @@ namespace Power {
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, rhs.data_, rhs.length_);
 	}
-
 	String::String(const String& lhs, const char* const rhs) :
 		size_(0),
 		length_(0),
@@ -100,7 +92,6 @@ namespace Power {
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, rhs, rhsLength);
 	}
-
 	String::String(const String& lhs, const char rhs) :
 		size_(lhs.length_ + 257),
 		length_(lhs.length_ + 1),
@@ -111,7 +102,6 @@ namespace Power {
 		memcpy(data_, lhs.data_, lhs.length_);
 		data_[lhs.length_] = rhs;
 	}
-
 	String::String(const String& lhs, const int16_t rhs) :
 		size_(0),
 		length_(0),
@@ -129,7 +119,6 @@ namespace Power {
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
 	}
-
 	String::String(const String& lhs, const uint16_t rhs) :
 		size_(0),
 		length_(0),
@@ -147,8 +136,7 @@ namespace Power {
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
 	}
-
-	String::String(const int32_t rhs, const String& lhs) :
+	String::String(const String& lhs, const int32_t rhs) :
 		size_(0),
 		length_(0),
 		data_(nullptr),
@@ -165,7 +153,6 @@ namespace Power {
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
 	}
-
 	String::String(const String& lhs, const uint32_t rhs) :
 		size_(0),
 		length_(0),
@@ -183,7 +170,6 @@ namespace Power {
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
 	}
-
 	String::String(const String& lhs, const int64_t rhs) :
 		size_(0),
 		length_(0),
@@ -201,7 +187,6 @@ namespace Power {
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
 	}
-
 	String::String(const String& lhs, const uint64_t rhs) :
 		size_(0),
 		length_(0),
@@ -219,7 +204,6 @@ namespace Power {
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
 	}
-
 	String::String(const String& lhs, const float rhs) :
 		size_(0),
 		length_(0),
@@ -237,7 +221,6 @@ namespace Power {
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
 	}
-
 	String::String(const String& lhs, const double rhs) :
 		size_(0),
 		length_(0),
@@ -258,8 +241,8 @@ namespace Power {
 
 	
 	int String::IndexOf(const String& other, size_t begin, size_t end) const {
-		if (begin >= length_ || end >= length_ || other.length_ > length_) return -1;
-		for (size_t i = begin; i < end; ++i) {
+		if (begin >= length_ || end > length_ || other.length_ > length_) return -1;
+		for (size_t i = begin; i < end - other.length_ + 1; ++i) {
 			if (data_[i] != other.data_[0]) continue;
 			if (memcmp(data_ + i, other.data_, other.length_) == 0) return i;
 		}
@@ -268,10 +251,10 @@ namespace Power {
 	}
 
 	int String::IndexOf(const char* const other, size_t begin, size_t end) const {
-		if (begin >= length_ || end >= length_) return -1;
+		if (begin >= length_ || end > length_) return -1;
 		const size_t otherLength = strlen(other);
 		if (otherLength > length_) return -1;
-		for (size_t i = begin; i < end; ++i) {
+		for (size_t i = begin; i < end - otherLength + 1; ++i) {
 			if (data_[i] != other[0]) continue;
 			if (memcmp(data_ + i, other, otherLength) == 0) return i;
 		}
@@ -280,9 +263,9 @@ namespace Power {
 	}
 
 	int String::IndexOf(size_t length, const char* const other, size_t begin, size_t end) const {
-		if (begin >= length_ || end >= length_) return -1;
+		if (begin >= length_ || end > length_) return -1;
 		if (length > length_) return -1;
-		for (size_t i = begin; i < end; ++i) {
+		for (size_t i = begin; i < end - length + 1; ++i) {
 			if (data_[i] != other[0]) continue;
 			if (memcmp(data_ + i, other, length) == 0) return i;
 		}
@@ -291,8 +274,8 @@ namespace Power {
 	}
 
 	int String::LastIndexOf(const String& other, size_t begin, size_t end) const {
-		if (begin >= length_ || end >= length_ || other.length_ > length_) return -1;
-		for (int i = end; i >= static_cast<int>(begin); --i) {
+		if (begin >= length_ || end > length_ || other.length_ > length_) return -1;
+		for (int i = end; i >= static_cast<int>(begin) + static_cast<int>(other.length_) - 1; --i) {
 			if (data_[i] != other.data_[other.length_ - 1]) continue;
 			int x = i - other.length_ + 1;
 			if (x < 0) return -1;
@@ -303,10 +286,10 @@ namespace Power {
 	}
 
 	int String::LastIndexOf(const char* const other, size_t begin, size_t end) const {
-		if (begin >= length_ || end >= length_) return -1;
+		if (begin >= length_ || end > length_) return -1;
 		const size_t otherLength = strlen(other);
 		if (otherLength > length_) return -1;
-		for (int i = end; i >= static_cast<int>(begin); --i) {
+		for (int i = end; i >= static_cast<int>(begin) + static_cast<int>(otherLength) - 1; --i) {
 			if (data_[i] != other[otherLength - 1]) continue;
 			int x = i - otherLength + 1;
 			if (x < 0) return -1;
@@ -317,9 +300,9 @@ namespace Power {
 	}
 
 	int String::LastIndexOf(size_t length, const char* const other, size_t begin, size_t end) const {
-		if (begin >= length_ || end >= length_) return -1;
+		if (begin >= length_ || end > length_) return -1;
 		if (length > length_) return -1;
-		for (int i = end; i >= static_cast<int>(begin); --i) {
+		for (int i = end; i >= static_cast<int>(begin) + static_cast<int>(begin) - 1; --i) {
 			if (data_[i] != other[length - 1]) continue;
 			int x = i - length + 1;
 			if (x < 0) return -1;
