@@ -18,54 +18,148 @@
 namespace Power {
 	class String {
 	public:
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Converts a c-string to a Power::String.
+		/// @param[in] other The c-string to be converted.
+		/// @return A Power::String with the content of other.
+		/// @note <b>If the length of the c-string is already known, it is recommended to use ToString(const char* const, size_t) instead as it is faster.</b>
+		///
 		static String ToString(const char* const other)					{ return String(other);			}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Converts a c-string to a Power::String.
+		/// @param[in] other The c-string to be converted.
+		/// @param[in] length The length of the c-string excluding the null character.
+		/// @return A Power::String with the content of other.
+		///
 		static String ToString(const char* const other, size_t length)	{ return String(other, length); }
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Converts a character to a Power::String
+		/// @param[in] c The character to be converted.
+		/// @return A Power::String with the single character c.
+		///
 		static String ToString(const char c)							{ return String(c);				}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Converts a signed short value to a Power::String.
+		/// @param[in] value The signed short value to be converted.
+		/// @return A Power::String containing the signed short value.
+		///
 		static String ToString(const int16_t value) {
 			char buffer[INT16_MAX_CHR_COUNT];
 			snprintf(buffer, INT16_MAX_CHR_COUNT, "%hd", value);
 			return String(buffer, static_cast<size_t>(INT16_MAX_CHR_COUNT));
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Converts an unsigned short value to a Power::String.
+		/// @param[in] value The unsigned short value to be converted.
+		/// @return A Power::String containing the unsigned short value.
+		///
 		static String ToString(const uint16_t value) {
 			char buffer[UINT16_MAX_CHR_COUNT];
 			snprintf(buffer, UINT16_MAX_CHR_COUNT, "%hu", value);
 			return String(buffer, static_cast<size_t>(UINT16_MAX_CHR_COUNT));
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Converts a signed integer value to a Power::String.
+		/// @param[in] value The signed integer value to be converted.
+		/// @return A Power::String containing the signed integer value.
+		///
 		static String ToString(const int32_t value) {
 			char buffer[INT32_MAX_CHR_COUNT];
 			snprintf(buffer, INT32_MAX_CHR_COUNT, "%d", value);
 			return String(buffer, static_cast<size_t>(INT32_MAX_CHR_COUNT));
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Converts an unsigned integer value to a Power::String.
+		/// @param[in] value The unsigned integer value to be converted.
+		/// @return A Power::String containing the unsigned integer value.
+		///
 		static String ToString(const uint32_t value) {
 			char buffer[UINT32_MAX_CHR_COUNT];
 			snprintf(buffer, UINT32_MAX_CHR_COUNT, "%u", value);
 			return String(buffer, static_cast<size_t>(UINT32_MAX_CHR_COUNT));
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Converts a signed long long value to a Power::String.
+		/// @param[in] value The signed long long value to be converted.
+		/// @return A Power::String containing the signed long long value.
+		///
 		static String ToString(const int64_t value) {
 			char buffer[INT64_MAX_CHR_COUNT];
 			snprintf(buffer, INT64_MAX_CHR_COUNT, "%lld", value);
 			return String(buffer, static_cast<size_t>(INT64_MAX_CHR_COUNT));
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Converts an unsigned long long value to a Power::String.
+		/// @param[in] value The unsigned long long value to be converted.
+		/// @return A Power::String containing the unsigned long long value.
+		///
 		static String ToString(const uint64_t value) {
 			char buffer[UINT64_MAX_CHR_COUNT];
 			snprintf(buffer, UINT64_MAX_CHR_COUNT, "%llu", value);
 			return String(buffer, static_cast<size_t>(UINT64_MAX_CHR_COUNT));
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Converts a float value to a Power::String.
+		/// @param[in] value The float value to be converted.
+		/// @return A Power::String containing the float value.
+		///
 		static String ToString(const float value) {
 			char buffer[FLOAT_MAX_CHR_COUNT];
 			snprintf(buffer, FLOAT_MAX_CHR_COUNT, "%g", value);
 			return String(buffer, static_cast<size_t>(FLOAT_MAX_CHR_COUNT));
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Converts a double value to a Power::String.
+		/// @param[in] value The double value to be converted.
+		/// @return A Power::String containing the double value.
+		///
 		static String ToString(const double value) {
 			char buffer[DOUBLE_MAX_CHR_COUNT];
 			snprintf(buffer, DOUBLE_MAX_CHR_COUNT, "%g", value);
 			return String(buffer, static_cast<size_t>(DOUBLE_MAX_CHR_COUNT));
 		}
 
-		inline static String Merge(const String& rhs, const String& lhs)		{ return String(rhs, lhs); }
-		inline static String Merge(const String& rhs, const char* const lhs)	{ return String(rhs, lhs); }
-		inline static String Merge(const String& rhs, const char lhs)			{ return String(rhs, lhs); }
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges two Power::Strings into one.
+		/// @param[in] lhs Left-hand side of the merged Power::String.
+		/// @param[in] rhs Right-hand side of the merged Power::String.
+		/// @return A Power::String containing lhs+rhs.
+		///
+		inline static String Merge(const String& lhs, const String& rhs)		{ return String(lhs, rhs); }
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges a Power::String with a c-string.
+		/// @param[in] lhs Left-hand side of the merged Power::String.
+		/// @param[in] rhs Right-Hand side of the merged Power::String.
+		/// @return A Power::String containing lhs+rhs.
+		///
+		inline static String Merge(const String& lhs, const char* const rhs)	{ return String(lhs, rhs); }
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges a Power::String with a character.
+		/// @param[in] lhs Left-hand side of the merged Power::String.
+		/// @param[in] rhs Right-hand side of the merged Power::String.
+		/// @return A Power::String containing lhs+rhs.
+		///
+		inline static String Merge(const String& lhs, const char rhs)			{ return String(lhs, rhs); }
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges multiple Power::Strings with the specified seperator between each Power::String.
+		/// @param[in] space The seperator which will be placed between each Power::String.
+		/// @param[in] others A pointer to an array of Power::Strings to be merged.
+		/// @param[in] size The size of the specified Power::String array.
+		/// @return A Power::String containing the merged Power::Strings.
+		///
 		inline static String Join(const String& space, const String* const others, size_t size) {
 			size_t totalLength = (size - 1) * space.length_;
 			for (size_t i = 0; i < size; ++i)
@@ -79,6 +173,15 @@ namespace Power {
 			}
 			return newString;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges multiple Power::Strings with the specified seperator between each Power::String.
+		/// @param[in] space The seperator which will be placed between each Power::String.
+		/// @param[in] others A pointer to an array of Power::Strings to be merged.
+		/// @param[in] size The size of the specified Power::String array.
+		/// @return A Power::String containing the merged Power::Strings.
+		/// @note <b>If the length of the c-string parameter space is already known, it is recommended to use Join(const char* const, size_t, const String* const, size_t) instead as it is faster</b>
+		///
 		inline static String Join(const char* const space, const String* const others, size_t size) {
 			size_t spaceLength = strlen(space);
 			size_t totalLength = (size - 1) * spaceLength;
@@ -92,6 +195,15 @@ namespace Power {
 			}
 			return newString;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges multiple Power::Strings with the specified seperator between each Power::String.
+		/// @param[in] space The seperator which will be placed between each Power::String.
+		/// @param[in] spaceLength The length of the c-string parameter space excluding the null character.
+		/// @param[in] others A pointer to an array of Power::Strings to be merged.
+		/// @param[in] size The size of the specified Power::String array.
+		/// @return A Power::String containing the merged Power::Strings.
+		///
 		inline static String Join(const char* const space, size_t spaceLength, const String* const others, size_t size) {
 			size_t totalLength = (size - 1) * spaceLength;
 			for (size_t i = 0; i < size; ++i) totalLength += others[i].length_;
@@ -104,6 +216,14 @@ namespace Power {
 			}
 			return newString;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges multiple Power::Strings with the specified seperator between each Power::String.
+		/// @param[in] c The seperator which will be placed between each Power::String.
+		/// @param[in] others A pointer to an array of Power::Strings to be merged.
+		/// @param[in] size The size of the specified Power::String array.
+		/// @return A Power::String containing the merged Power::Strings.
+		///
 		inline static String Join(const char c, const String* const others, size_t size) {
 			size_t totalLength = size - 1;
 			for (size_t i = 0; i < size; ++i) totalLength += others[i].length_;
@@ -116,6 +236,13 @@ namespace Power {
 			return newString;
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges multiple c-strings with the specified seperator between each Power::String.
+		/// @param[in] space The seperator which will be placed between each c-strings.
+		/// @param[in] others A pointer to an array of c-string to be merged.
+		/// @param[in] size The size of the specified c-string array.
+		/// @return A Power::String containing the merged c-strings.
+		///
 		inline static String Join(const String& space, const char* const* const others, size_t size) {
 			size_t totalLength = (size - 1) * space.length_;
 			for (size_t i = 0; i < size; ++i) totalLength += strlen(others[i]);
@@ -129,6 +256,15 @@ namespace Power {
 			}
 			return newString;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges multiple c-strings with the specified seperator between each Power::String.
+		/// @param[in] space The seperator which will be placed between each c-strings.
+		/// @param[in] others A pointer to an array of c-string to be merged.
+		/// @param[in] size The size of the specified c-string array.
+		/// @return A Power::String containing the merged c-strings.
+		/// @note <b>If the length of the c-string parameter space is already known, it is recommended to use Join(const char* const, size_t, const char* const* const, size_t) instead as it is faster</b>
+		///
 		inline static String Join(const char* const space, const char* const* const others, size_t size) {
 			size_t spaceLength = strlen(space);
 			size_t totalLength = (size - 1) * spaceLength;
@@ -143,6 +279,15 @@ namespace Power {
 			}
 			return newString;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges multiple c-strings with the specified seperator between each Power::String.
+		/// @param[in] space The seperator which will be placed between each c-strings.
+		/// @param[in] spaceLength The length of the c-string parameter space excluding the null character.
+		/// @param[in] others A pointer to an array of c-string to be merged.
+		/// @param[in] size The size of the specified c-string array.
+		/// @return A Power::String containing the merged c-strings.
+		///
 		inline static String Join(const char* const space, size_t spaceLength, const char* const* const others, size_t size) {
 			size_t totalLength = (size - 1) * spaceLength;
 			for (size_t i = 0; i < size; ++i) totalLength += strlen(others[i]);
@@ -156,6 +301,14 @@ namespace Power {
 			}
 			return newString;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges multiple c-strings with the specified seperator between each Power::String.
+		/// @param[in] c The seperator which will be placed between each c-strings.
+		/// @param[in] others A pointer to an array of c-string to be merged.
+		/// @param[in] size The size of the specified c-string array.
+		/// @return A Power::String containing the merged c-strings.
+		///
 		inline static String Join(const char c, const char* const* const others, size_t size) {
 			size_t totalLength = size - 1;
 			for (size_t i = 0; i < size; ++i) totalLength += strlen(others[i]);
@@ -169,6 +322,12 @@ namespace Power {
 			return newString;
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Splits a Power::String into two substrings at the specified position.
+		/// @param[in] source The Power::String to be split.
+		/// @param[in] index The position where source should be split.
+		/// @param[out] lhs A Power::String containing the left-hand part from index.
+		/// @param[out] rhs A Power::String containing the right-hand part from index.
 		inline static void SplitStringAt(const String& source, size_t index, String& lhs, String& rhs) {
 			if (index > source.length_) return;
 			lhs = String(source.data_, index);
@@ -315,10 +474,27 @@ namespace Power {
 		inline bool operator!=(const char* const other) const	{ return strcmp(data_, other) != 0;														}
 		inline bool operator!=(const char c)			const	{ return length_ > 1 || *data_ != c;													}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Gets the current capacity of the Power::String.
+		/// @return The current capacity of the Power::String.
+		///
 		inline size_t		Size()		const { return size_;	}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Gets the current length excluding the null character of the Power::String.
+		/// @return The current length excluding the null character of the Power::String.
+		///
 		inline size_t		Length()	const { return length_;	}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Gets the underlying c-string as a constant.
+		/// @return The underlying c-string as a constant.
+		///
 		inline const char*	CString()	const { return data_;	}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Shrinks the capacity of the Power::String to fit the length to conserve memory.
+		///
 		inline void ShrinkToFit() {
 			if (length_ + 1 == size_) return;
 			size_ = length_ + 1;
@@ -332,12 +508,22 @@ namespace Power {
 			data_ = newData;
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges the Power::String with another Power::String.
+		/// @param[in] other The Power::String to be merged with.
+		///
 		inline void Concatenate(const String& other) {
 			size_t newLength = length_ + other.length_;
 			this->CheckSizeAndReallocate(newLength);
 			memcpy(data_ + length_, other.data_, other.length_ + 1);
 			length_ = newLength;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges the Power::String with a c-string.
+		/// @param[in] other The c-string to be merged with.
+		/// @note <b>If the length of the c-string is already known, it is recommend to use Concatenate(const char* const, size_t) instead as it is faser.</b>
+		///
 		inline void Concatenate(const char* const other) {
 			size_t otherLength = strlen(other);
 			size_t newLength = length_ + otherLength;
@@ -345,18 +531,35 @@ namespace Power {
 			memcpy(data_ + length_, other, otherLength + 1);
 			length_ = newLength;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges the Power::String with a c-string.
+		/// @param[in] other The c-string to be merged with.
+		/// @param[in] length The length of the c-string excluding the null character.
+		///
 		inline void Concatenate(const char* const other, size_t length) {
 			size_t newLength = length_ + length;
 			this->CheckSizeAndReallocate(newLength);
 			memcpy(data_ + length_, other, length + 1);
 			length_ = newLength;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges the Power::String with a character.
+		/// @param[in] c The character to be merged with.
+		///
 		inline void Concatenate(const char c) {
 			this->CheckSizeAndReallocate(++length_);
 			data_[length_ - 1] = c;
 			data_[length_] = '\0';
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Checks the Power::String if it contains the specified Power::String.
+		/// @param[in] other The Power::String to be checked for.
+		/// @return True, if the Power::String contains the spcified Power::String.
+		/// @return False, if it doesn't or if the length of the specified Power::String is greater than the Power::String.
+		///
 		inline bool Contains(const String& other) const {
 			if (other.length_ > length_) return false;
 			for (size_t i = 0; i < length_ - other.length_; ++i) {
@@ -365,6 +568,14 @@ namespace Power {
 			}
 			return false;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Checks the Power::String if it contains the specified c-string.
+		/// @param[in] other The c-string to be checked for.
+		/// @return True, if the Power::String contains the spcified c-string.
+		/// @return False, if it doesn't or if the length of the specified c-string is greater than the Power::String.
+		/// @note <b>If the length of the c-string is already known, it is recommended to use Contains(const char* const, size_t) instead as it is faster.</b>
+		///
 		inline bool Contains(const char* const other) const {
 			size_t otherLength = strlen(other);
 			if (otherLength > length_) return false;
@@ -374,6 +585,14 @@ namespace Power {
 			}
 			return false;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Checks the Power::String if it contains the specified c-string.
+		/// @param[in] other The c-string to be checked for.
+		/// @param[ins] length The length of the c-string excluding the null character.
+		/// @return True, if the Power::String contains the spcified c-string.
+		/// @return False, if it doesn't or if the length of the specified c-string is greater than the Power::String.
+		///
 		inline bool Contains(const char* const other, size_t length) const {
 			if (length > length_) return false;
 			for (size_t i = 0; i < length_ - length; ++i) {
@@ -382,6 +601,13 @@ namespace Power {
 			}
 			return false;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Checks the Power::String if it contains the specified character.
+		/// @param[in] c The character to be checked for.
+		/// @return True, if the Power::String contains the spcified character.
+		/// @return False, if it doesn't.
+		///
 		inline bool Contains(const char c) const { return strchr(data_, c) != nullptr; }
 
 		inline int IndexOf(const String& other) const {
