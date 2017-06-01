@@ -62,6 +62,119 @@ namespace Power {
 			return String(buffer, static_cast<size_t>(DOUBLE_MAX_CHR_COUNT));
 		}
 
+		inline static String Merge(const String& rhs, const String& lhs)		{ return String(rhs, lhs); }
+		inline static String Merge(const String& rhs, const char* const lhs)	{ return String(rhs, lhs); }
+		inline static String Merge(const String& rhs, const char lhs)			{ return String(rhs, lhs); }
+
+		inline static String Join(const String& space, const String* const others, size_t size) {
+			size_t totalLength = (size - 1) * space.length_;
+			for (size_t i = 0; i < size; ++i)
+				totalLength += others[i].length_;
+			String newString = String("", totalLength);
+			char* data = newString.data_;
+			for (size_t i = 0; i < size; ++i) {
+				memcpy(data, others[i].data_, others[i].length_);
+				memcpy(data + others[i].length_, space.data_, space.length_);
+				data += others[i].length_ + space.length_;
+			}
+			return newString;
+		}
+		inline static String Join(const char* const space, const String* const others, size_t size) {
+			size_t spaceLength = strlen(space);
+			size_t totalLength = (size - 1) * spaceLength;
+			for (size_t i = 0; i < size; ++i) totalLength += others[i].length_;
+			String newString = String("", totalLength);
+			char* data = newString.data_;
+			for (size_t i = 0; i < size; ++i) {
+				memcpy(data, others[i].data_, others[i].length_);
+				memcpy(data + others[i].length_, space, spaceLength);
+				data += others[i].length_ + spaceLength;
+			}
+			return newString;
+		}
+		inline static String Join(const char* const space, size_t spaceLength, const String* const others, size_t size) {
+			size_t totalLength = (size - 1) * spaceLength;
+			for (size_t i = 0; i < size; ++i) totalLength += others[i].length_;
+			String newString = String("", totalLength);
+			char* data = newString.data_;
+			for (size_t i = 0; i < size; ++i) {
+				memcpy(data, others[i].data_, others[i].length_);
+				memcpy(data + others[i].length_, space, spaceLength);
+				data += others[i].length_ + spaceLength;
+			}
+			return newString;
+		}
+		inline static String Join(const char c, const String* const others, size_t size) {
+			size_t totalLength = size - 1;
+			for (size_t i = 0; i < size; ++i) totalLength += others[i].length_;
+			String newString = String(c, totalLength);
+			char* data = newString.data_;
+			for (size_t i = 0; i < size; ++i) {
+				memcpy(data, others[i].data_, others[i].length_);
+				data += others[i].length_ + 1;
+			}
+			return newString;
+		}
+
+		inline static String Join(const String& space, const char* const* const others, size_t size) {
+			size_t totalLength = (size - 1) * space.length_;
+			for (size_t i = 0; i < size; ++i) totalLength += strlen(others[i]);
+			String newString = String("", totalLength);
+			char* data = newString.data_;
+			for (size_t i = 0; i < size; ++i) {
+				size_t otherLength = strlen(others[i]);
+				memcpy(data, others[i], otherLength);
+				memcpy(data + otherLength, space.data_, space.length_);
+				data += otherLength + space.length_;
+			}
+			return newString;
+		}
+		inline static String Join(const char* const space, const char* const* const others, size_t size) {
+			size_t spaceLength = strlen(space);
+			size_t totalLength = (size - 1) * spaceLength;
+			for (size_t i = 0; i < size; ++i) totalLength += strlen(others[i]);
+			String newString = String("", totalLength);
+			char* data = newString.data_;
+			for (size_t i = 0; i < size; ++i) {
+				size_t otherLength = strlen(others[i]);
+				memcpy(data, others[i], otherLength);
+				memcpy(data + otherLength, space, spaceLength);
+				data += otherLength + spaceLength;
+			}
+			return newString;
+		}
+		inline static String Join(const char* const space, size_t spaceLength, const char* const* const others, size_t size) {
+			size_t totalLength = (size - 1) * spaceLength;
+			for (size_t i = 0; i < size; ++i) totalLength += strlen(others[i]);
+			String newString = String("", totalLength);
+			char* data = newString.data_;
+			for (size_t i = 0; i < size; ++i) {
+				size_t otherLength = strlen(others[i]);
+				memcpy(data, others[i], otherLength);
+				memcpy(data + otherLength, space, spaceLength);
+				data += otherLength + spaceLength;
+			}
+			return newString;
+		}
+		inline static String Join(const char c, const char* const* const others, size_t size) {
+			size_t totalLength = size - 1;
+			for (size_t i = 0; i < size; ++i) totalLength += strlen(others[i]);
+			String newString = String(c, totalLength);
+			char* data = newString.data_;
+			for (size_t i = 0; i < size; ++i) {
+				size_t otherLength = strlen(others[i]);
+				memcpy(data, others[i], otherLength);
+				data += otherLength + 1;
+			}
+			return newString;
+		}
+
+		inline static void SplitStringAt(const String& source, size_t index, String& lhs, String& rhs) {
+			if (index > source.length_) return;
+			lhs = String(source.data_, index);
+			rhs = String(source.data_ + index, source.length_ - index);
+		}
+
 	public:
 		String();
 		explicit String(size_t);
@@ -269,33 +382,56 @@ namespace Power {
 			}
 			return false;
 		}
-		inline bool Contains(const char c) const { return strchr(data_, c); }
+		inline bool Contains(const char c) const { return strchr(data_, c) != nullptr; }
 
-		inline	int IndexOf(const String& other)							const { return this->IndexOf(other, 0, length_);		}
-		inline	int IndexOf(const String& other, size_t begin)				const { return this->IndexOf(other, begin, length_);	}
-				int IndexOf(const String& other, size_t begin, size_t end)	const;
+		inline int IndexOf(const String& other) const {
+			if (other.length_ > length_) return -1;
+			char* p = strstr(data_, other.data_);
+			return p ? static_cast<int>(p - data_) : -1;
+		}
+		inline int IndexOf(const String& other, size_t begin) const { 
+			if (begin >= length_ || other.length_ > length_) return -1;
+			char* p = strstr(data_ + begin, other.data_);
+			return p ? static_cast<int>(p - data_) : -1;
+		}
+		int IndexOf(const String& other, size_t begin, size_t end) const;
 
-		inline	int IndexOf(const char* const other)							const { return this->IndexOf(other, 0, length_);		}
-		inline	int IndexOf(const char* const other, size_t begin)				const { return this->IndexOf(other, begin, length_);	}
-				int IndexOf(const char* const other, size_t begin, size_t end)	const;
+		inline int IndexOf(const char* const other) const {
+			char* p = strstr(data_, other);
+			return p ? static_cast<int>(p - data_) : -1;
+		}
+		inline int IndexOf(const char* const other, size_t begin) const {
+			if (begin >= length_) return -1;
+			char* p = strstr(data_ + begin, other);
+			return p ? static_cast<int>(p - data_) : -1;
+		}
+		int IndexOf(const char* const other, size_t begin, size_t end) const;
 
-		inline	int IndexOf(size_t length, const char* const other)								const { return this->IndexOf(length, other, 0, length_);		}
-		inline	int IndexOf(size_t length, const char* const other, size_t begin)				const { return this->IndexOf(length, other, begin, length_);	}
-				int IndexOf(size_t length, const char* const other, size_t begin, size_t end)	const;
+		inline int IndexOf(size_t length, const char* const other) const {
+			if (length > length_) return -1;
+			char* p = strstr(data_, other);
+			return p ? static_cast<int>(p - data_) : -1;
+		}
+		inline int IndexOf(size_t length, const char* const other, size_t begin) const {
+			if (begin >= length_ || length > length_) return -1;
+			char* p = strstr(data_ + begin, other);
+			return p ? static_cast<int>(p - data_) : -1;
+		}
+		int IndexOf(size_t length, const char* const other, size_t begin, size_t end) const;
 
 		inline int IndexOf(const char c) const {
-			char* p = strchr(data_, c);
-			return p ? p - data_ : -1;
+			char* p = static_cast<char*>(memchr(data_, c, length_));
+			return p ? static_cast<int>(p - data_) : -1;
 		}
 		inline int IndexOf(const char c, size_t begin) const {
 			if (begin >= length_) return -1;
-			char* p = strchr(data_ + begin, c);
-			return p ? p - data_ : -1;
+			char* p = static_cast<char*>(memchr(data_ + begin, c, length_ - begin));
+			return p ? static_cast<int>(p - data_) : -1;
 		}
 		inline int IndexOf(const char c, size_t begin, size_t end) const {
-			if (begin >= length_ || end > length_) return -1;
-			for (size_t i = begin; i < end; ++i) if (data_[i] == c) return i;
-			return -1;
+			if (begin >= length_ || end > length_ || begin > end) return -1;
+			char* p = static_cast<char*>(memchr(data_ + begin, c, end - begin));
+			return p ? static_cast<int>(p - data_) : -1;
 		}
 
 		inline	int LastIndexOf(const String& other)							const { return this->LastIndexOf(other, 0, length_);		}
@@ -312,16 +448,16 @@ namespace Power {
 
 		inline int LastIndexOf(const char c) const {
 			char* p = strrchr(data_, c);
-			return p ? p - data_ : -1;
+			return p ? static_cast<int>(p - data_) : -1;
 		}
 		inline int LastIndexOf(const char c, size_t begin) const {
 			if (begin >= length_) return -1;
 			char* p = strrchr(data_ + begin, c);
-			return p ? p - data_ : -1;
+			return p ? static_cast<int>(p - data_) : -1;
 		}
 		inline int LastIndexOf(const char c, size_t begin, size_t end) const {
-			if (begin >= length_ || end > length_) return -1;
-			for (size_t i = end; i >= begin; --i) if (data_[i] == c) return i;
+			if (begin >= length_ || end > length_ || begin > end) return -1;
+			for (size_t i = end; i >= begin; --i) if (data_[i] == c) return static_cast<int>(i);
 			return -1;
 		}
 
@@ -378,26 +514,74 @@ namespace Power {
 			data_[index] = c;
 		}
 
+		inline void Trim() { this->Trim(' '); }
+		inline void Trim(const char c) {
+			size_t startIndex = 0;
+			size_t endIndex = 0;
+			for (size_t i = 0; i < length_; ++i) {
+				if (data_[i] != c) {
+					startIndex = i;
+					break;
+				}
+			}
+			for (size_t i = length_ - 1; i > startIndex; --i) {
+				if (data_[i] != c) {
+					endIndex = i + 1;
+					break;
+				}
+			}
+			length_ = endIndex - startIndex;
+			memcpy(temp_, data_ + startIndex, length_);
+			memcpy(data_, temp_, length_);
+			data_[length_] = '\0';
+		}
+
+		inline void TrimStart() { this->TrimStart(' '); }
+		inline void TrimStart(const char c) {
+			size_t startIndex = 0;
+			for (size_t i = 0; i < length_; ++i) {
+				if (data_[i] != c) {
+					startIndex = i;
+					break;
+				}
+			}
+			length_ = length_ - startIndex;
+			memcpy(temp_, data_ + startIndex, length_);
+			memcpy(data_, temp_, length_);
+			data_[length_] = '\0';
+		}
+
+		inline void TrimEnd() { this->TrimEnd(' '); }
+		inline void TrimEnd(const char c) {
+			for (int i = static_cast<int>(length_) - 1; i >= 0; --i) {
+				if (data_[i] != c) {
+					length_ = static_cast<size_t>(i + 1);
+					data_[length_] = '\0';
+					break;
+				}
+			}
+		}
+
 		inline void PadLeft(size_t length) { this->PadLeft(length, ' '); }
 		inline void PadLeft(size_t length, char c) {
 			if (length_ >= length) return;
 			this->CheckSizeAndReallocate(length);
-			temp_[length] = '\0';
 			memset(temp_, c, length - length_);
 			memcpy(temp_ + length - length_, data_, length_);
 			length_ = length;
-			memcpy(data_, temp_, length + 1);
+			memcpy(data_, temp_, length);
+			data_[length] = '\0';
 		}
 
 		inline void PadRight(size_t length) { this->PadRight(length, ' '); }
 		inline void PadRight(size_t length, char c) {
 			if (length_ >= length) return;
 			this->CheckSizeAndReallocate(length);
-			temp_[length] = '\0';
 			memset(temp_ + length_, c, length - length_);
 			memcpy(temp_, data_, length_);
 			length_ = length;
-			memcpy(data_, temp_, length + 1);
+			memcpy(data_, temp_, length);
+			data_[length] = '\0';
 		}
 
 		inline bool StartsWith(const String& other) const {
@@ -500,6 +684,15 @@ namespace Power {
 			if (begin > end) return;
 			memset(data_, c, end - begin);
 		}
+
+		inline void SplitAt(size_t index, String& lhs, String& rhs) const {
+			if (index > length_) return;
+			lhs = String(data_, index);
+			rhs = String(data_ + index, length_ - index);
+		}
+
+		inline void ToLower() const { _strlwr_s(data_, length_ + 1); }
+		inline void ToUpper() const { _strupr_s(data_, length_ + 1); }
 
 		~String();
 
