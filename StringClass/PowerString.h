@@ -613,7 +613,6 @@ namespace Power {
 		inline bool Contains(const String& other) const {
 			if (other.length_ > length_) return false;
 			for (size_t i = 0; i < length_ - other.length_; ++i) {
-				if (data_[i] != other.data_[0]) continue;
 				if (memcmp(data_ + i, other.data_, other.length_) == 0) return true;
 			}
 			return false;
@@ -631,7 +630,6 @@ namespace Power {
 			size_t otherLength = strlen(other);
 			if (otherLength > length_) return false;
 			for (size_t i = 0; i < length_ - otherLength; ++i) {
-				if (data_[i] != other[0]) continue;
 				if (memcmp(data_ + i, other, otherLength) == 0) return true;
 			}
 			return false;
@@ -648,7 +646,6 @@ namespace Power {
 		inline bool Contains(const char* const other, size_t length) const {
 			if (length > length_) return false;
 			for (size_t i = 0; i < length_ - length; ++i) {
-				if (data_[i] != other[0]) continue;
 				if (memcmp(data_ + i, other, length) == 0) return true;
 			}
 			return false;

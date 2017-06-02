@@ -243,7 +243,6 @@ namespace Power {
 	int String::IndexOf(const String& other, size_t begin, size_t end) const {
 		if (begin >= length_ || end > length_ || begin > end || other.length_ > length_) return -1;
 		for (size_t i = begin; i < end - other.length_ + 1; ++i) {
-			if (data_[i] != other.data_[0]) continue;
 			if (memcmp(data_ + i, other.data_, other.length_) == 0) return static_cast<int>(i);
 		}
 
@@ -255,7 +254,6 @@ namespace Power {
 		const size_t otherLength = strlen(other);
 		if (otherLength > length_) return -1;
 		for (size_t i = begin; i < end - otherLength + 1; ++i) {
-			if (data_[i] != other[0]) continue;
 			if (memcmp(data_ + i, other, otherLength) == 0) return static_cast<int>(i);
 		}
 
@@ -266,7 +264,6 @@ namespace Power {
 		if (begin >= length_ || end > length_ || begin > end || length > length_) return -1;
 		if (length > length_) return -1;
 		for (size_t i = begin; i < end - length + 1; ++i) {
-			if (data_[i] != other[0]) continue;
 			if (memcmp(data_ + i, other, length) == 0) return static_cast<int>(i);
 		}
 

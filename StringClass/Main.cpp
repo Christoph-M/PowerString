@@ -309,6 +309,16 @@ int main() {
 		printf("String: %s|\n", string.CString());
 		string.Trim();
 		printf("String: %s|\n", string.CString());
+
+		string = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwueoiuiwtuezasdf";
+
+		for (int i = 0; i < measureCount; ++i) {
+			uint64_t startCount = __rdtsc();
+			string.Contains("wueoiuiwtuezasdf", 16);
+			uint64_t endCount = __rdtsc();
+			deltaTimes[i] = endCount - startCount;
+		}
+		printf("Concatenate average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
 	}
 
 	printf("Total instances created: %zd; Remaining instances: %zd\n", Power::String::s_totalInstancesCreated_, Power::String::s_instanceCounter_);
