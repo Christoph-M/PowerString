@@ -18,11 +18,12 @@
 namespace Power {
 	class String {
 	public:
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	ToString
 		/// @brief Converts a c-string to a Power::String.
 		/// @param[in] other The c-string to be converted.
 		/// @return A Power::String with the content of other.
 		/// @note <b>If the length of the c-string is already known, it is recommended to use ToString(const char* const, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use ToString(const char) instead.
 		///
 		static String ToString(const char* const other)					{ return String(other);			}
 
@@ -31,6 +32,7 @@ namespace Power {
 		/// @param[in] other The c-string to be converted.
 		/// @param[in] length The length of the c-string excluding the null character.
 		/// @return A Power::String with the content of other.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use ToString(const char) instead.
 		///
 		static String ToString(const char* const other, size_t length)	{ return String(other, length); }
 
@@ -129,7 +131,7 @@ namespace Power {
 			return String(buffer, static_cast<size_t>(DOUBLE_MAX_CHR_COUNT));
 		}
 
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	Merge
 		/// @brief Merges two Power::Strings into one.
 		/// @param[in] lhs Left-hand side of the merged Power::String.
 		/// @param[in] rhs Right-hand side of the merged Power::String.
@@ -142,6 +144,7 @@ namespace Power {
 		/// @param[in] lhs Left-hand side of the merged Power::String.
 		/// @param[in] rhs Right-Hand side of the merged Power::String.
 		/// @return A Power::String containing lhs+rhs.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Merge(const String&, const char) instead.
 		///
 		inline static String Merge(const String& lhs, const char* const rhs)	{ return String(lhs, rhs); }
 
@@ -153,7 +156,7 @@ namespace Power {
 		///
 		inline static String Merge(const String& lhs, const char rhs)			{ return String(lhs, rhs); }
 
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	Join
 		/// @brief Merges multiple Power::Strings with the specified seperator between each Power::String.
 		/// @param[in] space The seperator which will be placed between each Power::String.
 		/// @param[in] others A pointer to an array of Power::Strings to be merged.
@@ -181,6 +184,7 @@ namespace Power {
 		/// @param[in] size The size of the specified Power::String array.
 		/// @return A Power::String containing the merged Power::Strings.
 		/// @note <b>If the length of the c-string parameter space is already known, it is recommended to use Join(const char* const, size_t, const String* const, size_t) instead as it is faster</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Join(const char, const String* const, size_t) instead.
 		///
 		inline static String Join(const char* const space, const String* const others, size_t size) {
 			size_t spaceLength = strlen(space);
@@ -203,6 +207,7 @@ namespace Power {
 		/// @param[in] others A pointer to an array of Power::Strings to be merged.
 		/// @param[in] size The size of the specified Power::String array.
 		/// @return A Power::String containing the merged Power::Strings.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Join(const char, const String* const, size_t) instead.
 		///
 		inline static String Join(const char* const space, size_t spaceLength, const String* const others, size_t size) {
 			size_t totalLength = (size - 1) * spaceLength;
@@ -264,6 +269,7 @@ namespace Power {
 		/// @param[in] size The size of the specified c-string array.
 		/// @return A Power::String containing the merged c-strings.
 		/// @note <b>If the length of the c-string parameter space is already known, it is recommended to use Join(const char* const, size_t, const char* const* const, size_t) instead as it is faster</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Join(const char, const char* const* const, size_t) instead.
 		///
 		inline static String Join(const char* const space, const char* const* const others, size_t size) {
 			size_t spaceLength = strlen(space);
@@ -287,6 +293,7 @@ namespace Power {
 		/// @param[in] others A pointer to an array of c-string to be merged.
 		/// @param[in] size The size of the specified c-string array.
 		/// @return A Power::String containing the merged c-strings.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Join(const char, const char* const* const, size_t) instead.
 		///
 		inline static String Join(const char* const space, size_t spaceLength, const char* const* const others, size_t size) {
 			size_t totalLength = (size - 1) * spaceLength;
@@ -322,12 +329,13 @@ namespace Power {
 			return newString;
 		}
 
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief Splits a Power::String into two substrings at the specified position.
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	SplitStringAt
+		/// @brief Splits a Power::String into two substrings at the specified index.
 		/// @param[in] source The Power::String to be split.
 		/// @param[in] index The position where source should be split.
 		/// @param[out] lhs A Power::String containing the left-hand part from index.
 		/// @param[out] rhs A Power::String containing the right-hand part from index.
+		///
 		inline static void SplitStringAt(const String& source, size_t index, String& lhs, String& rhs) {
 			if (index > source.length_) return;
 			lhs = String(source.data_, index);
@@ -335,13 +343,53 @@ namespace Power {
 		}
 
 	public:
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	Constructors
+		/// @brief Initializes a new Power::String with the default capacity.
+		///
 		String();
-		explicit String(size_t);
-		String(const char* const);
-		String(const char);
-		String(const char* const, size_t);
-		String(const char, size_t);
-		String(const String&);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Initializes a new Power::String with the specified capacity.
+		/// @param[in] size The capacity the new Power::String shall have.
+		///
+		explicit String(size_t size);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Initializes a new Power::String containing the specified c-string.
+		/// @param[in] data The c-string with the data.
+		/// @note Implicit conversion constructor. Direct assignment of c-string possible.
+		/// @note <b>If the length of the c-string is already known, it is recommended to use String(const char* const, size_t) instead as it is faster</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use String(const char) instead.
+		///
+		String(const char* const data);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Initializes a new Power::String containing the specified character.
+		/// @param[in] c The character.
+		/// @note Implicit conversion constructor. Direct assignment of character possible.
+		///
+		String(const char c);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Initializes a new Power::String containing the specified c-string.
+		/// @param[in] data The c-string with the data.
+		/// @param[in] length The length of the c-string excluding the null character.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use String(const char) instead.
+		///
+		String(const char* const data, size_t length);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Initializes a new Power::String and fills it to the specified length with the specified character.
+		/// @param[in] c The character to fill with.
+		/// @param[in] length The length of the new Power::String.
+		///
+		String(const char c, size_t length);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Initializes a copy of the specified Power::String.
+		/// @param[in] other The Power::String to copy.
+		///
+		String(const String& other);
 
 		inline void operator=(const String& other) {
 			this->CheckSizeAndReallocate(other.length_);
@@ -474,25 +522,25 @@ namespace Power {
 		inline bool operator!=(const char* const other) const	{ return strcmp(data_, other) != 0;														}
 		inline bool operator!=(const char c)			const	{ return length_ > 1 || *data_ != c;													}
 
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	Size
 		/// @brief Gets the current capacity of the Power::String.
 		/// @return The current capacity of the Power::String.
 		///
 		inline size_t		Size()		const { return size_;	}
 
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	Length
 		/// @brief Gets the current length excluding the null character of the Power::String.
 		/// @return The current length excluding the null character of the Power::String.
 		///
 		inline size_t		Length()	const { return length_;	}
 
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	CString
 		/// @brief Gets the underlying c-string as a constant.
 		/// @return The underlying c-string as a constant.
 		///
 		inline const char*	CString()	const { return data_;	}
 
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	ShrinkToFit
 		/// @brief Shrinks the capacity of the Power::String to fit the length to conserve memory.
 		///
 		inline void ShrinkToFit() {
@@ -508,7 +556,7 @@ namespace Power {
 			data_ = newData;
 		}
 
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	Concatenate
 		/// @brief Merges the Power::String with another Power::String.
 		/// @param[in] other The Power::String to be merged with.
 		///
@@ -523,6 +571,7 @@ namespace Power {
 		/// @brief Merges the Power::String with a c-string.
 		/// @param[in] other The c-string to be merged with.
 		/// @note <b>If the length of the c-string is already known, it is recommend to use Concatenate(const char* const, size_t) instead as it is faser.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Concatenate(const char) instead.
 		///
 		inline void Concatenate(const char* const other) {
 			size_t otherLength = strlen(other);
@@ -536,6 +585,7 @@ namespace Power {
 		/// @brief Merges the Power::String with a c-string.
 		/// @param[in] other The c-string to be merged with.
 		/// @param[in] length The length of the c-string excluding the null character.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Concatenate(const char) instead.
 		///
 		inline void Concatenate(const char* const other, size_t length) {
 			size_t newLength = length_ + length;
@@ -554,7 +604,7 @@ namespace Power {
 			data_[length_] = '\0';
 		}
 
-		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	Contains
 		/// @brief Checks the Power::String if it contains the specified Power::String.
 		/// @param[in] other The Power::String to be checked for.
 		/// @return True, if the Power::String contains the spcified Power::String.
@@ -575,6 +625,7 @@ namespace Power {
 		/// @return True, if the Power::String contains the spcified c-string.
 		/// @return False, if it doesn't or if the length of the specified c-string is greater than the Power::String.
 		/// @note <b>If the length of the c-string is already known, it is recommended to use Contains(const char* const, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Contains(const char) instead.
 		///
 		inline bool Contains(const char* const other) const {
 			size_t otherLength = strlen(other);
@@ -592,6 +643,7 @@ namespace Power {
 		/// @param[ins] length The length of the c-string excluding the null character.
 		/// @return True, if the Power::String contains the spcified c-string.
 		/// @return False, if it doesn't or if the length of the specified c-string is greater than the Power::String.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Contains(const char) instead.
 		///
 		inline bool Contains(const char* const other, size_t length) const {
 			if (length > length_) return false;
@@ -610,137 +662,513 @@ namespace Power {
 		///
 		inline bool Contains(const char c) const { return strchr(data_, c) != nullptr; }
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	IndexOf
+		/// @brief Finds the first occurance of the specified Power::String.
+		/// @param[in] other The Power::String to look for.
+		/// @return The start index of the first occurance of the specified Power::String.
+		/// @return Or -1 if the specified Power::String does not occur.
+		///
 		inline int IndexOf(const String& other) const {
 			if (other.length_ > length_) return -1;
 			char* p = strstr(data_, other.data_);
 			return p ? static_cast<int>(p - data_) : -1;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the first occurance of the specified Power::String starting from the specified index.
+		/// @param[in] other The Power::String to look for.
+		/// @param[in] begin The index from where to start looking.
+		/// @return The start index of the first occurance of the specified Power::String.
+		/// @return Or -1 if the specified Power::String does not occur.
+		///
 		inline int IndexOf(const String& other, size_t begin) const { 
 			if (begin >= length_ || other.length_ > length_) return -1;
 			char* p = strstr(data_ + begin, other.data_);
 			return p ? static_cast<int>(p - data_) : -1;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the first occurance of the specified Power::String between the specified start and end index.
+		/// @param[in] other The Power::String to look for.
+		/// @param[in] begin The index from where to start looking.
+		/// @param[in] end The index to where to stop looking.
+		/// @return The start index of the first occurance of the specified Power::String.
+		/// @return Or -1 if the specified Power::String does not occur.
+		///
 		int IndexOf(const String& other, size_t begin, size_t end) const;
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the first occurance of the specified c-string.
+		/// @param[in] other The c-string to look for.
+		/// @return The start index of the first occurance of the specified c-string.
+		/// @return Or -1 if the specified c-string does not occur.
+		/// @note <b>If the length of the c-string is already known, it is recommended to use IndexOf(size_t, const char* const) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use IndexOf(const char) instead.
+		///
 		inline int IndexOf(const char* const other) const {
 			char* p = strstr(data_, other);
 			return p ? static_cast<int>(p - data_) : -1;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the first occurance of the specified c-string starting from the specified index.
+		/// @param[in] other The c-string to look for.
+		/// @param[in] begin The index from where to start looking.
+		/// @return The start index of the first occurance of the specified c-string.
+		/// @return Or -1 if the specified c-string does not occur.
+		/// @note <b>If the length of the c-string is already known, it is recommended to use IndexOf(size_t, const char* const, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use IndexOf(const char, size_t) instead.
+		///
 		inline int IndexOf(const char* const other, size_t begin) const {
 			if (begin >= length_) return -1;
 			char* p = strstr(data_ + begin, other);
 			return p ? static_cast<int>(p - data_) : -1;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the first occurance of the specified c-string between the specified start and end index.
+		/// @param[in] other The c-string to look for.
+		/// @param[in] begin The index from where to start looking.
+		/// @param[in] end The index to where to stop looking.
+		/// @return The start index of the first occurance of the specified c-string.
+		/// @return Or -1 if the specified c-string does not occur.
+		/// @note <b>If the length of the c-string is already known, it is recommended to use IndexOf(size_t, const char* const, size_t, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use IndexOf(const char, size_t, size_t) instead.
+		///
 		int IndexOf(const char* const other, size_t begin, size_t end) const;
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the first occurance of the specified c-string.
+		/// @param[in] length The length of the specified c-string excluding the null character.
+		/// @param[in] other The c-string to look for.
+		/// @return The start index of the first occurance of the specified c-string.
+		/// @return Or -1 if the specified c-string does not occur.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use IndexOf(const char) instead.
+		///
 		inline int IndexOf(size_t length, const char* const other) const {
 			if (length > length_) return -1;
 			char* p = strstr(data_, other);
 			return p ? static_cast<int>(p - data_) : -1;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the first occurance of the specified c-string starting from the specified index.
+		/// @param[in] length The length of the specified c-string excluding the null character.
+		/// @param[in] other The c-string to look for.
+		/// @param[in] begin The index from where to start looking.
+		/// @return The start index of the first occurance of the specified c-string.
+		/// @return Or -1 if the specified c-string does not occur.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use IndexOf(const char, size_t) instead.
+		///
 		inline int IndexOf(size_t length, const char* const other, size_t begin) const {
 			if (begin >= length_ || length > length_) return -1;
 			char* p = strstr(data_ + begin, other);
 			return p ? static_cast<int>(p - data_) : -1;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the first occurance of the specified c-string between the specified start and end index.
+		/// @param[in] length The length of the specified c-string excluding the null character.
+		/// @param[in] other The c-string to look for.
+		/// @param[in] begin The index from where to start looking.
+		/// @param[in] end The index to where to stop looking.
+		/// @return The start index of the first occurance of the specified c-string.
+		/// @return Or -1 if the specified c-string does not occur.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use IndexOf(const char, size_t, size_t) instead.
+		///
 		int IndexOf(size_t length, const char* const other, size_t begin, size_t end) const;
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the first occurance of the specified character.
+		/// @param[in] c The character to look for.
+		/// @return The index of the first occurance of the specified character.
+		/// @return Or -1 if the specified character does not occur.
+		///
 		inline int IndexOf(const char c) const {
 			char* p = static_cast<char*>(memchr(data_, c, length_));
 			return p ? static_cast<int>(p - data_) : -1;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the first occurance of the specified character starting from the specified index.
+		/// @param[in] c The character to look for.
+		/// @param[in] begin The index from where to start looking.
+		/// @return The index of the first occurance of the specified character.
+		/// @return Or -1 if the specified character does not occur.
+		///
 		inline int IndexOf(const char c, size_t begin) const {
 			if (begin >= length_) return -1;
 			char* p = static_cast<char*>(memchr(data_ + begin, c, length_ - begin));
 			return p ? static_cast<int>(p - data_) : -1;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the first occurance of the specified character between the specified start and end index.
+		/// @param[in] c The character to look for.
+		/// @param[in] begin The index from where to start looking.
+		/// @param[in] end The index to where to stop looking.
+		/// @return The index of the first occurance of the specified character.
+		/// @return Or -1 if the specified character does not occur.
+		///
 		inline int IndexOf(const char c, size_t begin, size_t end) const {
 			if (begin >= length_ || end > length_ || begin > end) return -1;
 			char* p = static_cast<char*>(memchr(data_ + begin, c, end - begin));
 			return p ? static_cast<int>(p - data_) : -1;
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	LastIndexOf
+		/// @brief Finds the last occurance of the specified Power::String.
+		/// @param[in] other The Power::String to look for.
+		/// @return The start index of the last occurance of the specified Power::String.
+		/// @return Or -1 if the spcified Power::String does not occur.
+		///
 		inline	int LastIndexOf(const String& other)							const { return this->LastIndexOf(other, 0, length_);		}
-		inline	int LastIndexOf(const String& other, size_t begin)				const { return this->LastIndexOf(other, begin, length_);	}
-				int LastIndexOf(const String& other, size_t begin, size_t end)	const;
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the last occurance of the specified Power::String starting from the specified index.
+		/// @param[in] other The Power::String for look for.
+		/// @param[in] begin The index from where to start lookin.
+		/// @return The start index of the last occurance of the specified Power::String.
+		/// @return Or -1 if the spcified Power::String does not occur.
+		///
+		inline	int LastIndexOf(const String& other, size_t begin)				const { return this->LastIndexOf(other, begin, length_);	}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the last occurance of the specified Power::String between the specified start and end index.
+		/// @param[in] other The Power::String for look for.
+		/// @param[in] begin The index from where to start lookin.
+		/// @param[in] end The index to where to stop looking.
+		/// @return The start index of the last occurance of the specified Power::String.
+		/// @return Or -1 if the spcified Power::String does not occur.
+		///
+				int LastIndexOf(const String& other, size_t begin, size_t end)	const;
+				
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the last occurance of the specified c-string.
+		/// @param[in] other The c-string to look for.
+		/// @return The start index of the last occurance of the specified c-string.
+		/// @return Or -1 if the specified c-string does not occur.
+		/// @note <b>If the length of the c-string is already known, it is recommended to use LastIndexOf(size_t, const char* const) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use LastIndexOf(const char) instead.
+		///
 		inline	int LastIndexOf(const char* const other)							const { return this->LastIndexOf(other, 0, length_);		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the last occurance of the specified c-string starting from the specified index.
+		/// @param[in] other The c-string to look for.
+		/// @param[in] begin The index from where to start looking.
+		/// @return The start index of the last occurance of the specified c-string.
+		/// @return Or -1 if the specified c-string does not occur.
+		/// @note <b>If the length of the c-string is already known, it is recommended to use LastIndexOf(size_t, const char* const, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use LastIndexOf(const char, size_t) instead.
+		///
 		inline	int LastIndexOf(const char* const other, size_t begin)				const { return this->LastIndexOf(other, begin, length_);	}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the last occurance of the specified c-string between the specified start and end index.
+		/// @param[in] other The c-string to look for.
+		/// @param[in] begin The index from where to start looking.
+		/// @param[in] end The index to where to stop looking.
+		/// @return The start index of the last occurance of the specified c-string.
+		/// @return Or -1 if the specified c-string does not occur.
+		/// @note <b>If the length of the c-string is already known, it is recommended to use LastIndexOf(size_t, const char* const, size_t, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use LastIndexOf(const char, size_t, size_t) instead.
+		///
 				int LastIndexOf(const char* const other, size_t begin, size_t end)	const;
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the last occurance of the specified c-string.
+		/// @param[in] length The length of the specified c-string excluding the null character.
+		/// @param[in] other The c-string to look for.
+		/// @return The start index of the last occurance of the specified c-string.
+		/// @return Or -1 if the specified c-string does not occur.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use LastIndexOf(const char) instead.
+		///
 		inline	int LastIndexOf(size_t length, const char* const other)								const { return this->LastIndexOf(length, other, 0, length_);		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the last occurance of the specified c-string starting from the specified index.
+		/// @param[in] length The length of the specified c-string excluding the null character.
+		/// @param[in] other The c-string to look for.
+		/// @param[in] begin The index from where to start looking.
+		/// @return The start index of the last occurance of the specified c-string.
+		/// @return Or -1 if the specified c-string does not occur.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use LastIndexOf(const char, size_t) instead.
+		///
 		inline	int LastIndexOf(size_t length, const char* const other, size_t begin)				const { return this->LastIndexOf(length, other, begin, length_);	}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the last occurance of the specified c-string between the specified start and end index.
+		/// @param[in] length The length of the specified c-string excluding the null character.
+		/// @param[in] other The c-string to look for.
+		/// @param[in] begin The index from where to start looking.
+		/// @param[in] end The index to where to stop looking.
+		/// @return The start index of the last occurance of the specified c-string.
+		/// @return Or -1 if the specified c-string does not occur.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use LastIndexOf(const char, size_t, size_t) instead.
+		///
 				int LastIndexOf(size_t length, const char* const other, size_t begin, size_t end)	const;
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the last occurance of the specified character.
+		/// @param[in] c The character to look for.
+		/// @return The index of the last occurance of the specified character.
+		/// @return Or -1 if the specified character does not occur.
+		///
 		inline int LastIndexOf(const char c) const {
 			char* p = strrchr(data_, c);
 			return p ? static_cast<int>(p - data_) : -1;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the last occurance of the specified character starting from the specified index.
+		/// @param[in] c The character to look for.
+		/// @param[in] begin The index from where to start looking.
+		/// @return The index of the last occurance of the specified character.
+		/// @return Or -1 if the specified character does not occur.
+		///
 		inline int LastIndexOf(const char c, size_t begin) const {
 			if (begin >= length_) return -1;
 			char* p = strrchr(data_ + begin, c);
 			return p ? static_cast<int>(p - data_) : -1;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Finds the last occurance of the specified character between the specified start and end index.
+		/// @param[in] c The character to look for.
+		/// @param[in] begin The index from where to start looking.
+		/// @param[in] end The index to where to stop looking.
+		/// @return The index of the last occurance of the specified character.
+		/// @return Or -1 if the specified character does not occur.
+		///
 		inline int LastIndexOf(const char c, size_t begin, size_t end) const {
 			if (begin >= length_ || end > length_ || begin > end) return -1;
 			for (size_t i = end; i >= begin; --i) if (data_[i] == c) return static_cast<int>(i);
 			return -1;
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	Substring
+		/// @brief Creates a substring from the specified start index to the end of the Power::String.
+		/// @param[in] begin The index from where to start.
+		/// @return A Power::String containing the substring.
+		/// @return The returned Power::String will be empty, if the start index is greater than the length of the Power::String.
+		///
 		inline String Substring(size_t begin) const {
 			if (begin > length_) begin = length_;
 			return String(data_ + begin, length_ - begin);
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Creates a substring from the specified start index to the specified end index.
+		/// @param[in] begin The index from where to start.
+		/// @param[in] end The index to where to stop.
+		/// @return A Power::String containing the substring.
+		/// @return The returned Power::String will be empty, if the start index is greater than the end index or the length of the Power::String.
+		///
 		inline String Substring(size_t begin, size_t end) const {
 			if (end > length_) end = length_;
 			if (begin > end) begin = end;
 			return String(data_ + begin, end - begin);
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	Insert
+		/// @brief Inserts the specified Power::String at the specified index.
+		/// @param[in] index The index where the specified Power::String will be inserted at.
+		/// @param[in] other The Power::String to be inserted.
+		///
 		void Insert(size_t index, const String& other);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Inserts the specified c-string at the specified index.
+		/// @param[in] index The index where the specified c-string will be inserted at.
+		/// @param[in] other The c-string to be inserted.
+		/// @node <b>If the length of the c-string is already known, it is recommended to use Insert(sizt_t, const char* const, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Insert(size_t, const char) instead.
+		///
 		void Insert(size_t index, const char* const other);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Inserts the specified c-string at the specified index.
+		/// @param[in] index The index where the specified c-string will be inserted at.
+		/// @param[in] other The c-string to be inserted.
+		/// @param[in] length The length of the c-string excluding the null character.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Insert(size_t, const char) instead.
+		///
 		void Insert(size_t index, const char* const other, size_t length);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Inserts the specified character at the specified index.
+		/// @param[in] index The index where the specified character will be inserted at.
+		/// @param[in] c The character to be inserted.
+		///
 		void Insert(size_t index, const char c);
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	Remove
+		/// @brief Removes all characters in the Power::Strig starting from the specified index.
+		/// @param[in] index The index from where to start.
+		///
 		inline	void Remove(size_t index) { this->Remove(index, length_ - 1); }
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Removed a specified amount of characters in the Power::String starting from the specified index.
+		/// @param[in] index The index from where to start.
+		/// @param[in] count How many characters shall be removed.
+		///
 				void Remove(size_t index, size_t count);
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	RemoveAll
+		/// @brief Removes all occurances of the specified Power::String.
+		/// @param[in] other The Power::String to remove.
+		///
 		void RemoveAll(const String& other);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Removes all occurances of the specified c-string.
+		/// @param[in] other The c-string to remove.
+		/// @node <b>If the length of the c-string is already known, it is recommended to use RemoveAll(const char* const, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use RemoveAll(const char) instead.
+		///
 		void RemoveAll(const char* const other);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Removes all occurances of the specified c-string.
+		/// @param[in] other The c-string to remove.
+		/// @param[in] length The length of the c-string excluding the null character.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use RemoveAll(const char) instead.
+		///
 		void RemoveAll(const char* const other, size_t length);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Removes all occurances of the specified character.
+		/// @param[in] c The character to remove.
+		///
 		void RemoveAll(const char c);
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	Replace
+		/// @brief Replaces all characters from the specified start index with the specified Power::String.
+		/// @param[in] index The index from where to replace.
+		/// @param[in] other The Power::String with which to replace.
+		///
 		inline	void Replace(size_t index, const String& other)						{ this->Replace(index, length_ - 1, other);			}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Replaces a specified amount of characters from the specified start index with the specified Power::String.
+		/// @param[in] index The index from where to replace.
+		/// @param[in] count How many characters will be replaced.
+		/// @param[in] other The Power::String with which to replace.
+		///
 				void Replace(size_t index, size_t count, const String& other);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Replaces all characters from the specified start index with the specified c-string.
+		/// @param[in] index The index from where to replace.
+		/// @param[in] other The c-string with which to replace.
+		/// @node <b>If the length of the c-string is already known, it is recommended to use Replace(size_t, const char* const, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Replace(size_t, const char) instead.
+		///
 		inline	void Replace(size_t index, const char* const other)					{ this->Replace(index, length_ - 1, other);			}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Replaces all characters from the specified start index with the specified c-string.
+		/// @param[in] index The index from where to replace.
+		/// @param[in] count How many characters will be replaced.
+		/// @param[in] other The c-string with which to replace.
+		/// @node <b>If the length of the c-string is already known, it is recommended to use Replace(size_t, const char* const, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Replace(size_t, size_t, const char) instead.
+		///
 				void Replace(size_t index, size_t count, const char* const other);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Replaces all characters from the specified start index with the specified c-string.
+		/// @param[in] index The index from where to replace.
+		/// @param[in] other The c-string with which to replace.
+		/// @param[in] length The length of the c-string excluding the null character.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Replace(size_t, const char) instead.
+		///
 		inline	void Replace(size_t index, const char* const other, size_t length)	{ this->Replace(index, length_ - 1, other, length);	}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Replaces all characters from the specified start index with the specified c-string.
+		/// @param[in] index The index from where to replace.
+		/// @param[in] count How many characters will be replaced.
+		/// @param[in] other The c-string with which to replace.
+		/// @param[in] length The length of the c-string excluding the null character.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Replace(size_t, size_t, const char) instead.
+		///
 				void Replace(size_t index, size_t count, const char* const other, size_t length);
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Replaces all characters from the specified start index with the specified character.
+		/// @param[in] index The index from where to replace.
+		/// @param[in] c The character with which to replace.
+		///
 		inline	void Replace(size_t index, const char c)							{ this->Replace(index, length_ - 1, c);				}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Replaces a specified amount of characters from the specified start index with the specified character.
+		/// @param[in] index The index from where to replace.
+		/// @param[in] count How many characters will be replaced.
+		/// @param[in] c The character with which to replace.
+		///
 				void Replace(size_t index, size_t count, const char c);
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	ReplaceAt
+		/// @brief Replaces the characters with the specified Power::String at the specified index.
+		/// @param[in] index The index from where to replace.
+		/// @param[in] other The Power::String with which to replace.
+		///
 		inline void ReplaceAt(size_t index, const String& other) {
-			if (index + other.length_ >= length_) return;
-			this->CheckSizeAndReallocate(index + other.size_);
-			memcpy(data_ + index, other.data_, other.size_);
+			if (index >= length_) return;
+			this->CheckSizeAndReallocate(index + other.length_);
+			memcpy(data_ + index, other.data_, other.length_);
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Replaces the characters with the specified c-string at the specified index.
+		/// @param[in] index The index from where to replace.
+		/// @param[in] other The c-string with which to replace.
+		/// @node <b>If the length of the c-string is already known, it is recommended to use ReplaceAt(size_t, const char* const, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use ReplaceAt(size_t, const char) instead.
+		///
 		inline void ReplaceAt(size_t index, const char* const other) {
+			if (index >= length_) return;
 			size_t otherLength = strlen(other);
-			if (index + otherLength >= length_) return;
 			this->CheckSizeAndReallocate(index + otherLength);
 			memcpy(data_ + index, other, otherLength);
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Replaces the characters with the specified c-string at the specified index.
+		/// @param[in] index The index from where to replace.
+		/// @param[in] other The c-string with which to replace.
+		/// @param[in] length The length of the c-string excluding the null character.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use ReplaceAt(size_t, const char) instead.
+		///
 		inline void ReplaceAt(size_t index, const char* const other, size_t length) {
-			if (index + length >= length_) return;
+			if (index >= length_) return;
 			this->CheckSizeAndReallocate(index + length);
 			memcpy(data_ + index, other, length);
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Replaces the character with the specified character at the specified index.
+		/// @param[in] index The index at where to replace.
+		/// @param[in] c The character with which to replace.
+		///
 		inline void ReplaceAt(size_t index, const char c) const {
 			if (index >= length_) return;
 			data_[index] = c;
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	Trim
+		/// @brief Removes all leading and trailing whitespaces.
+		///
 		inline void Trim() { this->Trim(' '); }
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Removes all leading and trailing occurances of the specified character.
+		/// @param[in] c The character to be trimmed.
+		///
 		inline void Trim(const char c) {
 			size_t startIndex = 0;
 			size_t endIndex = 0;
@@ -762,7 +1190,15 @@ namespace Power {
 			data_[length_] = '\0';
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	TrimStart
+		/// @brief Removes all leading whitespaces.
+		///
 		inline void TrimStart() { this->TrimStart(' '); }
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Removes all leading occurances of the specified character.
+		/// @param[in] c The character to be trimmed.
+		///
 		inline void TrimStart(const char c) {
 			size_t startIndex = 0;
 			for (size_t i = 0; i < length_; ++i) {
@@ -777,7 +1213,15 @@ namespace Power {
 			data_[length_] = '\0';
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	TrimEnd
+		/// @brief Removes all trailing whitespaces.
+		///
 		inline void TrimEnd() { this->TrimEnd(' '); }
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Removes all trailing occurances of the specified character.
+		/// @param[in] c The character to be trimmed.
+		///
 		inline void TrimEnd(const char c) {
 			for (int i = static_cast<int>(length_) - 1; i >= 0; --i) {
 				if (data_[i] != c) {
@@ -788,7 +1232,17 @@ namespace Power {
 			}
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	PadLeft
+		/// @brief Right-aligns the Power::String by filling it to the left with whitespaces to the specified total length.
+		/// @param[in] length The total length the Power::String should be including the current length of the Power::String.
+		///
 		inline void PadLeft(size_t length) { this->PadLeft(length, ' '); }
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Right-aligns the Power::String by filling it to the left with the specified character to the specified total length.
+		/// @param[in] length The total length the Power::String should be including the current length of the Power::String.
+		/// @param[in] c The character with which to fill.
+		///
 		inline void PadLeft(size_t length, char c) {
 			if (length_ >= length) return;
 			this->CheckSizeAndReallocate(length);
@@ -799,7 +1253,17 @@ namespace Power {
 			data_[length] = '\0';
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	PadRight
+		/// @brief Left-aligns the Power::String by filling it to the right with whitespaces to the specified total length.
+		/// @param[in] length The total length the Power::String should be including the current length of the Power::String.
+		///
 		inline void PadRight(size_t length) { this->PadRight(length, ' '); }
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Left-aligns the Power::String by filling it to the right with the specified character to the specified total length.
+		/// @param[in] length The total length the Power::String should be including the current length of the Power::String.
+		/// @param[in] c The character with which to fill.
+		///
 		inline void PadRight(size_t length, char c) {
 			if (length_ >= length) return;
 			this->CheckSizeAndReallocate(length);
@@ -810,47 +1274,127 @@ namespace Power {
 			data_[length] = '\0';
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	StartsWith
+		/// @brief Checks if the Power::String starts with the specified Power::String.
+		/// @param[in] other The Power::String to check for.
+		/// @return True, if the Power::String starts with the specified Power::String.
+		/// @return False, if it doesn't, or if the length of the specified Power::String is greater than the length of the Power::String.
+		///
 		inline bool StartsWith(const String& other) const {
 			if (other.length_ > length_) return false;
 			return memcmp(data_, other.data_, other.length_) == 0;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Checks if the c-string starts with the specified Power::String.
+		/// @param[in] other The c-string to check for.
+		/// @return True, if the Power::String starts with the specified c-string.
+		/// @return False, if it doesn't, or if the length of the specified c-string is greater than the length of the Power::String.
+		/// @node <b>If the length of the c-string is already known, it is recommended to use StartsWith(const char* const, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use StartsWith(const char) instead.
+		///
 		inline bool StartsWith(const char* const other) const {
 			size_t otherLength = strlen(other);
 			if (otherLength > length_) return false;
 			return memcmp(data_, other, otherLength) == 0;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Checks if the c-string starts with the specified Power::String.
+		/// @param[in] other The c-string to check for.
+		/// @param[in] length The length of the c-string excluding the null character.
+		/// @return True, if the Power::String starts with the specified c-string.
+		/// @return False, if it doesn't, or if the length of the specified c-string is greater than the length of the Power::String.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use StartsWith(const char) instead.
+		///
 		inline bool StartsWith(const char* const other, size_t length) const {
 			if (length > length_) return false;
 			return memcmp(data_, other, length) == 0;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Checks if the character starts with the specified Power::String.
+		/// @param[in] c The character to check for.
+		/// @return True, if the Power::String starts with the specified character.
+		/// @return False, if it doesn't, or if the length of the specified character is greater than the length of the Power::String.
+		///
 		inline bool StartsWith(const char c) const { return *data_ == c; }
 
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	EndsWith
+		/// @brief Checks if the Power::String ends with the specified Power::String.
+		/// @param[in] other The Power::String to check for.
+		/// @return True, if the Power::String ends with the specified Power::String.
+		/// @return False, if it doesn't, or if the length of the specified Power::String is greater than the length of the Power::String.
+		///
 		inline bool EndsWith(const String& other) const {
 			if (other.length_ > length_) return false;
 			return memcmp(data_ + length_ - other.length_, other.data_, other.length_) == 0;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Checks if the c-string ends with the specified Power::String.
+		/// @param[in] other The c-string to check for.
+		/// @return True, if the Power::String ends with the specified c-string.
+		/// @return False, if it doesn't, or if the length of the specified c-string is greater than the length of the Power::String.
+		/// @node <b>If the length of the c-string is already known, it is recommended to use EndsWith(const char* const, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use EndsWith(const char) instead.
+		///
 		inline bool EndsWith(const char* const other) const {
 			size_t otherLength = strlen(other);
 			if (otherLength > length_) return false;
 			return memcmp(data_ + length_ - otherLength, other, otherLength) == 0;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Checks if the c-string ends with the specified Power::String.
+		/// @param[in] other The c-string to check for.
+		/// @param[in] length The length of the c-string excluding the null character.
+		/// @return True, if the Power::String ends with the specified c-string.
+		/// @return False, if it doesn't, or if the length of the specified c-string is greater than the length of the Power::String.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use EndsWith(const char) instead.
+		///
 		inline bool EndsWith(const char* const other, size_t length) const {
 			if (length > length_) return false;
 			return memcmp(data_ + length_ - length, other, length) == 0;
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Checks if the character ends with the specified Power::String.
+		/// @param[in] c The character to check for.
+		/// @return True, if the Power::String ends with the specified character.
+		/// @return False, if it doesn't, or if the length of the specified character is greater than the length of the Power::String.
+		///
 		inline bool EndsWith(const char c) const { return data_[length_ - 1] == c; }
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	Fill
+		/// @brief Fills the Power::String with the specified Power::String.
+		/// @param[in] other The Power::String to fill with.
+		///
 		inline void Fill(const String& other) const {
 			int count = static_cast<int>(length_ / other.length_);
 			for (int i = 0; i < count; ++i) memcpy(data_ + i * other.length_, other.data_, other.length_);
 			memcpy(data_ + count * other.length_, other.data_, length_ % other.length_);
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Fills the Power::String with the specified Power::String starting from the specified index.
+		/// @param[in] other The Power::String to fill with.
+		/// @param[in] begin The index from where to start filling.
+		///
 		inline void Fill(const String& other, size_t begin) const {
 			if (begin > length_) return;
 			int count = static_cast<int>((length_ - begin) / other.length_);
 			for (int i = 0; i < count; ++i) memcpy(data_ + begin + i * other.length_, other.data_, other.length_);
 			memcpy(data_ + begin + count * other.length_, other.data_, (length_ - begin) % other.length_);
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Fills the Power::String with the specified Power::String between the specified start and end index.
+		/// @param[in] other The Power::String to fill with.
+		/// @param[in] begin The index from where to start filling.
+		/// @param[in] end The index to where to stop filling.
+		///
 		inline void Fill(const String& other, size_t begin, size_t end) const {
 			if (end > length_) end = length_;
 			if (begin > end) return;
@@ -859,12 +1403,26 @@ namespace Power {
 			memcpy(data_ + begin + count + other.length_, other.data_, (end - begin) % other.length_);
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Fills the Power::String with the specified c-string.
+		/// @param[in] other The c-string to fill with.
+		/// @node <b>If the length of the c-string is already known, it is recommended to use Fill(size_t, const char* const) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char) instead.
+		///
 		inline void Fill(const char* const other) const {
 			size_t otherLength = strlen(other);
 			int count = static_cast<int>(length_ / otherLength);
 			for (int i = 0; i < count; ++i) memcpy(data_ + i * otherLength, other, otherLength);
 			memcpy(data_ + count * otherLength, other, length_ % otherLength);
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Fills the Power::String with the specified c-string starting from the specified index.
+		/// @param[in] other The c-string to fill with.
+		/// @param[in] begin The index from where to start filling.
+		/// @node <b>If the length of the c-string is already known, it is recommended to use Fill(size_t, const char* const, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char, size_t) instead.
+		///
 		inline void Fill(const char* const other, size_t begin) const {
 			if (begin > length_) return;
 			size_t otherLength = strlen(other);
@@ -872,6 +1430,15 @@ namespace Power {
 			for (int i = 0; i < count; ++i) memcpy(data_ + begin + i * otherLength, other, otherLength);
 			memcpy(data_ + begin + count * otherLength, other, (length_ - begin) % otherLength);
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Fills the Power::String with the specified c-string between the specified start and end index.
+		/// @param[in] other The c-string to fill with.
+		/// @param[in] begin The index from where to start filling.
+		/// @param[in] end The index to where to stop filling.
+		/// @node <b>If the length of the c-string is already known, it is recommended to use Fill(size_t, const char* const, size_t, size_t) instead as it is faster.</b>
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char, size_t, size_t) instead.
+		///
 		inline void Fill(const char* const other, size_t begin, size_t end) const {
 			if (end > length_) end = length_;
 			if (begin > end) return;
@@ -881,17 +1448,40 @@ namespace Power {
 			memcpy(data_ + begin + count * otherLength, other, (end - begin) % otherLength);
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Fills the Power::String with the specified c-string.
+		/// @param[in] length The length of the c-string excluding the null character.
+		/// @param[in] other The c-string to fill with.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char) instead.
+		///
 		inline void Fill(size_t length, const char* const other) const {
 			int count = static_cast<int>(length_ / length);
 			for (int i = 0; i < count; ++i) memcpy(data_ + i * length, other, length);
 			memcpy(data_ + count * length, other, length_ % length);
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Fills the Power::String with the specified c-string starting from the specified index.
+		/// @param[in] length The length of the c-string excluding the null character.
+		/// @param[in] other The c-string to fill with.
+		/// @param[in] begin The index from where to start filling.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char, size_t) instead.
+		///
 		inline void Fill(size_t length, const char* const other, size_t begin) const {
 			if (begin > length_) return;
 			int count = static_cast<int>((length_ - begin) / length);
 			for (int i = 0; i < count; ++i) memcpy(data_ + begin + i * length, other, length);
 			memcpy(data_ + begin + count * length, other, (length_ - begin) % length);
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Fills the Power::String with the specified c-string between the specified start and end index.
+		/// @param[in] length The length of the c-string excluding the null character.
+		/// @param[in] other The c-string to fill with.
+		/// @param[in] begin The index from where to start filling.
+		/// @param[in] end The index to where to stop filling.
+		/// @warning If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char, size_t, size_t) instead.
+		///
 		inline void Fill(size_t length, const char* const other, size_t begin, size_t end) const {
 			if (end > length_) end = length_;
 			if (begin > end) return;
@@ -900,24 +1490,54 @@ namespace Power {
 			memcpy(data_ + begin + count * length, other, (end - begin) % length);
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Fills the Power::String with the specified character.
+		/// @param[in] c The character to fill with.
+		///
 		inline void Fill(const char c) const { memset(data_, c, length_); }
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Fills the Power::String with the specified character starting from the specified index.
+		/// @param[in] c The character to fill with.
+		/// @param[in] begin The index from where to start filling.
+		///
 		inline void Fill(const char c, size_t begin) const {
 			if (begin > length_) return;
 			memset(data_, c, length_ - begin);
 		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Fills the Power::String with the specified character between the specified start and end index.
+		/// @param[in] c The character to fill with.
+		/// @param[in] begin The index from where to start filling.
+		/// @param[in] end The index to where to stop filling.
+		///
 		inline void Fill(const char c, size_t begin, size_t end) const {
 			if (end > length_) end = length_;
 			if (begin > end) return;
 			memset(data_, c, end - begin);
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	SplitAt
+		/// @brief Splits the Power::String into two substrings at the specified index.
+		/// @param[in] index The index at where to split.
+		/// @param[out] lhs A Power::String containing the left-hand part from index.
+		/// @param[out] rhs A Power::String containing the right-hand part from index.
+		///
 		inline void SplitAt(size_t index, String& lhs, String& rhs) const {
 			if (index > length_) return;
 			lhs = String(data_, index);
 			rhs = String(data_ + index, length_ - index);
 		}
 
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	ToLower
+		/// @brief Converts all upper case characters to lower case.
+		///
 		inline void ToLower() const { _strlwr_s(data_, length_ + 1); }
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	ToUpper
+		/// @brief Converts all lower case characters to upper case.
+		///
 		inline void ToUpper() const { _strupr_s(data_, length_ + 1); }
 
 		~String();
@@ -954,6 +1574,7 @@ namespace Power {
 		}
 
 	public:
+		static size_t s_defaultCapacity;
 		static size_t s_instanceCounter_;
 		static size_t s_totalInstancesCreated_;
 
