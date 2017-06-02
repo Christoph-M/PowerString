@@ -641,7 +641,7 @@ namespace Power {
 		/// @brief Checks the Power::String if it contains the specified c-string.
 		/// @param[in] other The c-string to be checked for.
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Contains(const char) const instead.
-		/// @param[ins] length The length of the c-string excluding the null character.
+		/// @param[in] length The length of the c-string excluding the null character.
 		/// @return <span style="color:#30AA00">True</span>, if the Power::String contains the spcified c-string.
 		/// @return <span style="color:#CC3000">False</span>, if it doesn't or if the length of the specified c-string is greater than the Power::String.
 		///

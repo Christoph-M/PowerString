@@ -1029,10 +1029,13 @@ Static Public Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">other</td><td>The c-string to be checked for. <br />
  <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use <a class="el" href="class_power_1_1_string.html#a728af5dfae32933d8548a657d7cd2043" title="Checks the Power::String if it contains the specified character. ">Contains(const char) const </a>instead. </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname"></td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">length</td><td>The length of the c-string excluding the null character. </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><span style="color:#30AA00">True</span>, if the <a class="el" href="class_power_1_1_string.html" title="A mutable string class with similar functionality to the C# string. ">Power::String</a> contains the spcified c-string. </dd>
+<dd>
+<span style="color:#CC3000">False</span>, if it doesn't or if the length of the specified c-string is greater than the <a class="el" href="class_power_1_1_string.html" title="A mutable string class with similar functionality to the C# string. ">Power::String</a>. </dd></dl>
 
 </div>
 </div>

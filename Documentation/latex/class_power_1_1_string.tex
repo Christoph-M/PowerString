@@ -593,9 +593,14 @@ Checks the \hyperlink{class_power_1_1_string}{Power\+::\+String} if it contains 
 \mbox{\tt in}  & {\em other} & The c-\/string to be checked for. ~\newline
  {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a728af5dfae32933d8548a657d7cd2043}{Contains(const char) const }instead. \\
 \hline
- & {\em } & \\
+\mbox{\tt in}  & {\em length} & The length of the c-\/string excluding the null character. \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True, if the \hyperlink{class_power_1_1_string}{Power\+::\+String} contains the spcified c-\/string. 
+
+False, if it doesn\textquotesingle{}t or if the length of the specified c-\/string is greater than the \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_a728af5dfae32933d8548a657d7cd2043}\label{class_power_1_1_string_a728af5dfae32933d8548a657d7cd2043}} 
 \index{Power\+::\+String@{Power\+::\+String}!Contains@{Contains}}
 \index{Contains@{Contains}!Power\+::\+String@{Power\+::\+String}}
