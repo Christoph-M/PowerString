@@ -170,10 +170,11 @@ namespace Power {
 			for (size_t i = 0; i < size; ++i)
 				totalLength += others[i].length_;
 			String newString = String("", totalLength);
-			char* data = newString.data_;
-			for (size_t i = 0; i < size; ++i) {
+			memcpy(newString.data_, others[0].data_, others[0].length_);
+			char* data = newString.data_ + others[0].length_ + space.length_;
+			for (size_t i = 1; i < size; ++i) {
 				memcpy(data, others[i].data_, others[i].length_);
-				memcpy(data + others[i].length_, space.data_, space.length_);
+				memcpy(data - space.length_, space.data_, space.length_);
 				data += others[i].length_ + space.length_;
 			}
 			return newString;
@@ -193,10 +194,11 @@ namespace Power {
 			size_t totalLength = (size - 1) * spaceLength;
 			for (size_t i = 0; i < size; ++i) totalLength += others[i].length_;
 			String newString = String("", totalLength);
-			char* data = newString.data_;
-			for (size_t i = 0; i < size; ++i) {
+			memcpy(newString.data_, others[0].data_, others[0].length_);
+			char* data = newString.data_ + others[0].length_ + spaceLength;
+			for (size_t i = 1; i < size; ++i) {
 				memcpy(data, others[i].data_, others[i].length_);
-				memcpy(data + others[i].length_, space, spaceLength);
+				memcpy(data - spaceLength, space, spaceLength);
 				data += others[i].length_ + spaceLength;
 			}
 			return newString;
@@ -215,10 +217,11 @@ namespace Power {
 			size_t totalLength = (size - 1) * spaceLength;
 			for (size_t i = 0; i < size; ++i) totalLength += others[i].length_;
 			String newString = String("", totalLength);
-			char* data = newString.data_;
-			for (size_t i = 0; i < size; ++i) {
+			memcpy(newString.data_, others[0].data_, others[0].length_);
+			char* data = newString.data_ + others[0].length_ + spaceLength;
+			for (size_t i = 1; i < size; ++i) {
 				memcpy(data, others[i].data_, others[i].length_);
-				memcpy(data + others[i].length_, space, spaceLength);
+				memcpy(data - spaceLength, space, spaceLength);
 				data += others[i].length_ + spaceLength;
 			}
 			return newString;
@@ -254,11 +257,13 @@ namespace Power {
 			size_t totalLength = (size - 1) * space.length_;
 			for (size_t i = 0; i < size; ++i) totalLength += strlen(others[i]);
 			String newString = String("", totalLength);
-			char* data = newString.data_;
-			for (size_t i = 0; i < size; ++i) {
-				size_t otherLength = strlen(others[i]);
+			size_t otherLength = strlen(others[0]);
+			memcpy(newString.data_, others[0], otherLength);
+			char* data = newString.data_ + otherLength + space.length_;
+			for (size_t i = 1; i < size; ++i) {
+				otherLength = strlen(others[i]);
 				memcpy(data, others[i], otherLength);
-				memcpy(data + otherLength, space.data_, space.length_);
+				memcpy(data - space.length_, space.data_, space.length_);
 				data += otherLength + space.length_;
 			}
 			return newString;
@@ -278,11 +283,13 @@ namespace Power {
 			size_t totalLength = (size - 1) * spaceLength;
 			for (size_t i = 0; i < size; ++i) totalLength += strlen(others[i]);
 			String newString = String("", totalLength);
-			char* data = newString.data_;
-			for (size_t i = 0; i < size; ++i) {
-				size_t otherLength = strlen(others[i]);
+			size_t otherLength = strlen(others[0]);
+			memcpy(newString.data_, others[0], otherLength);
+			char* data = newString.data_ + otherLength + spaceLength;
+			for (size_t i = 1; i < size; ++i) {
+				otherLength = strlen(others[i]);
 				memcpy(data, others[i], otherLength);
-				memcpy(data + otherLength, space, spaceLength);
+				memcpy(data - spaceLength, space, spaceLength);
 				data += otherLength + spaceLength;
 			}
 			return newString;
@@ -301,11 +308,13 @@ namespace Power {
 			size_t totalLength = (size - 1) * spaceLength;
 			for (size_t i = 0; i < size; ++i) totalLength += strlen(others[i]);
 			String newString = String("", totalLength);
-			char* data = newString.data_;
-			for (size_t i = 0; i < size; ++i) {
-				size_t otherLength = strlen(others[i]);
+			size_t otherLength = strlen(others[0]);
+			memcpy(newString.data_, others[0], otherLength);
+			char* data = newString.data_ + otherLength + spaceLength;
+			for (size_t i = 1; i < size; ++i) {
+				otherLength = strlen(others[i]);
 				memcpy(data, others[i], otherLength);
-				memcpy(data + otherLength, space, spaceLength);
+				memcpy(data - spaceLength, space, spaceLength);
 				data += otherLength + spaceLength;
 			}
 			return newString;
@@ -548,14 +557,13 @@ namespace Power {
 		inline void ShrinkToFit() {
 			if (length_ + 1 == size_) return;
 			size_ = length_ + 1;
-			delete[](temp_);
-			temp_ = new char[size_] { '\0' };
-			char* newData = new char[size_] { '\0' };
+			char* newData = new char[size_ * 2] { '\0' };
 			this->IncInstCounter();
 			memcpy(newData, data_, length_);
 			delete[](data_);
 			--s_instanceCounter_;
 			data_ = newData;
+			temp_ = data_ + size_;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Concatenate-->
@@ -944,6 +952,58 @@ namespace Power {
 			if (begin >= length_ || end > length_ || begin > end) return -1;
 			for (size_t i = end; i >= begin; --i) if (data_[i] == c) return static_cast<int>(i);
 			return -1;
+		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Count-->
+		/// @brief TODO: Document
+		///
+		inline size_t Count(const String& other, size_t begin, size_t end) const {
+			int count = 0;
+			int curIndex = this->IndexOf(other, begin, end);
+			while (curIndex != -1) {
+				++count;
+				curIndex = this->IndexOf(other, curIndex + 1, end);
+			}
+			return count;
+		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief TODO: Document
+		///
+		inline size_t Count(const char* const other, size_t begin, size_t end) const {
+			int count = 0;
+			int curIndex = this->IndexOf(other, begin, end);
+			while (curIndex != -1) {
+				++count;
+				curIndex = this->IndexOf(other, curIndex + 1, end);
+			}
+			return count;
+		}
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief TODO: Document
+		///
+		inline size_t Count(size_t length, const char* const other, size_t begin, size_t end) const {
+			int count = 0;
+			int curIndex = this->IndexOf(length, other, begin, end);
+			while (curIndex != -1) {
+				++count;
+				curIndex = this->IndexOf(length, other, curIndex + 1, end);
+			}
+			return count;
+		}
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief TODO: Document
+		///
+		inline int Count(const char c, size_t begin, size_t end) const {
+			int count = 0;
+			int curIndex = this->IndexOf(c, begin, end);
+			while (curIndex != -1) {
+				++count;
+				curIndex = this->IndexOf(c, curIndex + 1, end);
+			}
+			return count;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Substring-->
@@ -1562,14 +1622,13 @@ namespace Power {
 		inline void CheckSizeAndReallocate(size_t newLength) {
 			if (newLength < size_) return;
 			size_ = size_ * 2 + newLength;
-			delete[](temp_);
-			temp_ = new char[size_] { '\0' };
-			char* newData = new char[size_] { '\0' };
+			char* newData = new char[size_ * 2] { '\0' };
 			this->IncInstCounter();
 			memcpy(newData, data_, length_);
 			delete[](data_);
 			--s_instanceCounter_;
 			data_ = newData;
+			temp_ = data_ + size_;
 		}
 
 	public:

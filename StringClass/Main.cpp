@@ -215,7 +215,7 @@ int main() {
 		for (int i = 0; i < measureCount; ++i) {
 			uint64_t startCount = __rdtsc();
 			std::string stdString = "asdf";
-			stdString.shrink_to_fit();
+//			stdString.shrink_to_fit();
 			uint64_t endCount = __rdtsc();
 			deltaTimes[i] = endCount - startCount;
 		}
@@ -225,10 +225,10 @@ int main() {
 		for (int i = 0; i < measureCount; ++i) {
 			uint64_t startCount = __rdtsc();
 			Power::String powerString = "asdf";
-			powerString.Concatenate(powerString);
+//			powerString.ShrinkToFit();
 			uint64_t endCount = __rdtsc();
 			deltaTimes[i] = endCount - startCount;
-			AssertString(powerString, 8);
+//			AssertString(powerString, 8);
 		}
 
 		printf("POWER average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
@@ -319,6 +319,9 @@ int main() {
 			deltaTimes[i] = endCount - startCount;
 		}
 		printf("Concatenate average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
+
+		int count = string.Count('w', 0 , string.Length());
+		printf("Count: %d\n", count);
 	}
 
 	printf("Total instances created: %zd; Remaining instances: %zd\n", Power::String::s_totalInstancesCreated_, Power::String::s_instanceCounter_);

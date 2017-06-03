@@ -5,16 +5,16 @@ namespace Power {
 	String::String() :
 		size_(s_defaultCapacity),
 		length_(0),
-		data_(new char[size_] { '\0' }),
-		temp_(new char[size_] { '\0' })
+		data_(new char[size_ * 2] { '\0' }),
+		temp_(data_ + size_)
 	{
 		this->IncInstCounter();
 	}
 	String::String(size_t size) :
 		size_(size + 1),
 		length_(0),
-		data_(new char[size_] { '\0' }),
-		temp_(new char[size_] { '\0' })
+		data_(new char[size_ * 2] { '\0' }),
+		temp_(data_ + size_)
 	{
 		this->IncInstCounter();
 	}
@@ -26,16 +26,16 @@ namespace Power {
 	{
 		length_ = strlen(data);
 		size_ = length_ + s_defaultCapacity;
-		data_ = new char[size_] { '\0' };
-		temp_ = new char[size_] { '\0' };
+		data_ = new char[size_ * 2] { '\0' };
+		temp_ = data_ + size_;
 		this->IncInstCounter();
 		memcpy(data_, data, length_);
 	}
 	String::String(const char c) :
 		size_(s_defaultCapacity),
 		length_(s_defaultCapacity - 1),
-		data_(new char[size_] { '\0' }),
-		temp_(new char[size_] { '\0' })
+		data_(new char[size_ * 2] { '\0' }),
+		temp_(data_ + size_)
 	{
 		this->IncInstCounter();
 		memset(data_, c, length_);
@@ -43,8 +43,8 @@ namespace Power {
 	String::String(const char* const data, size_t length) :
 		size_(length + s_defaultCapacity),
 		length_(length),
-		data_(new char[size_] { '\0' }),
-		temp_(new char[size_] { '\0' })
+		data_(new char[size_ * 2] { '\0' }),
+		temp_(data_ + size_)
 	{
 		this->IncInstCounter();
 		memcpy(data_, data, length_);
@@ -52,8 +52,8 @@ namespace Power {
 	String::String(const char c, size_t length) :
 		size_(length + s_defaultCapacity),
 		length_(length),
-		data_(new char[size_] { '\0' }),
-		temp_(new char[size_] { '\0' })
+		data_(new char[size_ * 2] { '\0' }),
+		temp_(data_ + size_)
 	{
 		this->IncInstCounter();
 		memset(data_, c, length_);
@@ -61,8 +61,8 @@ namespace Power {
 	String::String(const String& other) :
 		size_(other.size_),
 		length_(other.length_),
-		data_(new char[other.size_] { '\0' }),
-		temp_(new char[other.size_] { '\0' })
+		data_(new char[other.size_ * 2] { '\0' }),
+		temp_(data_ + size_)
 	{
 		this->IncInstCounter();
 		memcpy(data_, other.data_, other.length_);
@@ -70,8 +70,8 @@ namespace Power {
 	String::String(const String& lhs, const String& rhs) :
 		size_(lhs.length_ + rhs.length_ + s_defaultCapacity),
 		length_(lhs.length_ + rhs.length_),
-		data_(new char[size_] { '\0' }),
-		temp_(new char[size_] { '\0' })
+		data_(new char[size_ * 2] { '\0' }),
+		temp_(data_ + size_)
 	{
 		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
@@ -86,8 +86,8 @@ namespace Power {
 		size_t rhsLength = strlen(rhs);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + s_defaultCapacity;
-		data_ = new char[size_] { '\0' };
-		temp_ = new char[size_] { '\0' };
+		data_ = new char[size_ * 2] { '\0' };
+		temp_ = data_ + size_;
 		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, rhs, rhsLength);
@@ -95,8 +95,8 @@ namespace Power {
 	String::String(const String& lhs, const char rhs) :
 		size_(lhs.length_ + s_defaultCapacity + 1),
 		length_(lhs.length_ + 1),
-		data_(new char[size_] { '\0' }),
-		temp_(new char[size_] { '\0' })
+		data_(new char[size_ * 2] { '\0' }),
+		temp_(data_ + size_)
 	{
 		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
@@ -113,8 +113,8 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + s_defaultCapacity;
-		data_ = new char[size_] { '\0' };
-		temp_ = new char[size_] { '\0' };
+		data_ = new char[size_ * 2] { '\0' };
+		temp_ = data_ + size_;
 		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
@@ -130,8 +130,8 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + s_defaultCapacity;
-		data_ = new char[size_] { '\0' };
-		temp_ = new char[size_] { '\0' };
+		data_ = new char[size_ * 2] { '\0' };
+		temp_ = data_ + size_;
 		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
@@ -147,8 +147,8 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + s_defaultCapacity;
-		data_ = new char[size_] { '\0' };
-		temp_ = new char[size_] { '\0' };
+		data_ = new char[size_ * 2] { '\0' };
+		temp_ = data_ + size_;
 		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
@@ -164,8 +164,8 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + s_defaultCapacity;
-		data_ = new char[size_] { '\0' };
-		temp_ = new char[size_] { '\0' };
+		data_ = new char[size_ * 2] { '\0' };
+		temp_ = data_ + size_;
 		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
@@ -181,8 +181,8 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + s_defaultCapacity;
-		data_ = new char[size_] { '\0' };
-		temp_ = new char[size_] { '\0' };
+		data_ = new char[size_ * 2] { '\0' };
+		temp_ = data_ + size_;
 		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
@@ -198,8 +198,8 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + s_defaultCapacity;
-		data_ = new char[size_] { '\0' };
-		temp_ = new char[size_] { '\0' };
+		data_ = new char[size_ * 2] { '\0' };
+		temp_ = data_ + size_;
 		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
@@ -215,8 +215,8 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + s_defaultCapacity;
-		data_ = new char[size_] { '\0' };
-		temp_ = new char[size_] { '\0' };
+		data_ = new char[size_ * 2] { '\0' };
+		temp_ = data_ + size_;
 		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
@@ -232,8 +232,8 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + s_defaultCapacity;
-		data_ = new char[size_] { '\0' };
-		temp_ = new char[size_] { '\0' };
+		data_ = new char[size_ * 2] { '\0' };
+		temp_ = data_ + size_;
 		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
@@ -486,7 +486,6 @@ namespace Power {
 
 	String::~String() {
 		delete[](data_);
-		delete[](temp_);
 		--s_instanceCounter_;
 	}
 
