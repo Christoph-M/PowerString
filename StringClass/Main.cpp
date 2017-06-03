@@ -2,14 +2,8 @@
 #include <intrin.h>
 #include <string>
 
-#include "PowerString.h"
+#include "UnitTests.h"
 
-
-void AssertString(Power::String& string, size_t length, size_t size = 0) {
-	if (size > 0) assert(string.Size() == size);
-	assert(string.Length() == length);
-	assert(string.CString()[string.Length()] == '\0');
-}
 
 uint64_t CalcAverageTSC(uint64_t* data, uint32_t count) {
 	uint64_t averageTime = 0;
@@ -19,39 +13,41 @@ uint64_t CalcAverageTSC(uint64_t* data, uint32_t count) {
 }
 
 int main() {
+	Power::RunUnitTests();
+
 	{
 		Power::String string = "asd";
-		AssertString(string, 3);
+		Power::AssertString(string, 3);
 		char buffer[5] = "asdf";
 		string = Power::String(buffer, static_cast<size_t>(4));
-		AssertString(string, 4);
+		Power::AssertString(string, 4);
 		string = Power::String("asdasd", static_cast<size_t>(6));
-		AssertString(string, 6);
+		Power::AssertString(string, 6);
 		string = buffer;
-		AssertString(string, 4);
+		Power::AssertString(string, 4);
 		string = "asdfghjk";
-		AssertString(string, 8);
+		Power::AssertString(string, 8);
 		Power::String otherString = Power::String("asdfg", static_cast<size_t>(5));
-		AssertString(otherString, 5);
+		Power::AssertString(otherString, 5);
 		string = otherString;
-		AssertString(string, 5);
+		Power::AssertString(string, 5);
 		Power::String thirdWheelString = otherString;
-		AssertString(thirdWheelString, 5);
+		Power::AssertString(thirdWheelString, 5);
 		char c = 'e';
 		string = c;
-		AssertString(string, 1);
+		Power::AssertString(string, 1);
 
 		printf("String: %s; OtherString: %s; ThirdWheelString: %s|\n", string.CString(), otherString.CString(), thirdWheelString.CString());
 
 		string = otherString + thirdWheelString;
-		AssertString(string, 10);
+		Power::AssertString(string, 10);
 		assert(string == string.CString());
 
-		printf("String: %s|\n", static_cast<char*>(string));
+		printf("String: %s|\n", static_cast<const char*>(string));
 
 		string += string;
 		otherString = string;
-		AssertString(string, 20);
+		Power::AssertString(string, 20);
 		assert(string == string.CString());
 		assert(string == otherString);
 		assert(string != thirdWheelString.CString());
@@ -141,17 +137,17 @@ int main() {
 		printf("Average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
 
 		Power::String newString = Power::String(static_cast<size_t>(0));
-		AssertString(newString, 0, 1);
+		Power::AssertString(newString, 0, 1);
 		newString = 'c';
-		AssertString(newString, 1, 3);
+		Power::AssertString(newString, 1, 3);
 		newString += "cc";
-		AssertString(newString, 3, 9);
+		Power::AssertString(newString, 3, 9);
 		newString += "cccccc";
-		AssertString(newString, 9, 27);
+		Power::AssertString(newString, 9, 27);
 		newString += "cccccccccccccccccc";
-		AssertString(newString, 27, 81);
+		Power::AssertString(newString, 27, 81);
 		newString += "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-		AssertString(newString, 153, 315);
+		Power::AssertString(newString, 153, 315);
 
 		string = "";
 //		string += Power::String::ToString(1) + '_' + 1.01f + '_' + 1.01 + '_' + true + '_' + false;
@@ -190,17 +186,17 @@ int main() {
 		otherString = "Fresse";
 		printf("String: %s|\n", string.CString());
 		string.Replace(string.LastIndexOf("Backen"), otherString);
-		AssertString(string, 15);
+		Power::AssertString(string, 15);
 		printf("String: %s|\n", string.CString());
 		string.Replace(string.LastIndexOf(otherString), "Eier");
-		AssertString(string, 13);
+		Power::AssertString(string, 13);
 		printf("String: %s|\n", string.CString());
 		string.Replace(string.IndexOf("Eier"), 'c');
-		AssertString(string, 10);
+		Power::AssertString(string, 10);
 		printf("String: %s|\n", string.CString());
 
 		string.Insert(string.Length(), " -> Nein!");
-		AssertString(string, 19);
+		Power::AssertString(string, 19);
 		printf("String: %s|\n", string.CString());
 		
 		otherString = "Halt";
@@ -228,7 +224,7 @@ int main() {
 //			powerString.ShrinkToFit();
 			uint64_t endCount = __rdtsc();
 			deltaTimes[i] = endCount - startCount;
-//			AssertString(powerString, 8);
+//			Power::AssertString(powerString, 8);
 		}
 
 		printf("POWER average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
@@ -254,11 +250,11 @@ int main() {
 
 		Power::String joinedString = Power::String::Join(otherString, strings, 10);
 		printf("String: %s|\n", joinedString.CString());
-		AssertString(joinedString, 107, 363);
+		Power::AssertString(joinedString, 107, 363);
 		char* cStrings[3] = { "Eins", "Zwei", "Drei" };
 		joinedString = Power::String::Join("___", cStrings, 3);
 		printf("String: %s|\n", joinedString.CString());
-		AssertString(joinedString, 18, 363);
+		Power::AssertString(joinedString, 18, 363);
 
 		Power::String::SplitStringAt(string, 15, otherString, thirdWheelString);
 		printf("String: %s|\n", otherString.CString());
@@ -320,8 +316,8 @@ int main() {
 		}
 		printf("Concatenate average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
 
-		int count = string.Count('w', 0 , string.Length());
-		printf("Count: %d\n", count);
+		size_t count = string.Count('w', 0 , string.Length());
+		printf("Count: %zd\n", count);
 	}
 
 	printf("Total instances created: %zd; Remaining instances: %zd\n", Power::String::s_totalInstancesCreated_, Power::String::s_instanceCounter_);

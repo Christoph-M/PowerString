@@ -26,5 +26,8 @@
     <ClInclude Include="PowerString.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UnitTests.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

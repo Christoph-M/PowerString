@@ -524,7 +524,7 @@ namespace Power {
 		}
 
 		inline char operator[](size_t i) const { return *(data_ + i); }
-		inline operator char*() const { return data_; }
+		inline operator const char*() const { return data_; }
 
 		inline bool operator==(const String& other)		const	{ return length_ == other.length_ && memcmp(data_, other.data_, other.length_) == 0;	}
 		inline bool operator==(const char* const other) const	{ return strcmp(data_, other) == 0;														}
@@ -958,7 +958,7 @@ namespace Power {
 		/// @brief TODO: Document
 		///
 		inline size_t Count(const String& other, size_t begin, size_t end) const {
-			int count = 0;
+			size_t count = 0;
 			int curIndex = this->IndexOf(other, begin, end);
 			while (curIndex != -1) {
 				++count;
@@ -971,7 +971,7 @@ namespace Power {
 		/// @brief TODO: Document
 		///
 		inline size_t Count(const char* const other, size_t begin, size_t end) const {
-			int count = 0;
+			size_t count = 0;
 			int curIndex = this->IndexOf(other, begin, end);
 			while (curIndex != -1) {
 				++count;
@@ -984,7 +984,7 @@ namespace Power {
 		/// @brief TODO: Document
 		///
 		inline size_t Count(size_t length, const char* const other, size_t begin, size_t end) const {
-			int count = 0;
+			size_t count = 0;
 			int curIndex = this->IndexOf(length, other, begin, end);
 			while (curIndex != -1) {
 				++count;
@@ -996,8 +996,8 @@ namespace Power {
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief TODO: Document
 		///
-		inline int Count(const char c, size_t begin, size_t end) const {
-			int count = 0;
+		inline size_t Count(const char c, size_t begin, size_t end) const {
+			size_t count = 0;
 			int curIndex = this->IndexOf(c, begin, end);
 			while (curIndex != -1) {
 				++count;
