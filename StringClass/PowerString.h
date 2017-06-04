@@ -53,7 +53,7 @@ namespace Power {
 		static String ToString(const int16_t value) {
 			char buffer[INT16_MAX_CHR_COUNT];
 			snprintf(buffer, INT16_MAX_CHR_COUNT, "%hd", value);
-			return String(buffer, static_cast<size_t>(INT16_MAX_CHR_COUNT));
+			return String(buffer);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -64,7 +64,7 @@ namespace Power {
 		static String ToString(const uint16_t value) {
 			char buffer[UINT16_MAX_CHR_COUNT];
 			snprintf(buffer, UINT16_MAX_CHR_COUNT, "%hu", value);
-			return String(buffer, static_cast<size_t>(UINT16_MAX_CHR_COUNT));
+			return String(buffer);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,7 +75,7 @@ namespace Power {
 		static String ToString(const int32_t value) {
 			char buffer[INT32_MAX_CHR_COUNT];
 			snprintf(buffer, INT32_MAX_CHR_COUNT, "%d", value);
-			return String(buffer, static_cast<size_t>(INT32_MAX_CHR_COUNT));
+			return String(buffer);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -86,7 +86,7 @@ namespace Power {
 		static String ToString(const uint32_t value) {
 			char buffer[UINT32_MAX_CHR_COUNT];
 			snprintf(buffer, UINT32_MAX_CHR_COUNT, "%u", value);
-			return String(buffer, static_cast<size_t>(UINT32_MAX_CHR_COUNT));
+			return String(buffer, strlen(buffer));
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -97,7 +97,7 @@ namespace Power {
 		static String ToString(const int64_t value) {
 			char buffer[INT64_MAX_CHR_COUNT];
 			snprintf(buffer, INT64_MAX_CHR_COUNT, "%lld", value);
-			return String(buffer, static_cast<size_t>(INT64_MAX_CHR_COUNT));
+			return String(buffer);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -108,7 +108,7 @@ namespace Power {
 		static String ToString(const uint64_t value) {
 			char buffer[UINT64_MAX_CHR_COUNT];
 			snprintf(buffer, UINT64_MAX_CHR_COUNT, "%llu", value);
-			return String(buffer, static_cast<size_t>(UINT64_MAX_CHR_COUNT));
+			return String(buffer);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -119,7 +119,7 @@ namespace Power {
 		static String ToString(const float value) {
 			char buffer[FLOAT_MAX_CHR_COUNT];
 			snprintf(buffer, FLOAT_MAX_CHR_COUNT, "%g", value);
-			return String(buffer, static_cast<size_t>(FLOAT_MAX_CHR_COUNT));
+			return String(buffer);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -130,7 +130,7 @@ namespace Power {
 		static String ToString(const double value) {
 			char buffer[DOUBLE_MAX_CHR_COUNT];
 			snprintf(buffer, DOUBLE_MAX_CHR_COUNT, "%g", value);
-			return String(buffer, static_cast<size_t>(DOUBLE_MAX_CHR_COUNT));
+			return String(buffer);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Merge-->
@@ -404,13 +404,15 @@ namespace Power {
 
 		inline void operator=(const String& other) {
 			this->CheckSizeAndReallocate(other.length_);
-			memcpy(data_, other.data_, other.length_ + 1);
+			memcpy(data_, other.data_, other.length_);
+			data_[other.length_] = '\0';
 			length_ = other.length_;
 		}
 		inline void operator=(const char* const data) {
 			size_t newLength = strlen(data);
 			this->CheckSizeAndReallocate(newLength);
-			memcpy(data_, data, newLength + 1);
+			memcpy(data_, data, newLength);
+			data_[newLength] = '\0';
 			length_ = newLength;
 		}
 		inline void operator=(const char c) {
@@ -432,24 +434,9 @@ namespace Power {
 		inline String operator+(const float value)			const { return String(*this, value); }
 		inline String operator+(const double value)			const { return String(*this, value); }
 
-		inline void operator+=(const String& other) {
-			size_t newLength = length_ + other.length_;
-			this->CheckSizeAndReallocate(newLength);
-			memcpy(data_ + length_, other.data_, other.length_ + 1);
-			length_ = newLength;
-		}
-		inline void operator+=(const char* const other) {
-			size_t otherLength = strlen(other);
-			size_t newLength = length_ + otherLength;
-			this->CheckSizeAndReallocate(newLength);
-			memcpy(data_ + length_, other, otherLength + 1);
-			length_ = newLength;
-		}
-		inline void operator+=(const char c) {
-			this->CheckSizeAndReallocate(++length_);
-			data_[length_ - 1] = c;
-			data_[length_] = '\0';
-		}
+		inline void operator+=(const String& other)		{ this->Concatenate(other); }
+		inline void operator+=(const char* const other) { this->Concatenate(other); }
+		inline void operator+=(const char c)			{ this->Concatenate(c);		}
 		inline void operator+=(const int16_t value) {
 			char buffer[INT16_MAX_CHR_COUNT];
 			snprintf(buffer, INT16_MAX_CHR_COUNT, "%hd", value);
@@ -534,10 +521,16 @@ namespace Power {
 		inline bool operator!=(const char c)			const	{ return length_ > 1 || *data_ != c;													}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Size-->
-		/// @brief Gets the current capacity of the Power::String.
-		/// @return The current capacity of the Power::String.
+		/// @brief Gets the current total number of array elements of the Power::String.
+		/// @return The current total number of array elements of the Power::String.
 		///
 		inline size_t		Size()		const { return size_;	}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Capacity-->
+		/// @brief Gets the current maximum capacity of the Power::String which is Size() - 1.
+		/// @return The current maximum capacity of the Power::String.
+		///
+		inline size_t		Capacity()	const { return size_ - 1; }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Length-->
 		/// @brief Gets the current length excluding the null character of the Power::String.
@@ -573,7 +566,8 @@ namespace Power {
 		inline void Concatenate(const String& other) {
 			size_t newLength = length_ + other.length_;
 			this->CheckSizeAndReallocate(newLength);
-			memcpy(data_ + length_, other.data_, other.length_ + 1);
+			memcpy(data_ + length_, other.data_, other.length_);
+			data_[newLength] = '\0';
 			length_ = newLength;
 		}
 
@@ -584,10 +578,20 @@ namespace Power {
 		/// @note <b>If the length of the c-string is already known, it is recommend to use Concatenate(const char* const, size_t) instead as it is faser.</b>
 		///
 		inline void Concatenate(const char* const other) {
+			if (other - data_ >= 0 && other - data_ < length_) {
+				size_t offset = other - data_;
+				size_t newLength = length_ + length_ - offset;
+				this->CheckSizeAndReallocate(newLength);
+				memcpy(data_ + length_, data_ + offset, newLength);
+				data_[newLength] = '\0';
+				length_ = newLength;
+				return;
+			}
 			size_t otherLength = strlen(other);
 			size_t newLength = length_ + otherLength;
 			this->CheckSizeAndReallocate(newLength);
-			memcpy(data_ + length_, other, otherLength + 1);
+			memcpy(data_ + length_, other, otherLength);
+			data_[newLength] = '\0';
 			length_ = newLength;
 		}
 
@@ -600,7 +604,8 @@ namespace Power {
 		inline void Concatenate(const char* const other, size_t length) {
 			size_t newLength = length_ + length;
 			this->CheckSizeAndReallocate(newLength);
-			memcpy(data_ + length_, other, length + 1);
+			memcpy(data_ + length_, other, length);
+			data_[newLength] = '\0';
 			length_ = newLength;
 		}
 
@@ -1179,7 +1184,7 @@ namespace Power {
 		inline void ReplaceAt(size_t index, const String& other) {
 			if (index >= length_) return;
 			this->CheckSizeAndReallocate(index + other.length_);
-			memcpy(data_ + index, other.data_, other.length_);
+			this->MemCpyCheckData(index, other.data_, other.length_);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1189,12 +1194,7 @@ namespace Power {
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use ReplaceAt(size_t, const char) instead.
 		/// @node <b>If the length of the c-string is already known, it is recommended to use ReplaceAt(size_t, const char* const, size_t) instead as it is faster.</b>
 		///
-		inline void ReplaceAt(size_t index, const char* const other) {
-			if (index >= length_) return;
-			size_t otherLength = strlen(other);
-			this->CheckSizeAndReallocate(index + otherLength);
-			memcpy(data_ + index, other, otherLength);
-		}
+		inline void ReplaceAt(size_t index, const char* const other) { this->ReplaceAt(index, other, strlen(other)); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Replaces the characters with the specified c-string at the specified index.
@@ -1205,6 +1205,16 @@ namespace Power {
 		///
 		inline void ReplaceAt(size_t index, const char* const other, size_t length) {
 			if (index >= length_) return;
+			if (other - data_ >= 0 && other - data_ < length_) {
+				size_t offset = other - data_;
+				size_t newLength = index + length;
+				this->CheckSizeAndReallocate(newLength);
+				memcpy(temp_ + index, data_ + offset, length);
+				memcpy(data_ + index, temp_ + index, length);
+				data_[newLength] = '\0';
+				length_ = newLength;
+				return;
+			}
 			this->CheckSizeAndReallocate(index + length);
 			memcpy(data_ + index, other, length);
 		}
@@ -1431,6 +1441,7 @@ namespace Power {
 		/// @param[in] other The Power::String to fill with.
 		///
 		inline void Fill(const String& other) const {
+			if (other.data_ == data_) return;
 			int count = static_cast<int>(length_ / other.length_);
 			for (int i = 0; i < count; ++i) memcpy(data_ + i * other.length_, other.data_, other.length_);
 			memcpy(data_ + count * other.length_, other.data_, length_ % other.length_);
@@ -1442,7 +1453,7 @@ namespace Power {
 		/// @param[in] begin The index from where to start filling.
 		///
 		inline void Fill(const String& other, size_t begin) const {
-			if (begin > length_) return;
+			if (other.data_ == data_ || begin > length_) return;
 			int count = static_cast<int>((length_ - begin) / other.length_);
 			for (int i = 0; i < count; ++i) memcpy(data_ + begin + i * other.length_, other.data_, other.length_);
 			memcpy(data_ + begin + count * other.length_, other.data_, (length_ - begin) % other.length_);
@@ -1455,6 +1466,7 @@ namespace Power {
 		/// @param[in] end The index to where to stop filling.
 		///
 		inline void Fill(const String& other, size_t begin, size_t end) const {
+			if (other.data_ == data_) return;
 			if (end > length_) end = length_;
 			if (begin > end) return;
 			int count = static_cast<int>((end - begin) / other.length_);
@@ -1469,6 +1481,7 @@ namespace Power {
 		/// @node <b>If the length of the c-string is already known, it is recommended to use Fill(size_t, const char* const) const instead as it is faster.</b>
 		///
 		inline void Fill(const char* const other) const {
+			if (other == data_) return;
 			size_t otherLength = strlen(other);
 			int count = static_cast<int>(length_ / otherLength);
 			for (int i = 0; i < count; ++i) memcpy(data_ + i * otherLength, other, otherLength);
@@ -1483,7 +1496,7 @@ namespace Power {
 		/// @node <b>If the length of the c-string is already known, it is recommended to use Fill(size_t, const char* const, size_t) const instead as it is faster.</b>
 		///
 		inline void Fill(const char* const other, size_t begin) const {
-			if (begin > length_) return;
+			if (other == data_ || begin > length_) return;
 			size_t otherLength = strlen(other);
 			int count = static_cast<int>((length_ - begin) / otherLength);
 			for (int i = 0; i < count; ++i) memcpy(data_ + begin + i * otherLength, other, otherLength);
@@ -1499,6 +1512,7 @@ namespace Power {
 		/// @node <b>If the length of the c-string is already known, it is recommended to use Fill(size_t, const char* const, size_t, size_t) const instead as it is faster.</b>
 		///
 		inline void Fill(const char* const other, size_t begin, size_t end) const {
+			if (other == data_) return;
 			if (end > length_) end = length_;
 			if (begin > end) return;
 			size_t otherLength = strlen(other);
@@ -1514,6 +1528,7 @@ namespace Power {
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char) const instead.
 		///
 		inline void Fill(size_t length, const char* const other) const {
+			if (other == data_) return;
 			int count = static_cast<int>(length_ / length);
 			for (int i = 0; i < count; ++i) memcpy(data_ + i * length, other, length);
 			memcpy(data_ + count * length, other, length_ % length);
@@ -1527,7 +1542,7 @@ namespace Power {
 		/// @param[in] begin The index from where to start filling.
 		///
 		inline void Fill(size_t length, const char* const other, size_t begin) const {
-			if (begin > length_) return;
+			if (other == data_ || begin > length_) return;
 			int count = static_cast<int>((length_ - begin) / length);
 			for (int i = 0; i < count; ++i) memcpy(data_ + begin + i * length, other, length);
 			memcpy(data_ + begin + count * length, other, (length_ - begin) % length);
@@ -1542,6 +1557,7 @@ namespace Power {
 		/// @param[in] end The index to where to stop filling.
 		///
 		inline void Fill(size_t length, const char* const other, size_t begin, size_t end) const {
+			if (other == data_) return;
 			if (end > length_) end = length_;
 			if (begin > end) return;
 			int count = static_cast<int>((end - begin) / length);
@@ -1629,6 +1645,22 @@ namespace Power {
 			--s_instanceCounter_;
 			data_ = newData;
 			temp_ = data_ + size_;
+		}
+
+		inline void MemCpyCheckData(const void* source, size_t size) const {
+			if (data_ != source) memcpy(data_, source, size);
+			else {
+				memcpy(temp_, source, size);
+				memcpy(data_, temp_, size);
+			}
+		}
+
+		inline void MemCpyCheckData(size_t offset, const void* source, size_t size) const {
+			if (data_ != source) memcpy(data_ + offset, source, size);
+			else {
+				memcpy(temp_ + offset, source, size);
+				memcpy(data_ + offset, temp_ + offset, size);
+			}
 		}
 
 	public:

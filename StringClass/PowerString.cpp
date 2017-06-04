@@ -33,12 +33,12 @@ namespace Power {
 	}
 	String::String(const char c) :
 		size_(s_defaultCapacity),
-		length_(s_defaultCapacity - 1),
+		length_(1),
 		data_(new char[size_ * 2] { '\0' }),
 		temp_(data_ + size_)
 	{
 		this->IncInstCounter();
-		memset(data_, c, length_);
+		*data_ = c;
 	}	
 	String::String(const char* const data, size_t length) :
 		size_(length + s_defaultCapacity),
@@ -367,6 +367,7 @@ namespace Power {
 	void String::RemoveAll(const String& other) {
 		int index = 0;
 		int nextIndex = static_cast<int>(this->IndexOf(other.data_));
+		if (nextIndex < 0) return;
 		size_t i = 0;
 		char* temp = temp_;
 		while (nextIndex >= 0) {
@@ -386,6 +387,7 @@ namespace Power {
 		size_t otherLength = strlen(other);
 		int index = 0;
 		int nextIndex = static_cast<int>(this->IndexOf(other));
+		if (nextIndex < 0) return;
 		size_t i = 0;
 		char* temp = temp_;
 		while (nextIndex >= 0) {
@@ -404,6 +406,7 @@ namespace Power {
 	void String::RemoveAll(const char* const other, size_t length) {
 		int index = 0;
 		int nextIndex = static_cast<int>(this->IndexOf(other));
+		if (nextIndex < 0) return;
 		size_t i = 0;
 		char* temp = temp_;
 		while (nextIndex >= 0) {
