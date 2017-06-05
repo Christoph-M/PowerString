@@ -110,6 +110,8 @@ namespace Power {
 		AssertString(stringAssignment, 19, 13 * 2 + 19, "c-string assignment");
 		stringAssignment = stringAssignment;
 		AssertString(stringAssignment, 19, 13 * 2 + 19, "c-string assignment");
+		cstringAssignment = cstringAssignment.CString() + cstringAssignment.Length() - 10;
+		AssertString(cstringAssignment, 10, 16 * 2 + 19, "assignment");
 		cstringAssignment = "";
 		AssertString(cstringAssignment, 0, 16 * 2 + 19, "");
 		stringAssignment = charAssignment;
@@ -270,6 +272,73 @@ namespace Power {
 		AssertString(plusDoubleAssignment, 26, 20 * 2 + 26, "0-2.22507e-3081.79769e+308");
 	}
 
+	void TestPlusOperator() {
+		String plusString(static_cast<size_t>(0));
+		String plusStringOperator("plus string operator");
+		String plusCStringOperator("plus c-string operator");
+
+		AssertString(plusString, 0, 1, "");
+		AssertString(plusStringOperator, 20, 20 + String::s_defaultCapacity, "plus string operator");
+		AssertString(plusCStringOperator, 22, 22 + String::s_defaultCapacity, "plus c-string operator");
+
+		plusString = plusStringOperator + plusString;
+		AssertString(plusString, 20, 1 * 2 + 20, "plus string operator");
+		plusString = plusStringOperator + plusStringOperator;
+		AssertString(plusString, 40, 22 * 2 + 40, "plus string operatorplus string operator");
+		plusString = plusStringOperator + plusStringOperator + plusStringOperator + plusStringOperator + String("");
+		AssertString(plusString, 80, 22 * 2 + 40, "plus string operatorplus string operatorplus string operatorplus string operator");
+		plusString = plusCStringOperator + "";
+		AssertString(plusString, 22, 22 * 2 + 40, "plus c-string operator");
+		plusString = plusCStringOperator + " c-string";
+		AssertString(plusString, 31, 22 * 2 + 40, "plus c-string operator c-string");
+		plusString = plusCStringOperator + plusCStringOperator.CString();
+		AssertString(plusString, 44, 22 * 2 + 40, "plus c-string operatorplus c-string operator");
+		plusString.ShrinkToFit();
+		plusString = plusCStringOperator + plusCStringOperator.CString() + plusCStringOperator.CString() + "";
+		AssertString(plusString, 66, 45 * 2 + 66, "plus c-string operatorplus c-string operatorplus c-string operator");
+		plusString = plusCStringOperator + (plusCStringOperator.CString() + plusCStringOperator.Length() - 8);
+		AssertString(plusString, 30, 45 * 2 + 66, "plus c-string operatoroperator");
+		plusString = String::ToString("plus char operator") + 'c';
+		AssertString(plusString, 19, 45 * 2 + 66, "plus char operatorc");
+		plusString = String::ToString("short min: ") + std::numeric_limits<int16_t>::min();
+		AssertString(plusString, 17, 45 * 2 + 66, "short min: -32768");
+		plusString = String::ToString("short max: ") + std::numeric_limits<int16_t>::max();
+		AssertString(plusString, 16, 45 * 2 + 66, "short max: 32767");
+		plusString = String::ToString("unsigned short min: ") + std::numeric_limits<uint16_t>::min();
+		AssertString(plusString, 21, 45 * 2 + 66, "unsigned short min: 0");
+		plusString = String::ToString("unsigned short max: ") + std::numeric_limits<uint16_t>::max();
+		AssertString(plusString, 25, 45 * 2 + 66, "unsigned short max: 65535");
+		plusString = String::ToString("integer min: ") + std::numeric_limits<int32_t>::min();
+		AssertString(plusString, 24, 45 * 2 + 66, "integer min: -2147483648");
+		plusString = String::ToString("integer max: ") + std::numeric_limits<int32_t>::max();
+		AssertString(plusString, 23, 45 * 2 + 66, "integer max: 2147483647");
+		plusString = String::ToString("unsigned integer min: ") + std::numeric_limits<uint32_t>::min();
+		AssertString(plusString, 23, 45 * 2 + 66, "unsigned integer min: 0");
+		plusString = String::ToString("unsigned integer max: ") + std::numeric_limits<uint32_t>::max();
+		AssertString(plusString, 32, 45 * 2 + 66, "unsigned integer max: 4294967295");
+		plusString = String::ToString("long long min: ") + std::numeric_limits<int64_t>::min();
+		AssertString(plusString, 35, 45 * 2 + 66, "long long min: -9223372036854775808");
+		plusString = String::ToString("long long max: ") + std::numeric_limits<int64_t>::max();
+		AssertString(plusString, 34, 45 * 2 + 66, "long long max: 9223372036854775807");
+		plusString = String::ToString("unsigned long long min: ") + std::numeric_limits<uint64_t>::min();
+		AssertString(plusString, 25, 45 * 2 + 66, "unsigned long long min: 0");
+		plusString = String::ToString("unsigned long long max: ") + std::numeric_limits<uint64_t>::max();
+		AssertString(plusString, 44, 45 * 2 + 66, "unsigned long long max: 18446744073709551615");
+		plusString = String::ToString("float min: ") + -std::numeric_limits<float>::min();
+		AssertString(plusString, 23, 45 * 2 + 66, "float min: -1.17549e-38");
+		plusString = String::ToString("float max: ") + std::numeric_limits<float>::max();
+		AssertString(plusString, 22, 45 * 2 + 66, "float max: 3.40282e+38");
+		plusString = String::ToString("double min: ") + -std::numeric_limits<double>::min();
+		AssertString(plusString, 25, 45 * 2 + 66, "double min: -2.22507e-308");
+		plusString = String::ToString("double max: ") + std::numeric_limits<double>::max();
+		AssertString(plusString, 24, 45 * 2 + 66, "double max: 1.79769e+308");
+		plusString = "";
+		plusString.ShrinkToFit();
+		AssertString(plusString, 0, 1, "");
+		plusString = plusString + 1 + -1 + 1.01f + -1.01f + 1.01 + -1.01 + 'c' + false + true + "c-string" + String::ToString("string");
+		AssertString(plusString, 38, 1 * 2 + 38, "1-11.01-1.011.01-1.01c01c-stringstring");
+	}
+
 	void RunUnitTests() {
 		TestCompareOperators();
 		TestConstructors();
@@ -277,5 +346,6 @@ namespace Power {
 		TestAssignmentOperators();
 		TestToString();
 		TestPlusAssignmentOperators();
+		TestPlusOperator();
 	}
 }
