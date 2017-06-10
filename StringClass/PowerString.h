@@ -3,6 +3,7 @@
 #include <cstring>
 #include <cstdio>
 #include <inttypes.h>
+#include <cstdlib>
 
 
 #define INT16_MAX_CHR_COUNT		 7		///< Maximum character count of a signed short including the null character.
@@ -377,30 +378,26 @@ namespace Power {
 		inline void operator=(const String& other) {
 			this->CheckSizeAndReallocate(other.length_);
 			memcpy(data_, other.data_, other.length_);
-			data_[other.length_] = '\0';
-			length_ = other.length_;
+			this->SetNewLength(other.length_);
 		}
 		inline void operator=(const char* const other) {
 			size_t newLength = strlen(other);
-			if (other - data_ >= 0 && other - data_ < static_cast<int>(length_)) {
-				size_t offset = other - data_;
+			int64_t offset = other - data_;
+			if (offset >= 0 && offset < static_cast<int>(length_)) {
 				this->CheckSizeAndReallocate(newLength);
 				memcpy(temp_, data_ + offset, newLength);
 				memcpy(data_, temp_, newLength);
-				data_[newLength] = '\0';
-				length_ = newLength;
+				this->SetNewLength(newLength);
 				return;
 			}
 			this->CheckSizeAndReallocate(newLength);
 			memcpy(data_, other, newLength);
-			data_[newLength] = '\0';
-			length_ = newLength;
+			this->SetNewLength(newLength);
 		}
 		inline void operator=(const char c) {
 			this->CheckSizeAndReallocate(1);
 			*data_ = c;
-			data_[1] = '\0';
-			length_ = 1;
+			this->SetNewLength(1);
 		}
 
 		inline String operator+(const String& other)		const { return String(*this, other); }
@@ -499,6 +496,10 @@ namespace Power {
 			return *this;
 		}
 
+		inline String& operator<<(const String& other)		{ this->Concatenate(other);					return *this; }
+		inline String& operator<<(const char* const other)	{ this->Concatenate(other, strlen(other));	return *this; }
+		inline String& operator<<(const char c)				{ this->Concatenate(c);						return *this; }
+
 		inline char operator[](size_t i) const { return *(data_ + i); }
 		inline operator const char*() const { return data_; }
 
@@ -539,12 +540,7 @@ namespace Power {
 		inline void ShrinkToFit() {
 			if (length_ + 1 == size_) return;
 			size_ = length_ + 1;
-			char* newData = new char[size_ * 2] { '\0' };
-			this->IncInstCounter();
-			memcpy(newData, data_, length_);
-			delete[](data_);
-			--s_instanceCounter_;
-			data_ = newData;
+			data_ = static_cast<char*>(realloc(data_, size_ * 2));
 			temp_ = data_ + size_;
 		}
 
@@ -556,8 +552,7 @@ namespace Power {
 			size_t newLength = length_ + other.length_;
 			this->CheckSizeAndReallocate(newLength);
 			memcpy(data_ + length_, other.data_, other.length_);
-			data_[newLength] = '\0';
-			length_ = newLength;
+			this->SetNewLength(newLength);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -575,20 +570,17 @@ namespace Power {
 		/// @param[in] length The length of the c-string excluding the null character.
 		///
 		inline void Concatenate(const char* const other, size_t length) {
-			if (other - data_ >= 0 && other - data_ < static_cast<int>(length_)) {
-				size_t offset = other - data_;
-				size_t newLength = length_ + length_ - offset;
+			int64_t offset = other - data_;
+			size_t newLength = length_ + length;
+			if (offset >= 0 && offset < static_cast<int>(length_)) {
 				this->CheckSizeAndReallocate(newLength);
-				memcpy(data_ + length_, data_ + offset, newLength);
-				data_[newLength] = '\0';
-				length_ = newLength;
+				memcpy(data_ + length_, data_ + offset, length);
+				this->SetNewLength(newLength);
 				return;
 			}
-			size_t newLength = length_ + length;
 			this->CheckSizeAndReallocate(newLength);
 			memcpy(data_ + length_, other, length);
-			data_[newLength] = '\0';
-			length_ = newLength;
+			this->SetNewLength(newLength);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1178,8 +1170,10 @@ namespace Power {
 		///
 		inline void ReplaceAt(size_t index, const String& other) {
 			if (index >= length_) return;
-			this->CheckSizeAndReallocate(index + other.length_);
+			size_t newLength = index + other.length_;
+			this->CheckSizeAndReallocate(newLength);
 			this->MemCpyCheckData(index, other.data_, other.length_);
+			if (newLength > length_) this->SetNewLength(newLength);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1200,18 +1194,18 @@ namespace Power {
 		///
 		inline void ReplaceAt(size_t index, const char* const other, size_t length) {
 			if (index >= length_) return;
-			if (other - data_ >= 0 && other - data_ < static_cast<int>(length_)) {
-				size_t offset = other - data_;
-				size_t newLength = index + length;
+			size_t newLength = index + length;
+			int64_t offset = other - data_;
+			if (offset >= 0 && offset < static_cast<int>(length_)) {
 				this->CheckSizeAndReallocate(newLength);
-				memcpy(temp_ + index, data_ + offset, length);
-				memcpy(data_ + index, temp_ + index, length);
-				data_[newLength] = '\0';
-				length_ = newLength;
+				memcpy(temp_, data_ + offset, length);
+				memcpy(data_ + index, temp_, length);
+				if (newLength > length_) this->SetNewLength(newLength);
 				return;
 			}
-			this->CheckSizeAndReallocate(index + length);
+			this->CheckSizeAndReallocate(newLength);
 			memcpy(data_ + index, other, length);
+			if (newLength > length_) this->SetNewLength(newLength);
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1564,23 +1558,23 @@ namespace Power {
 			++s_totalInstancesCreated_;
 		}
 
+		inline void SetNewLength(size_t newLength) {
+			data_[newLength] = '\0';
+			length_ = newLength;
+		}
+
 		inline void CheckSizeAndReallocate(size_t newLength) {
 			if (newLength < size_) return;
 			size_ = size_ * 2 + newLength;
-			char* newData = new char[size_ * 2] { '\0' };
-			this->IncInstCounter();
-			memcpy(newData, data_, length_);
-			delete[](data_);
-			--s_instanceCounter_;
-			data_ = newData;
+			data_ = static_cast<char*>(realloc(data_, size_ * 2));
 			temp_ = data_ + size_;
 		}
 
 		inline void MemCpyCheckData(size_t offset, const char* source, size_t size) const {
 			if (source - data_ < 0 || source - data_ >= static_cast<int>(length_)) memcpy(data_ + offset, source, size);
 			else {
-				memcpy(temp_ + offset, source, size);
-				memcpy(data_ + offset, temp_ + offset, size);
+				memcpy(temp_, source, size);
+				memcpy(data_ + offset, temp_, size);
 			}
 		}
 

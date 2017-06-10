@@ -210,7 +210,7 @@ int main() {
 
 		for (int i = 0; i < measureCount; ++i) {
 			uint64_t startCount = __rdtsc();
-			std::string stdString = "asdf";
+			std::string stdString = "asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf";
 //			stdString.shrink_to_fit();
 			uint64_t endCount = __rdtsc();
 			deltaTimes[i] = endCount - startCount;
@@ -220,7 +220,7 @@ int main() {
 
 		for (int i = 0; i < measureCount; ++i) {
 			uint64_t startCount = __rdtsc();
-			Power::String powerString = "asdf";
+			Power::String powerString = "asdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdfasdf";
 //			powerString.ShrinkToFit();
 			uint64_t endCount = __rdtsc();
 			deltaTimes[i] = endCount - startCount;
@@ -318,6 +318,10 @@ int main() {
 
 		size_t count = string.Count('w', 0 , string.Length());
 		printf("Count: %zd\n", count);
+
+		string = "doodle_";
+		string << "die_" << "doodle";
+		printf("String: %s|\n", string.CString());
 	}
 
 	printf("Total instances created: %zd; Remaining instances: %zd\n", Power::String::s_totalInstancesCreated_, Power::String::s_instanceCounter_);

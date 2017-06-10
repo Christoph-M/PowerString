@@ -5,17 +5,19 @@ namespace Power {
 	String::String() :
 		size_(s_defaultCapacity),
 		length_(0),
-		data_(new char[size_ * 2] { '\0' }),
+		data_(static_cast<char*>(malloc(size_ * 2))),
 		temp_(data_ + size_)
 	{
+		*data_ = '\0';
 		this->IncInstCounter();
 	}
 	String::String(size_t size) :
 		size_(size + 1),
 		length_(0),
-		data_(new char[size_ * 2] { '\0' }),
+		data_(static_cast<char*>(malloc(size_ * 2))),
 		temp_(data_ + size_)
 	{
+		*data_ = '\0';
 		this->IncInstCounter();
 	}
 	String::String(const char* const data) :
@@ -26,56 +28,62 @@ namespace Power {
 	{
 		length_ = strlen(data);
 		size_ = length_ + s_defaultCapacity;
-		data_ = new char[size_ * 2] { '\0' };
-		temp_ = data_ + size_;
+		data_ = static_cast<char*>(malloc(size_ * 2));
 		this->IncInstCounter();
+		temp_ = data_ + size_;
 		memcpy(data_, data, length_);
+		data_[length_] = '\0';
 	}
 	String::String(const char c) :
 		size_(s_defaultCapacity),
 		length_(1),
-		data_(new char[size_ * 2] { '\0' }),
+		data_(static_cast<char*>(malloc(size_ * 2))),
 		temp_(data_ + size_)
 	{
-		this->IncInstCounter();
 		*data_ = c;
+		data_[1] = '\0';
+		this->IncInstCounter();
 	}	
 	String::String(const char* const data, size_t length) :
 		size_(length + s_defaultCapacity),
 		length_(length),
-		data_(new char[size_ * 2] { '\0' }),
+		data_(static_cast<char*>(malloc(size_ * 2))),
 		temp_(data_ + size_)
 	{
-		this->IncInstCounter();
 		memcpy(data_, data, length_);
+		data_[length_] = '\0';
+		this->IncInstCounter();
 	}
 	String::String(const char c, size_t length) :
 		size_(length + s_defaultCapacity),
 		length_(length),
-		data_(new char[size_ * 2] { '\0' }),
+		data_(static_cast<char*>(malloc(size_ * 2))),
 		temp_(data_ + size_)
 	{
-		this->IncInstCounter();
 		memset(data_, c, length_);
+		data_[length_] = '\0';
+		this->IncInstCounter();
 	}
 	String::String(const String& other) :
 		size_(other.size_),
 		length_(other.length_),
-		data_(new char[other.size_ * 2] { '\0' }),
+		data_(static_cast<char*>(malloc(size_ * 2))),
 		temp_(data_ + size_)
 	{
-		this->IncInstCounter();
 		memcpy(data_, other.data_, other.length_);
+		data_[length_] = '\0';
+		this->IncInstCounter();
 	}
 	String::String(const String& lhs, const String& rhs) :
 		size_(lhs.length_ + rhs.length_ + 1),
 		length_(lhs.length_ + rhs.length_),
-		data_(new char[size_ * 2] { '\0' }),
+		data_(static_cast<char*>(malloc(size_ * 2))),
 		temp_(data_ + size_)
 	{
-		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, rhs.data_, rhs.length_);
+		data_[length_] = '\0';
+		this->IncInstCounter();
 	}
 	String::String(const String& lhs, const char* const rhs) :
 		size_(0),
@@ -86,21 +94,23 @@ namespace Power {
 		size_t rhsLength = strlen(rhs);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + 1;
-		data_ = new char[size_ * 2] { '\0' };
-		temp_ = data_ + size_;
+		data_ = static_cast<char*>(malloc(size_ * 2));
 		this->IncInstCounter();
+		temp_ = data_ + size_;
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, rhs, rhsLength);
+		data_[length_] = '\0';
 	}
 	String::String(const String& lhs, const char rhs) :
 		size_(lhs.length_ + 2),
 		length_(lhs.length_ + 1),
-		data_(new char[size_ * 2] { '\0' }),
+		data_(static_cast<char*>(malloc(size_ * 2))),
 		temp_(data_ + size_)
 	{
-		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		data_[lhs.length_] = rhs;
+		data_[length_] = '\0';
+		this->IncInstCounter();
 	}
 	String::String(const String& lhs, const int16_t rhs) :
 		size_(0),
@@ -113,11 +123,12 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + 1;
-		data_ = new char[size_ * 2] { '\0' };
+		data_ = static_cast<char*>(malloc(size_ * 2));
 		temp_ = data_ + size_;
-		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
+		data_[length_] = '\0';
+		this->IncInstCounter();
 	}
 	String::String(const String& lhs, const uint16_t rhs) :
 		size_(0),
@@ -130,11 +141,12 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + 1;
-		data_ = new char[size_ * 2] { '\0' };
+		data_ = static_cast<char*>(malloc(size_ * 2));
 		temp_ = data_ + size_;
-		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
+		data_[length_] = '\0';
+		this->IncInstCounter();
 	}
 	String::String(const String& lhs, const int32_t rhs) :
 		size_(0),
@@ -147,11 +159,12 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + 1;
-		data_ = new char[size_ * 2] { '\0' };
+		data_ = static_cast<char*>(malloc(size_ * 2));
 		temp_ = data_ + size_;
-		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
+		data_[length_] = '\0';
+		this->IncInstCounter();
 	}
 	String::String(const String& lhs, const uint32_t rhs) :
 		size_(0),
@@ -164,11 +177,12 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + 1;
-		data_ = new char[size_ * 2] { '\0' };
+		data_ = static_cast<char*>(malloc(size_ * 2));
 		temp_ = data_ + size_;
-		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
+		data_[length_] = '\0';
+		this->IncInstCounter();
 	}
 	String::String(const String& lhs, const int64_t rhs) :
 		size_(0),
@@ -181,11 +195,12 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + 1;
-		data_ = new char[size_ * 2] { '\0' };
+		data_ = static_cast<char*>(malloc(size_ * 2));
 		temp_ = data_ + size_;
-		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
+		data_[length_] = '\0';
+		this->IncInstCounter();
 	}
 	String::String(const String& lhs, const uint64_t rhs) :
 		size_(0),
@@ -198,11 +213,12 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + 1;
-		data_ = new char[size_ * 2] { '\0' };
+		data_ = static_cast<char*>(malloc(size_ * 2));
 		temp_ = data_ + size_;
-		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
+		data_[length_] = '\0';
+		this->IncInstCounter();
 	}
 	String::String(const String& lhs, const float rhs) :
 		size_(0),
@@ -215,11 +231,12 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + 1;
-		data_ = new char[size_ * 2] { '\0' };
+		data_ = static_cast<char*>(malloc(size_ * 2));
 		temp_ = data_ + size_;
-		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
+		data_[length_] = '\0';
+		this->IncInstCounter();
 	}
 	String::String(const String& lhs, const double rhs) :
 		size_(0),
@@ -232,11 +249,12 @@ namespace Power {
 		size_t rhsLength = strlen(buffer);
 		length_ = lhs.length_ + rhsLength;
 		size_ = length_ + 1;
-		data_ = new char[size_ * 2] { '\0' };
+		data_ = static_cast<char*>(malloc(size_ * 2));
 		temp_ = data_ + size_;
-		this->IncInstCounter();
 		memcpy(data_, lhs.data_, lhs.length_);
 		memcpy(data_ + lhs.length_, buffer, rhsLength);
+		data_[length_] = '\0';
+		this->IncInstCounter();
 	}
 
 	
@@ -245,7 +263,6 @@ namespace Power {
 		for (size_t i = begin; i < end - other.length_ + 1; ++i) {
 			if (memcmp(data_ + i, other.data_, other.length_) == 0) return static_cast<int>(i);
 		}
-
 		return -1;
 	}
 	int String::IndexOf(size_t length, const char* const other, size_t begin, size_t end) const {
@@ -253,7 +270,6 @@ namespace Power {
 		for (size_t i = begin; i < end - length + 1; ++i) {
 			if (memcmp(data_ + i, other, length) == 0) return static_cast<int>(i);
 		}
-
 		return -1;
 	}
 
@@ -265,7 +281,6 @@ namespace Power {
 			if (x < 0) return -1;
 			if (memcmp(data_ + x, other.data_, other.length_) == 0) return static_cast<int>(x);
 		}
-
 		return -1;
 	}
 	int String::LastIndexOf(size_t length, const char* const other, size_t begin, size_t end) const {
@@ -276,7 +291,6 @@ namespace Power {
 			if (x < 0) return -1;
 			if (memcmp(data_ + x, other, length) == 0) return static_cast<int>(x);
 		}
-
 		return -1;
 	}
 
@@ -284,31 +298,28 @@ namespace Power {
 		if (index > length_) return;
 		size_t newLength = length_ + other.length_;
 		this->CheckSizeAndReallocate(newLength);
-		memcpy(temp_ + index, other.data_, other.length_);
-		memcpy(temp_ + index + other.length_, data_ + index, length_ - index);
-		length_ = newLength;
-		memcpy(data_ + index, temp_ + index, newLength - index);
-		data_[newLength] = '\0';
+		memcpy(temp_, other.data_, other.length_);
+		memcpy(temp_ + other.length_, data_ + index, length_ - index);
+		memcpy(data_ + index, temp_, newLength - index);
+		this->SetNewLength(newLength);
 	}
 	void String::Insert(size_t index, const char* const other, size_t length) {
 		if (index > length_) return;
 		size_t newLength = length_ + length;
 		this->CheckSizeAndReallocate(newLength);
-		memcpy(temp_ + index, other, length);
-		memcpy(temp_ + index + length, data_ + index, length_ - index);
-		length_ = newLength;
-		memcpy(data_ + index, temp_ + index, newLength - index);
-		data_[newLength] = '\0';
+		memcpy(temp_, other, length);
+		memcpy(temp_ + length, data_ + index, length_ - index);
+		memcpy(data_ + index, temp_, newLength - index);
+		this->SetNewLength(newLength);
 	}
 	void String::Insert(size_t index, const char c) {
 		if (index > length_) return;
 		size_t newLength = length_ + 1;
 		this->CheckSizeAndReallocate(newLength);
 		temp_[index] = c;
-		memcpy(temp_ + index + 1, data_ + index, length_ - index);
-		length_ = newLength;
-		memcpy(data_ + index, temp_ + index, newLength - index);
-		data_[newLength] = '\0';
+		memcpy(temp_ + 1, data_ + index, length_ - index);
+		memcpy(data_ + index, temp_, newLength - index);
+		this->SetNewLength(newLength);
 	}
 
 	void String::Remove(size_t index, size_t count) {
@@ -368,9 +379,8 @@ namespace Power {
 			temp_[count] = data_[i];
 			++count;
 		}
-		length_ = newLength;
 		memcpy(data_, temp_, newLength);
-		data_[newLength] = '\0';
+		this->SetNewLength(newLength);
 	}
 	
 	void String::Replace(size_t index, size_t count, const String& other) {
@@ -378,22 +388,20 @@ namespace Power {
 		if (count > length_ - index) count = length_ - index;
 		size_t newLength = length_ - count + other.length_;
 		this->CheckSizeAndReallocate(newLength);
-		memcpy(temp_ + index, other.data_, other.length_);
-		memcpy(temp_ + index + other.length_, data_ + index + count, length_ - index - count);
-		length_ = newLength;
-		memcpy(data_ + index, temp_ + index, newLength - index);
-		data_[newLength] = '\0';
+		memcpy(temp_, other.data_, other.length_);
+		memcpy(temp_ + other.length_, data_ + index + count, length_ - index - count);
+		memcpy(data_ + index, temp_, newLength - index);
+		this->SetNewLength(newLength);
 	}
 	void String::Replace(size_t index, size_t count, const char* const other, size_t length) {
 		if (index >= length_) return;
 		if (count > length_ - index) count = length_ - index;
 		size_t newLength = length_ - count + length;
 		this->CheckSizeAndReallocate(newLength);
-		memcpy(temp_ + index, other, length);
-		memcpy(temp_ + index + length, data_ + index + count, length_ - index - count);
-		length_ = newLength;
-		memcpy(data_ + index, temp_ + index, newLength - index);
-		data_[newLength] = '\0';
+		memcpy(temp_, other, length);
+		memcpy(temp_ + length, data_ + index + count, length_ - index - count);
+		memcpy(data_ + index, temp_, newLength - index);
+		this->SetNewLength(newLength);
 	}
 	void String::Replace(size_t index, size_t count, const char c) {
 		if (index >= length_) return;
@@ -401,14 +409,13 @@ namespace Power {
 		size_t newLength = length_ - count + 1;
 		this->CheckSizeAndReallocate(newLength);
 		temp_[index] = c;
-		memcpy(temp_ + index + 1, data_ + index + count, length_ - index - count);
-		length_ = newLength;
-		memcpy(data_ + index, temp_ + index, newLength - index);
-		data_[newLength] = '\0';
+		memcpy(temp_ + 1, data_ + index + count, length_ - index - count);
+		memcpy(data_ + index, temp_, newLength - index);
+		this->SetNewLength(newLength);
 	}
 
 	String::~String() {
-		delete[](data_);
+		free(data_);
 		--s_instanceCounter_;
 	}
 
