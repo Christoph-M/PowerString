@@ -168,8 +168,7 @@ namespace Power {
 		///
 		inline static String Join(const String& space, const String* const others, size_t size) {
 			size_t totalLength = (size - 1) * space.length_;
-			for (size_t i = 0; i < size; ++i)
-				totalLength += others[i].length_;
+			for (size_t i = 0; i < size; ++i) totalLength += others[i].length_;
 			String newString = String("", totalLength);
 			memcpy(newString.data_, others[0].data_, others[0].length_);
 			char* data = newString.data_ + others[0].length_ + space.length_;
@@ -1009,11 +1008,11 @@ namespace Power {
 		///
 		inline int LastIndexOf(const String& other, size_t begin, size_t end) const {
 			if (begin >= length_ || end > length_ || other.length_ > length_) return -1;
-			for (int i = static_cast<int>(end); i >= static_cast<int>(begin) + static_cast<int>(other.length_) - 1; --i) {
+			for (int i = static_cast<int>(end); i >= static_cast<int>(begin + other.length_) - 1; --i) {
 				if (data_[i] != other.data_[other.length_ - 1]) continue;
 				int x = i - static_cast<int>(other.length_) + 1;
 				if (x < 0) return -1;
-				if (memcmp(data_ + x, other.data_, other.length_) == 0) return static_cast<int>(x);
+				if (memcmp(data_ + x, other.data_, other.length_) == 0) return x;
 			}
 			return -1;
 		}
@@ -1084,11 +1083,11 @@ namespace Power {
 		///
 		inline int LastIndexOf(size_t length, const char* const other, size_t begin, size_t end) const {
 			if (begin >= length_ || end > length_ || length > length_) return -1;
-			for (int i = static_cast<int>(end); i >= static_cast<int>(begin) + static_cast<int>(begin) - 1; --i) {
+			for (int i = static_cast<int>(end); i >= static_cast<int>(begin + length) - 1; --i) {
 				if (data_[i] != other[length - 1]) continue;
 				int x = i - static_cast<int>(length) + 1;
 				if (x < 0) return -1;
-				if (memcmp(data_ + x, other, length) == 0) return static_cast<int>(x);
+				if (memcmp(data_ + x, other, length) == 0) return x;
 			}
 			return -1;
 		}
@@ -1127,7 +1126,7 @@ namespace Power {
 		///
 		inline int LastIndexOf(const char c, size_t begin, size_t end) const {
 			if (begin >= length_ || end > length_ || begin > end) return -1;
-			for (size_t i = end; i >= begin; --i) if (data_[i] == c) return static_cast<int>(i);
+			for (int i = static_cast<int>(end); i >= static_cast<int>(begin); --i) if (data_[i] == c) return i;
 			return -1;
 		}
 

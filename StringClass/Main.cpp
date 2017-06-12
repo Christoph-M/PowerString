@@ -322,6 +322,22 @@ int main() {
 		string = "doodle_";
 		string << "die_" << "doodle";
 		printf("String: %s|\n", string.CString());
+
+		for (int i = 0; i < measureCount; ++i) {
+			uint64_t startCount = __rdtsc();
+			int index = string.LastIndexOf('w');
+			uint64_t endCount = __rdtsc();
+			deltaTimes[i] = endCount - startCount;
+		}
+		printf("LastIndexOf strrchr average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
+
+		for (int i = 0; i < measureCount; ++i) {
+			uint64_t startCount = __rdtsc();
+			int index = string.LastIndexOf('w', 0, string.Length());
+			uint64_t endCount = __rdtsc();
+			deltaTimes[i] = endCount - startCount;
+		}
+		printf("LastIndexOf for-loop average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
 	}
 
 	printf("Total instances created: %zd; Remaining instances: %zd\n", Power::String::s_totalInstancesCreated_, Power::String::s_instanceCounter_);
