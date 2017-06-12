@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['assertstring',['AssertString',['../_main_8cpp.html#a9030f23c329040ee995de6a2618bdf92',1,'Main.cpp']]]
+  ['assertstring',['AssertString',['../namespace_power.html#a94cb0120c19b1c711fcf5959130efc67',1,'Power']]]
 ];

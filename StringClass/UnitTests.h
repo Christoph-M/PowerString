@@ -11,7 +11,7 @@ namespace Power {
 		if (data) assert(string == data);
 	}
 
-	void TestCompareOperators() {
+	void TestComparisonOperators() {
 		String equalsPowerString = "equalsPowerString";
 		String equalsCString = "equalsCString";
 		String equalsChar = "c";
@@ -174,7 +174,7 @@ namespace Power {
 		AssertString(shrinkToFit, 13, 14, "shrink to fit");
 	}
 
-	void TestPlusAssignmentOperators() {
+	void TestCompoundAssignmentOperators() {
 		String assignmentString("");
 		String plusStringAssignment(static_cast<size_t>(0));
 		String plusCStringAssignment(static_cast<size_t>(0));
@@ -191,6 +191,7 @@ namespace Power {
 		AssertString(assignmentString, 0, String::s_defaultCapacity, "");
 		AssertString(plusStringAssignment, 0, 1, "");
 		AssertString(plusCStringAssignment, 0, 1, "");
+		AssertString(plusCharAssignment, 0, 1, "");
 		AssertString(plusShortAssignment, 0, 1, "");
 		AssertString(plusUnsignedShortAssignment, 0, 1, "");
 		AssertString(plusIntegerAssignment, 0, 1, "");
@@ -272,7 +273,7 @@ namespace Power {
 		AssertString(plusDoubleAssignment, 26, 20 * 2 + 26, "0-2.22507e-3081.79769e+308");
 	}
 
-	void TestPlusOperator() {
+	void TestAdditionOperators() {
 		String plusString(static_cast<size_t>(0));
 		String plusStringOperator("plus string operator");
 		String plusCStringOperator("plus c-string operator");
@@ -339,13 +340,63 @@ namespace Power {
 		AssertString(plusString, 38, 1 * 2 + 38, "1-11.01-1.011.01-1.01c01c-stringstring");
 	}
 
+	void TestBitwiseLeftShiftOperators() {
+		String assignmentString("");
+		String plusStringAssignment(static_cast<size_t>(0));
+		String plusCStringAssignment(static_cast<size_t>(0));
+		String plusCharAssignment(static_cast<size_t>(0));
+
+		AssertString(assignmentString, 0, String::s_defaultCapacity, "");
+		AssertString(plusStringAssignment, 0, 1, "");
+		AssertString(plusCStringAssignment, 0, 1, "");
+		AssertString(plusCharAssignment, 0, 1, "");
+
+		plusStringAssignment << assignmentString;
+		AssertString(plusStringAssignment, 0, 1, "");
+		assignmentString = 'c';
+		plusStringAssignment << assignmentString;
+		AssertString(plusStringAssignment, 1, 1 * 2 + 1, "c");
+		plusStringAssignment << plusStringAssignment;
+		AssertString(plusStringAssignment, 2, 1 * 2 + 1, "cc");
+		plusStringAssignment << plusStringAssignment;
+		AssertString(plusStringAssignment, 4, 3 * 2 + 4, "cccc");
+		plusStringAssignment << plusStringAssignment << plusStringAssignment << plusStringAssignment;
+		AssertString(plusStringAssignment, 32, 10 * 2 + 16, "cccccccccccccccccccccccccccccccc");
+		plusCStringAssignment << "";
+		AssertString(plusCStringAssignment, 0, 1, "");
+		plusCStringAssignment << "plus c-string assignment";
+		AssertString(plusCStringAssignment, 24, 1 * 2 + 24, "plus c-string assignment");
+		plusCStringAssignment << "2";
+		AssertString(plusCStringAssignment, 25, 1 * 2 + 24, "plus c-string assignment2");
+		plusCStringAssignment << plusCStringAssignment.CString();
+		AssertString(plusCStringAssignment, 50, 26 * 2 + 50, "plus c-string assignment2plus c-string assignment2");
+		plusCStringAssignment << plusCStringAssignment.CString() + plusCStringAssignment.Length() - 5;
+		plusCStringAssignment.ShrinkToFit();
+		AssertString(plusCStringAssignment, 55, 56, "plus c-string assignment2plus c-string assignment2ment2");
+		plusCStringAssignment << plusCStringAssignment.CString() + plusCStringAssignment.Length() - 1;
+		AssertString(plusCStringAssignment, 56, 56 * 2 + 56, "plus c-string assignment2plus c-string assignment2ment22");
+		plusCStringAssignment << plusCStringAssignment.CString() + plusCStringAssignment.Length() - 1 << plusCStringAssignment.CString() + plusCStringAssignment.Length() - 1;
+		AssertString(plusCStringAssignment, 59, 56 * 2 + 56, "plus c-string assignment2plus c-string assignment2ment22222");
+		plusCharAssignment << 'c';
+		AssertString(plusCharAssignment, 1, 1 * 2 + 1, "c");
+		plusCharAssignment << 'd';
+		AssertString(plusCharAssignment, 2, 1 * 2 + 1, "cd");
+		plusCharAssignment << 'e';
+		AssertString(plusCharAssignment, 3, 3 * 2 + 3, "cde");
+		plusCharAssignment << 'f' << 'g' << 'h';
+		AssertString(plusCharAssignment, 6, 3 * 2 + 3, "cdefgh");
+		plusStringAssignment << plusCharAssignment << plusCStringAssignment.CString() << 'z';
+		AssertString(plusStringAssignment, 98, 36 * 2 + 38, "cccccccccccccccccccccccccccccccccdefghplus c-string assignment2plus c-string assignment2ment22222z");
+	}
+
 	void RunUnitTests() {
-		TestCompareOperators();
+		TestComparisonOperators();
 		TestConstructors();
 		TestShrinkToFit();
 		TestAssignmentOperators();
 		TestToString();
-		TestPlusAssignmentOperators();
-		TestPlusOperator();
+		TestCompoundAssignmentOperators();
+		TestAdditionOperators();
+		TestBitwiseLeftShiftOperators();
 	}
 }
