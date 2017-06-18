@@ -108,13 +108,13 @@ const char $\ast$ \hyperlink{class_power_1_1_string_a8a0120f3e5dee6cb50be979f8b1
 \begin{DoxyCompactList}\small\item\em Gets the underlying c-\/string as a constant. \end{DoxyCompactList}\item 
 void \hyperlink{class_power_1_1_string_a5a787c065417773262c90e8da4e8e079}{Shrink\+To\+Fit} ()
 \begin{DoxyCompactList}\small\item\em Shrinks the capacity of the \hyperlink{class_power_1_1_string}{Power\+::\+String} to fit the length to conserve memory. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a06e6def1040275302b2ea78e6ceb05e6}{Concatenate} (const \hyperlink{class_power_1_1_string}{String} \&other)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_aca4d6272dba914cf0fa66b69e615d0ab}{Concatenate} (const \hyperlink{class_power_1_1_string}{String} \&other)
 \begin{DoxyCompactList}\small\item\em Merges the \hyperlink{class_power_1_1_string}{Power\+::\+String} with another \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_aa8d8f7ef094a1057e5ab46742b42ad13}{Concatenate} (const char $\ast$const other)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a366471411eb6e5eed0cc6b4754d740fb}{Concatenate} (const char $\ast$const other)
 \begin{DoxyCompactList}\small\item\em Merges the \hyperlink{class_power_1_1_string}{Power\+::\+String} with a c-\/string. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_aa21774f7245c99303be83b452735fe00}{Concatenate} (const char $\ast$const other, size\+\_\+t length)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a8e0ee550a677843cb4cf2eb855522711}{Concatenate} (const char $\ast$const other, size\+\_\+t length)
 \begin{DoxyCompactList}\small\item\em Merges the \hyperlink{class_power_1_1_string}{Power\+::\+String} with a c-\/string. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_ad5714c502a8ca25a8d3afbbf84590c63}{Concatenate} (const char c)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a27c784f6b30c2ca3504cb217a3f3107a}{Concatenate} (const char c)
 \begin{DoxyCompactList}\small\item\em Merges the \hyperlink{class_power_1_1_string}{Power\+::\+String} with a character. \end{DoxyCompactList}\item 
 bool \hyperlink{class_power_1_1_string_aeaa32e499b49e67539953355b53609a8}{Contains} (const \hyperlink{class_power_1_1_string}{String} \&other) const
 \begin{DoxyCompactList}\small\item\em Checks the \hyperlink{class_power_1_1_string}{Power\+::\+String} if it contains the specified \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
@@ -172,97 +172,97 @@ int \hyperlink{class_power_1_1_string_a0791550659fc2f5c9728eac06208d73c}{Last\+I
 \begin{DoxyCompactList}\small\item\em Finds the last occurance of the specified character starting from the specified index. \end{DoxyCompactList}\item 
 int \hyperlink{class_power_1_1_string_a983604990be4acb0f22ab400b46445ea}{Last\+Index\+Of} (const char c, size\+\_\+t begin, size\+\_\+t end) const
 \begin{DoxyCompactList}\small\item\em Finds the last occurance of the specified character between the specified start and end index. \end{DoxyCompactList}\item 
-size\+\_\+t \hyperlink{class_power_1_1_string_ac99c5daa4a086b862f0665f34bc0d215}{Count} (const \hyperlink{class_power_1_1_string}{String} \&other) const
+int \hyperlink{class_power_1_1_string_a933dda794524fa9f4cd4324b9c52751c}{Count} (const \hyperlink{class_power_1_1_string}{String} \&other) const
 \begin{DoxyCompactList}\small\item\em Counts how many times the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} occurs in the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-size\+\_\+t \hyperlink{class_power_1_1_string_ab34fca570ebdd78be571f6df62ea3b55}{Count} (const \hyperlink{class_power_1_1_string}{String} \&other, size\+\_\+t begin) const
+int \hyperlink{class_power_1_1_string_a0f03e2c894d116eed594ca5c36befa74}{Count} (const \hyperlink{class_power_1_1_string}{String} \&other, size\+\_\+t begin) const
 \begin{DoxyCompactList}\small\item\em Counts how many times the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} occurs in the \hyperlink{class_power_1_1_string}{Power\+::\+String} from the specified index. \end{DoxyCompactList}\item 
-size\+\_\+t \hyperlink{class_power_1_1_string_a28942541669b2d90ad3c922edca312b8}{Count} (const \hyperlink{class_power_1_1_string}{String} \&other, size\+\_\+t begin, size\+\_\+t end) const
+int \hyperlink{class_power_1_1_string_a76a12fa674ee5dd62d2ea85fe256f77e}{Count} (const \hyperlink{class_power_1_1_string}{String} \&other, size\+\_\+t begin, size\+\_\+t end) const
 \begin{DoxyCompactList}\small\item\em Counts how many times the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} occurs in the \hyperlink{class_power_1_1_string}{Power\+::\+String} from the specified start and end index. \end{DoxyCompactList}\item 
-size\+\_\+t \hyperlink{class_power_1_1_string_a34c005f331684e00ba5487239d0f0712}{Count} (const char $\ast$const other) const
+int \hyperlink{class_power_1_1_string_a033ce6d47b6bc59fb2f26e44371472c8}{Count} (const char $\ast$const other) const
 \begin{DoxyCompactList}\small\item\em Counts how many times the specified c-\/string occurs in the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-size\+\_\+t \hyperlink{class_power_1_1_string_ad49db0e9e51026e7814453c4d9ce9425}{Count} (const char $\ast$const other, size\+\_\+t begin) const
+int \hyperlink{class_power_1_1_string_ad68048bd773411926894154779f287e8}{Count} (const char $\ast$const other, size\+\_\+t begin) const
 \begin{DoxyCompactList}\small\item\em Counts how many times the specified c-\/string occurs in the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-size\+\_\+t \hyperlink{class_power_1_1_string_ac229da19a1f75132dfb800b7bcbec2b2}{Count} (const char $\ast$const other, size\+\_\+t begin, size\+\_\+t end) const
+int \hyperlink{class_power_1_1_string_a94b28f08c545220d611d0f7082001a44}{Count} (const char $\ast$const other, size\+\_\+t begin, size\+\_\+t end) const
 \begin{DoxyCompactList}\small\item\em Counts how many times the specified c-\/string occurs in the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-size\+\_\+t \hyperlink{class_power_1_1_string_a2028976b7e5576e556a6dbb7e416d0f5}{Count} (size\+\_\+t length, const char $\ast$const other) const
+int \hyperlink{class_power_1_1_string_af5bacafb26ee473157898f3422f8c24a}{Count} (size\+\_\+t length, const char $\ast$const other) const
 \begin{DoxyCompactList}\small\item\em Counts how many times the specified c-\/string occurs in the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-size\+\_\+t \hyperlink{class_power_1_1_string_a844e07422a772b092d7ff06a61e2169d}{Count} (size\+\_\+t length, const char $\ast$const other, size\+\_\+t begin) const
+int \hyperlink{class_power_1_1_string_a03ad8ce778f9af4a18257082ef20e8c8}{Count} (size\+\_\+t length, const char $\ast$const other, size\+\_\+t begin) const
 \begin{DoxyCompactList}\small\item\em Counts how many times the specified c-\/string occurs in the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-size\+\_\+t \hyperlink{class_power_1_1_string_a14cd200c761131f0fb212aeba08e5058}{Count} (size\+\_\+t length, const char $\ast$const other, size\+\_\+t begin, size\+\_\+t end) const
+int \hyperlink{class_power_1_1_string_a60f1505d3d34503c5f0f74730eb4c8fb}{Count} (size\+\_\+t length, const char $\ast$const other, size\+\_\+t begin, size\+\_\+t end) const
 \begin{DoxyCompactList}\small\item\em Counts how many times the specified c-\/string occurs in the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-size\+\_\+t \hyperlink{class_power_1_1_string_a745ee4d411ec80fd085017573760bff2}{Count} (const char c) const
+int \hyperlink{class_power_1_1_string_a55085e218917bb734a53c150cb7b9d1e}{Count} (const char c) const
 \begin{DoxyCompactList}\small\item\em Counts how many times the specified character occurs in the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-size\+\_\+t \hyperlink{class_power_1_1_string_ac19eefa8206d6e3b4cf31c0315254592}{Count} (const char c, size\+\_\+t begin) const
+int \hyperlink{class_power_1_1_string_a235d184d97368dcffa1cbe0a085c0382}{Count} (const char c, size\+\_\+t begin) const
 \begin{DoxyCompactList}\small\item\em Counts how many times the specified character occurs in the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-size\+\_\+t \hyperlink{class_power_1_1_string_a7b4bf7dae5999a8ef6c7025aaa76e129}{Count} (const char c, size\+\_\+t begin, size\+\_\+t end) const
+int \hyperlink{class_power_1_1_string_a973ec141cb308e2a6cb309b36f978c6b}{Count} (const char c, size\+\_\+t begin, size\+\_\+t end) const
 \begin{DoxyCompactList}\small\item\em Counts how many times the specified character occurs in the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
 \hyperlink{class_power_1_1_string}{String} \hyperlink{class_power_1_1_string_a754d4d67de005b89aba041db5f551e1c}{Substring} (size\+\_\+t begin) const
 \begin{DoxyCompactList}\small\item\em Creates a substring from the specified start index to the end of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
 \hyperlink{class_power_1_1_string}{String} \hyperlink{class_power_1_1_string_a648cd16b1af13b87a20d623d933f067c}{Substring} (size\+\_\+t begin, size\+\_\+t end) const
 \begin{DoxyCompactList}\small\item\em Creates a substring from the specified start index to the specified end index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_ae299096a84ec36c3a7d334ecbd98c8ac}{Insert} (size\+\_\+t index, const \hyperlink{class_power_1_1_string}{String} \&other)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a2d92ca786aa910d06176b4107bebc285}{Insert} (size\+\_\+t index, const \hyperlink{class_power_1_1_string}{String} \&other)
 \begin{DoxyCompactList}\small\item\em Inserts the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} at the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_aae39de09c7d011d58c067545cbec254a}{Insert} (size\+\_\+t index, const char $\ast$const other)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a44a8b56904401398d11ad927699414f4}{Insert} (size\+\_\+t index, const char $\ast$const other)
 \begin{DoxyCompactList}\small\item\em Inserts the specified c-\/string at the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a9f13e94b3e64c51f1c3d809f2ac34b47}{Insert} (size\+\_\+t index, const char $\ast$const other, size\+\_\+t length)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a6396f902cbd4cc5f8216f3b36a3d5718}{Insert} (size\+\_\+t index, const char $\ast$const other, size\+\_\+t length)
 \begin{DoxyCompactList}\small\item\em Inserts the specified c-\/string at the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a07dc9c5bdb8dfc2dff7a49d5464b1017}{Insert} (size\+\_\+t index, const char c)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a2a7e5bcd31c35003a35949cfd993528a}{Insert} (size\+\_\+t index, const char c)
 \begin{DoxyCompactList}\small\item\em Inserts the specified character at the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a74417c6d558225c4bbd8e51128dc64fc}{Remove} (size\+\_\+t index)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a02dcfcbe27a01bf938d9ce038a0487ef}{Remove} (size\+\_\+t index)
 \begin{DoxyCompactList}\small\item\em Removes all characters in the Power\+::\+Strig starting from the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_ae54d14f87fd2d2e66334697ea1a740a7}{Remove} (size\+\_\+t index, size\+\_\+t count)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a43f1d459afdc0a80c72be214f54f7187}{Remove} (size\+\_\+t index, size\+\_\+t count)
 \begin{DoxyCompactList}\small\item\em Removes a specified amount of characters in the \hyperlink{class_power_1_1_string}{Power\+::\+String} starting from the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a0189bdb52b19b0f9e7929cb87b2fd66c}{Remove\+All} (const \hyperlink{class_power_1_1_string}{String} \&other)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a43b649fe2658dc5d81e3c5e245dedc6e}{Remove\+All} (const \hyperlink{class_power_1_1_string}{String} \&other)
 \begin{DoxyCompactList}\small\item\em Removes all occurances of the specified \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a1b237c81ea2a466c192cdd63e706f455}{Remove\+All} (const char $\ast$const other)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_add8a90782cd07cc66c639c364d828f1b}{Remove\+All} (const char $\ast$const other)
 \begin{DoxyCompactList}\small\item\em Removes all occurances of the specified c-\/string. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a6418c5e3a28ef177a3516c17be3bfcb3}{Remove\+All} (const char $\ast$const other, size\+\_\+t length)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a749b4acfb84cb4865994d5094271ae86}{Remove\+All} (const char $\ast$const other, size\+\_\+t length)
 \begin{DoxyCompactList}\small\item\em Removes all occurances of the specified c-\/string. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_ac1a456c7f0f019263c424431b0fbeefa}{Remove\+All} (const char c)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a64645e19944f9cee21097d33dc704211}{Remove\+All} (const char c)
 \begin{DoxyCompactList}\small\item\em Removes all occurances of the specified character. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a8fc1e2630c8ce27765589c7cf8cce1d7}{Replace} (size\+\_\+t index, const \hyperlink{class_power_1_1_string}{String} \&other)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_ab0a52e24022cf0b22d7af6264ecc4c98}{Replace} (size\+\_\+t index, const \hyperlink{class_power_1_1_string}{String} \&other)
 \begin{DoxyCompactList}\small\item\em Replaces all characters from the specified start index with the specified \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a2c8234083a3b5b44387ba9712dd85344}{Replace} (size\+\_\+t index, size\+\_\+t count, const \hyperlink{class_power_1_1_string}{String} \&other)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a158278232a6b714c2bb5ce3a9cbf9642}{Replace} (size\+\_\+t index, size\+\_\+t count, const \hyperlink{class_power_1_1_string}{String} \&other)
 \begin{DoxyCompactList}\small\item\em Replaces a specified amount of characters from the specified start index with the specified \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a662ac2de658f0129ba3e20bbb8841c06}{Replace} (size\+\_\+t index, const char $\ast$const other)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_ad94fc777a94a27590e93c32b86c6f84b}{Replace} (size\+\_\+t index, const char $\ast$const other)
 \begin{DoxyCompactList}\small\item\em Replaces all characters from the specified start index with the specified c-\/string. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_acbe6e2e31229075c99d1e498a02c8128}{Replace} (size\+\_\+t index, size\+\_\+t count, const char $\ast$const other)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_aa22a5533bc6b831a6985fe55591508df}{Replace} (size\+\_\+t index, size\+\_\+t count, const char $\ast$const other)
 \begin{DoxyCompactList}\small\item\em Replaces all characters from the specified start index with the specified c-\/string. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a7df46dbd4f708f9c758f4b29f77ff1b5}{Replace} (size\+\_\+t index, const char $\ast$const other, size\+\_\+t length)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_ab20eff7cedd6965f29dececf8a9e4354}{Replace} (size\+\_\+t index, const char $\ast$const other, size\+\_\+t length)
 \begin{DoxyCompactList}\small\item\em Replaces all characters from the specified start index with the specified c-\/string. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a7cb1da79b5e33beb3591a554145aad32}{Replace} (size\+\_\+t index, size\+\_\+t count, const char $\ast$const other, size\+\_\+t length)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_ab4cbd15d86f1284180bd10b418d14377}{Replace} (size\+\_\+t index, size\+\_\+t count, const char $\ast$const other, size\+\_\+t length)
 \begin{DoxyCompactList}\small\item\em Replaces all characters from the specified start index with the specified c-\/string. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_aaa587a207643c7dbb401574651b42ff2}{Replace} (size\+\_\+t index, const char c)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_aaeba6635317522959a39eb0d2daf1bfa}{Replace} (size\+\_\+t index, const char c)
 \begin{DoxyCompactList}\small\item\em Replaces all characters from the specified start index with the specified character. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_ac577d7badcecee8bf6f55bd7150bbb4b}{Replace} (size\+\_\+t index, size\+\_\+t count, const char c)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a8bdd92abdc4f1e94ec9392aa2055c0a1}{Replace} (size\+\_\+t index, size\+\_\+t count, const char c)
 \begin{DoxyCompactList}\small\item\em Replaces a specified amount of characters from the specified start index with the specified character. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_ac6ffc1ce89a2caff3d96cbb738f3f081}{Replace\+At} (size\+\_\+t index, const \hyperlink{class_power_1_1_string}{String} \&other)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a72ad0e1293452ac1251a6b6458669340}{Replace\+At} (size\+\_\+t index, const \hyperlink{class_power_1_1_string}{String} \&other)
 \begin{DoxyCompactList}\small\item\em Replaces the characters with the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} at the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a5e666114028b7a41dc402eae7dd9ab37}{Replace\+At} (size\+\_\+t index, const char $\ast$const other)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_af407db036d27c2fd06525801a6b84867}{Replace\+At} (size\+\_\+t index, const char $\ast$const other)
 \begin{DoxyCompactList}\small\item\em Replaces the characters with the specified c-\/string at the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_af5aa96c8291a9aceb80aa7172a7a2790}{Replace\+At} (size\+\_\+t index, const char $\ast$const other, size\+\_\+t length)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a4c9cc98d1582485e3e6a5487d5fec2fd}{Replace\+At} (size\+\_\+t index, const char $\ast$const other, size\+\_\+t length)
 \begin{DoxyCompactList}\small\item\em Replaces the characters with the specified c-\/string at the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_af0a58ed0c1b62fc36e60f5948d3e8052}{Replace\+At} (size\+\_\+t index, const char c) const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_ad5c423d2d84539a6d9a203d2916d9851}{Replace\+At} (size\+\_\+t index, const char c)
 \begin{DoxyCompactList}\small\item\em Replaces the character with the specified character at the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_adccf591064c5f8a4681930a01318e023}{Trim} ()
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a5fb76a178082f7fc2533745941558452}{Trim} ()
 \begin{DoxyCompactList}\small\item\em Removes all leading and trailing whitespaces. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_afd78e65baee3fdbd249616dd03ee6eaa}{Trim} (const char c)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a320511195a45fdb130083151a45bcf2d}{Trim} (const char c)
 \begin{DoxyCompactList}\small\item\em Removes all leading and trailing occurances of the specified character. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_ac83fee188935bfea5a486d135f8e39e3}{Trim\+Start} ()
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a7c1c035836c4c42b4d6a118b7035742e}{Trim\+Start} ()
 \begin{DoxyCompactList}\small\item\em Removes all leading whitespaces. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_ae4130f9754a9f1f6a2570a13429cb3d0}{Trim\+Start} (const char c)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a1c0bda3a9e8ac38157413bcce1600d14}{Trim\+Start} (const char c)
 \begin{DoxyCompactList}\small\item\em Removes all leading occurances of the specified character. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_afd4d38398e47c0ab873e90431396663b}{Trim\+End} ()
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_ac5607bfb0efda47bafa4271a7ce6a3a9}{Trim\+End} ()
 \begin{DoxyCompactList}\small\item\em Removes all trailing whitespaces. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_aedaa5e01d3bc63c803e8c379477ba114}{Trim\+End} (const char c)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a7d7f493bed421a3919144c66fcb38121}{Trim\+End} (const char c)
 \begin{DoxyCompactList}\small\item\em Removes all trailing occurances of the specified character. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a7f70e85bdbec97cc247d08ba74cb00ed}{Pad\+Left} (size\+\_\+t length)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a56ba1cfcfb79834e8267266a19b9a6f1}{Pad\+Left} (size\+\_\+t length)
 \begin{DoxyCompactList}\small\item\em Right-\/aligns the \hyperlink{class_power_1_1_string}{Power\+::\+String} by filling it to the left with whitespaces to the specified total length. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_ae1a401f8fc597068ac70fc1f18dee45c}{Pad\+Left} (size\+\_\+t length, char c)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_aa194605077a9482279c88d7b3726c969}{Pad\+Left} (size\+\_\+t length, char c)
 \begin{DoxyCompactList}\small\item\em Right-\/aligns the \hyperlink{class_power_1_1_string}{Power\+::\+String} by filling it to the left with the specified character to the specified total length. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a48bd3019edb44ed96a6b69f3adf0d82d}{Pad\+Right} (size\+\_\+t length)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_af28370a40056ed8d7b38bdeb590e0bce}{Pad\+Right} (size\+\_\+t length)
 \begin{DoxyCompactList}\small\item\em Left-\/aligns the \hyperlink{class_power_1_1_string}{Power\+::\+String} by filling it to the right with whitespaces to the specified total length. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_ae8f53778737d45ccf92e466fb5d179de}{Pad\+Right} (size\+\_\+t length, char c)
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_ada653441d51531127346cfb8e5a7aa63}{Pad\+Right} (size\+\_\+t length, char c)
 \begin{DoxyCompactList}\small\item\em Left-\/aligns the \hyperlink{class_power_1_1_string}{Power\+::\+String} by filling it to the right with the specified character to the specified total length. \end{DoxyCompactList}\item 
 bool \hyperlink{class_power_1_1_string_ab4836da082c63ddf9f781eb80a10e5d1}{Starts\+With} (const \hyperlink{class_power_1_1_string}{String} \&other) const
 \begin{DoxyCompactList}\small\item\em Checks if the \hyperlink{class_power_1_1_string}{Power\+::\+String} starts with the specified \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
@@ -280,35 +280,35 @@ bool \hyperlink{class_power_1_1_string_a7e5527a7258c8e83f19cc5a353a203b9}{Ends\+
 \begin{DoxyCompactList}\small\item\em Checks if the c-\/string ends with the specified \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
 bool \hyperlink{class_power_1_1_string_a8f4b32bad7099116f14259d2bd0c4004}{Ends\+With} (const char c) const
 \begin{DoxyCompactList}\small\item\em Checks if the character ends with the specified \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a6ad45299bb33d665b9536afac8508193}{Fill} (const \hyperlink{class_power_1_1_string}{String} \&other) const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_afcc55f4fa85bbde268d180fd3c515dac}{Fill} (const \hyperlink{class_power_1_1_string}{String} \&other)
 \begin{DoxyCompactList}\small\item\em Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specified \hyperlink{class_power_1_1_string}{Power\+::\+String}. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a041bb71b50c121cddc1d70120158f358}{Fill} (const \hyperlink{class_power_1_1_string}{String} \&other, size\+\_\+t begin) const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a9f82a188fdb2c48185075dd778a1a048}{Fill} (const \hyperlink{class_power_1_1_string}{String} \&other, size\+\_\+t begin)
 \begin{DoxyCompactList}\small\item\em Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} starting from the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_ac403ebc4bbb897d41bc8c141dee83209}{Fill} (const \hyperlink{class_power_1_1_string}{String} \&other, size\+\_\+t begin, size\+\_\+t end) const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a5baac2af41bfe9f62f856bc2edc887f9}{Fill} (const \hyperlink{class_power_1_1_string}{String} \&other, size\+\_\+t begin, size\+\_\+t end)
 \begin{DoxyCompactList}\small\item\em Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} between the specified start and end index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a036580e1df3637db23e5e359f497200b}{Fill} (const char $\ast$const other) const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a8adb368321b42b3399836b4f1b6410e2}{Fill} (const char $\ast$const other)
 \begin{DoxyCompactList}\small\item\em Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specified c-\/string. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_abc080efd52260d3c9f5c8a39e7108c94}{Fill} (const char $\ast$const other, size\+\_\+t begin) const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a8bbc67bacb2a655a92bd259a5541117d}{Fill} (const char $\ast$const other, size\+\_\+t begin)
 \begin{DoxyCompactList}\small\item\em Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specified c-\/string starting from the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a47b7175afd5bd1cdfd1d970d42e78b2d}{Fill} (const char $\ast$const other, size\+\_\+t begin, size\+\_\+t end) const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a886afa62973aceb383e0560c3b6043f7}{Fill} (const char $\ast$const other, size\+\_\+t begin, size\+\_\+t end)
 \begin{DoxyCompactList}\small\item\em Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specified c-\/string between the specified start and end index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a2b89a279228596cafa6232007c7cc218}{Fill} (size\+\_\+t length, const char $\ast$const other) const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a1f5d92e3f7c6d80bdcc6575c77689218}{Fill} (size\+\_\+t length, const char $\ast$const other)
 \begin{DoxyCompactList}\small\item\em Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specified c-\/string. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_adfd34ce7307abbb1ba9b0bb649e57e5f}{Fill} (size\+\_\+t length, const char $\ast$const other, size\+\_\+t begin) const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a8ed1d578da79962ec7c44419ae4df353}{Fill} (size\+\_\+t length, const char $\ast$const other, size\+\_\+t begin)
 \begin{DoxyCompactList}\small\item\em Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specified c-\/string starting from the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a6df9549c970e255b68be62942f4d83ca}{Fill} (size\+\_\+t length, const char $\ast$const other, size\+\_\+t begin, size\+\_\+t end) const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a0b32e7b8c1fde08ea22eab48a57badd8}{Fill} (size\+\_\+t length, const char $\ast$const other, size\+\_\+t begin, size\+\_\+t end)
 \begin{DoxyCompactList}\small\item\em Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specified c-\/string between the specified start and end index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a8dbe442eba279eaa441b8e99bc80cb5c}{Fill} (const char c) const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a4f2b074b5fc10cad59a929dcfb158fc2}{Fill} (const char c)
 \begin{DoxyCompactList}\small\item\em Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specified character. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a2dbda22c03de5742b8cf4fbd075e9dfd}{Fill} (const char c, size\+\_\+t begin) const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_ae8e44083b582d9409d9129d5282e19c3}{Fill} (const char c, size\+\_\+t begin)
 \begin{DoxyCompactList}\small\item\em Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specified character starting from the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_ae1e7ac80b210811821a0a62eab36c2ac}{Fill} (const char c, size\+\_\+t begin, size\+\_\+t end) const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_af62ccb89f536814db9d86b8c7a1c4eed}{Fill} (const char c, size\+\_\+t begin, size\+\_\+t end)
 \begin{DoxyCompactList}\small\item\em Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specified character between the specified start and end index. \end{DoxyCompactList}\item 
 void \hyperlink{class_power_1_1_string_a7009c79c7fa9b393fdbbc1922b14403a}{Split\+At} (size\+\_\+t index, \hyperlink{class_power_1_1_string}{String} \&lhs, \hyperlink{class_power_1_1_string}{String} \&rhs) const
 \begin{DoxyCompactList}\small\item\em Splits the \hyperlink{class_power_1_1_string}{Power\+::\+String} into two substrings at the specified index. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_ad1395f09eb54ec62ff077741203c27b5}{To\+Lower} () const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_aa0e68c88cb84dfa1142a20d2e0d59b3e}{To\+Lower} ()
 \begin{DoxyCompactList}\small\item\em Converts all upper case characters to lower case. \end{DoxyCompactList}\item 
-void \hyperlink{class_power_1_1_string_a9b4fbde0111caf61d777aec6b5becf59}{To\+Upper} () const
+\hyperlink{class_power_1_1_string}{String} \& \hyperlink{class_power_1_1_string_a032aabe48ca5b95b9e089998fb8806fa}{To\+Upper} ()
 \begin{DoxyCompactList}\small\item\em Converts all lower case characters to upper case. \end{DoxyCompactList}\item 
 \hyperlink{class_power_1_1_string_af3e98839735047cdb9362232836fd773}{$\sim$\+String} ()
 \begin{DoxyCompactList}\small\item\em T\+O\+DO\+: Document. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -516,11 +516,11 @@ Gets the current maximum capacity of the \hyperlink{class_power_1_1_string}{Powe
 \begin{DoxyReturn}{Returns}
 The current maximum capacity of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_power_1_1_string_a06e6def1040275302b2ea78e6ceb05e6}\label{class_power_1_1_string_a06e6def1040275302b2ea78e6ceb05e6}} 
+\mbox{\Hypertarget{class_power_1_1_string_aca4d6272dba914cf0fa66b69e615d0ab}\label{class_power_1_1_string_aca4d6272dba914cf0fa66b69e615d0ab}} 
 \index{Power\+::\+String@{Power\+::\+String}!Concatenate@{Concatenate}}
 \index{Concatenate@{Concatenate}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Concatenate()}{Concatenate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Concatenate (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Concatenate (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -531,11 +531,14 @@ Merges the \hyperlink{class_power_1_1_string}{Power\+::\+String} with another \h
 \mbox{\tt in}  & {\em other} & The \hyperlink{class_power_1_1_string}{Power\+::\+String} to be merged with. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_aa8d8f7ef094a1057e5ab46742b42ad13}\label{class_power_1_1_string_aa8d8f7ef094a1057e5ab46742b42ad13}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a366471411eb6e5eed0cc6b4754d740fb}\label{class_power_1_1_string_a366471411eb6e5eed0cc6b4754d740fb}} 
 \index{Power\+::\+String@{Power\+::\+String}!Concatenate@{Concatenate}}
 \index{Concatenate@{Concatenate}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Concatenate()}{Concatenate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Concatenate (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Concatenate (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -544,17 +547,20 @@ Merges the \hyperlink{class_power_1_1_string}{Power\+::\+String} with a c-\/stri
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em other} & The c-\/string to be merged with. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_ad5714c502a8ca25a8d3afbbf84590c63}{Concatenate(const char)} instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a27c784f6b30c2ca3504cb217a3f3107a}{Concatenate(const char)} instead. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
-{\bfseries If the length of the c-\/string is already known, it is recommend to use \hyperlink{class_power_1_1_string_aa21774f7245c99303be83b452735fe00}{Concatenate(const char$\ast$ const, size\+\_\+t)} instead as it is faser.} 
+{\bfseries If the length of the c-\/string is already known, it is recommend to use \hyperlink{class_power_1_1_string_a8e0ee550a677843cb4cf2eb855522711}{Concatenate(const char$\ast$ const, size\+\_\+t)} instead as it is faser.} 
 \end{DoxyNote}
-\mbox{\Hypertarget{class_power_1_1_string_aa21774f7245c99303be83b452735fe00}\label{class_power_1_1_string_aa21774f7245c99303be83b452735fe00}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a8e0ee550a677843cb4cf2eb855522711}\label{class_power_1_1_string_a8e0ee550a677843cb4cf2eb855522711}} 
 \index{Power\+::\+String@{Power\+::\+String}!Concatenate@{Concatenate}}
 \index{Concatenate@{Concatenate}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Concatenate()}{Concatenate()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Concatenate (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Concatenate (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -563,16 +569,19 @@ Merges the \hyperlink{class_power_1_1_string}{Power\+::\+String} with a c-\/stri
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em other} & The c-\/string to be merged with. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_ad5714c502a8ca25a8d3afbbf84590c63}{Concatenate(const char)} instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a27c784f6b30c2ca3504cb217a3f3107a}{Concatenate(const char)} instead. \\
 \hline
 \mbox{\tt in}  & {\em length} & The length of the c-\/string excluding the null character. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_ad5714c502a8ca25a8d3afbbf84590c63}\label{class_power_1_1_string_ad5714c502a8ca25a8d3afbbf84590c63}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a27c784f6b30c2ca3504cb217a3f3107a}\label{class_power_1_1_string_a27c784f6b30c2ca3504cb217a3f3107a}} 
 \index{Power\+::\+String@{Power\+::\+String}!Concatenate@{Concatenate}}
 \index{Concatenate@{Concatenate}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Concatenate()}{Concatenate()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Concatenate (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Concatenate (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -583,6 +592,9 @@ Merges the \hyperlink{class_power_1_1_string}{Power\+::\+String} with a characte
 \mbox{\tt in}  & {\em c} & The character to be merged with. \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_aeaa32e499b49e67539953355b53609a8}\label{class_power_1_1_string_aeaa32e499b49e67539953355b53609a8}} 
 \index{Power\+::\+String@{Power\+::\+String}!Contains@{Contains}}
 \index{Contains@{Contains}!Power\+::\+String@{Power\+::\+String}}
@@ -670,11 +682,11 @@ True, if the \hyperlink{class_power_1_1_string}{Power\+::\+String} contains the 
 
 False, if it doesn\textquotesingle{}t. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_power_1_1_string_ac99c5daa4a086b862f0665f34bc0d215}\label{class_power_1_1_string_ac99c5daa4a086b862f0665f34bc0d215}} 
+\mbox{\Hypertarget{class_power_1_1_string_a933dda794524fa9f4cd4324b9c52751c}\label{class_power_1_1_string_a933dda794524fa9f4cd4324b9c52751c}} 
 \index{Power\+::\+String@{Power\+::\+String}!Count@{Count}}
 \index{Count@{Count}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Count()}{Count()}\hspace{0.1cm}{\footnotesize\ttfamily [1/12]}}
-{\footnotesize\ttfamily size\+\_\+t Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -687,12 +699,14 @@ Counts how many times the specified \hyperlink{class_power_1_1_string}{Power\+::
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 How many times the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} occurs. 
+
+Or 0 if the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} does not occur. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_power_1_1_string_ab34fca570ebdd78be571f6df62ea3b55}\label{class_power_1_1_string_ab34fca570ebdd78be571f6df62ea3b55}} 
+\mbox{\Hypertarget{class_power_1_1_string_a0f03e2c894d116eed594ca5c36befa74}\label{class_power_1_1_string_a0f03e2c894d116eed594ca5c36befa74}} 
 \index{Power\+::\+String@{Power\+::\+String}!Count@{Count}}
 \index{Count@{Count}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Count()}{Count()}\hspace{0.1cm}{\footnotesize\ttfamily [2/12]}}
-{\footnotesize\ttfamily size\+\_\+t Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -707,12 +721,14 @@ Counts how many times the specified \hyperlink{class_power_1_1_string}{Power\+::
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 How many times the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} occurs. 
+
+Or 0 if the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_power_1_1_string_a28942541669b2d90ad3c922edca312b8}\label{class_power_1_1_string_a28942541669b2d90ad3c922edca312b8}} 
+\mbox{\Hypertarget{class_power_1_1_string_a76a12fa674ee5dd62d2ea85fe256f77e}\label{class_power_1_1_string_a76a12fa674ee5dd62d2ea85fe256f77e}} 
 \index{Power\+::\+String@{Power\+::\+String}!Count@{Count}}
 \index{Count@{Count}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Count()}{Count()}\hspace{0.1cm}{\footnotesize\ttfamily [3/12]}}
-{\footnotesize\ttfamily size\+\_\+t Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -724,17 +740,20 @@ Counts how many times the specified \hyperlink{class_power_1_1_string}{Power\+::
 \hline
 \mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
 \hline
-\mbox{\tt in}  & {\em end} & The index to where to stop looking. \\
+\mbox{\tt in}  & {\em end} & The index to where to stop looking. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 How many times the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} occurs. 
+
+Or 0 if the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} or if the begin index is greater or equal to the end index. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_power_1_1_string_a34c005f331684e00ba5487239d0f0712}\label{class_power_1_1_string_a34c005f331684e00ba5487239d0f0712}} 
+\mbox{\Hypertarget{class_power_1_1_string_a033ce6d47b6bc59fb2f26e44371472c8}\label{class_power_1_1_string_a033ce6d47b6bc59fb2f26e44371472c8}} 
 \index{Power\+::\+String@{Power\+::\+String}!Count@{Count}}
 \index{Count@{Count}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Count()}{Count()}\hspace{0.1cm}{\footnotesize\ttfamily [4/12]}}
-{\footnotesize\ttfamily size\+\_\+t Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -743,20 +762,22 @@ Counts how many times the specified c-\/string occurs in the \hyperlink{class_po
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em other} & The c-\/string to look for. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a745ee4d411ec80fd085017573760bff2}{Count(const char) const }instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a55085e218917bb734a53c150cb7b9d1e}{Count(const char) const }instead. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 How many times the specified c-\/string occurs. 
+
+Or 0 if the specified c-\/string does not occur. 
 \end{DoxyReturn}
 \begin{DoxyNote}{Note}
-{\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a2028976b7e5576e556a6dbb7e416d0f5}{Count(size\+\_\+t, const char$\ast$ const) const }instead as it is faster.} 
+{\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_af5bacafb26ee473157898f3422f8c24a}{Count(size\+\_\+t, const char$\ast$ const) const }instead as it is faster.} 
 \end{DoxyNote}
-\mbox{\Hypertarget{class_power_1_1_string_ad49db0e9e51026e7814453c4d9ce9425}\label{class_power_1_1_string_ad49db0e9e51026e7814453c4d9ce9425}} 
+\mbox{\Hypertarget{class_power_1_1_string_ad68048bd773411926894154779f287e8}\label{class_power_1_1_string_ad68048bd773411926894154779f287e8}} 
 \index{Power\+::\+String@{Power\+::\+String}!Count@{Count}}
 \index{Count@{Count}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Count()}{Count()}\hspace{0.1cm}{\footnotesize\ttfamily [5/12]}}
-{\footnotesize\ttfamily size\+\_\+t Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -765,22 +786,24 @@ Counts how many times the specified c-\/string occurs in the \hyperlink{class_po
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em other} & The c-\/string to look for. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_ac19eefa8206d6e3b4cf31c0315254592}{Count(const char, size\+\_\+t) const }instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a235d184d97368dcffa1cbe0a085c0382}{Count(const char, size\+\_\+t) const }instead. \\
 \hline
 \mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 How many times the specified c-\/string occurs. 
+
+Or 0 if the specified c-\/string does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 \end{DoxyReturn}
 \begin{DoxyNote}{Note}
-{\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a844e07422a772b092d7ff06a61e2169d}{Count(size\+\_\+t, const char$\ast$ const, size\+\_\+t) const }instead as it is faster.} 
+{\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a03ad8ce778f9af4a18257082ef20e8c8}{Count(size\+\_\+t, const char$\ast$ const, size\+\_\+t) const }instead as it is faster.} 
 \end{DoxyNote}
-\mbox{\Hypertarget{class_power_1_1_string_ac229da19a1f75132dfb800b7bcbec2b2}\label{class_power_1_1_string_ac229da19a1f75132dfb800b7bcbec2b2}} 
+\mbox{\Hypertarget{class_power_1_1_string_a94b28f08c545220d611d0f7082001a44}\label{class_power_1_1_string_a94b28f08c545220d611d0f7082001a44}} 
 \index{Power\+::\+String@{Power\+::\+String}!Count@{Count}}
 \index{Count@{Count}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Count()}{Count()}\hspace{0.1cm}{\footnotesize\ttfamily [6/12]}}
-{\footnotesize\ttfamily size\+\_\+t Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -789,24 +812,27 @@ Counts how many times the specified c-\/string occurs in the \hyperlink{class_po
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em other} & The c-\/string to look for. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a7b4bf7dae5999a8ef6c7025aaa76e129}{Count(const char, size\+\_\+t, size\+\_\+t) const }instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a973ec141cb308e2a6cb309b36f978c6b}{Count(const char, size\+\_\+t, size\+\_\+t) const }instead. \\
 \hline
 \mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
 \hline
-\mbox{\tt in}  & {\em end} & The index to where to stop looking. \\
+\mbox{\tt in}  & {\em end} & The index to where to stop looking. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 How many times the specified c-\/string occurs. 
+
+Or 0 if the specified c-\/string does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} or if the begin index is greater or equal to the end index. 
 \end{DoxyReturn}
 \begin{DoxyNote}{Note}
-{\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a14cd200c761131f0fb212aeba08e5058}{Count(size\+\_\+t, const char$\ast$ const, size\+\_\+t, size\+\_\+t) const }instead as it is faster.} 
+{\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a60f1505d3d34503c5f0f74730eb4c8fb}{Count(size\+\_\+t, const char$\ast$ const, size\+\_\+t, size\+\_\+t) const }instead as it is faster.} 
 \end{DoxyNote}
-\mbox{\Hypertarget{class_power_1_1_string_a2028976b7e5576e556a6dbb7e416d0f5}\label{class_power_1_1_string_a2028976b7e5576e556a6dbb7e416d0f5}} 
+\mbox{\Hypertarget{class_power_1_1_string_af5bacafb26ee473157898f3422f8c24a}\label{class_power_1_1_string_af5bacafb26ee473157898f3422f8c24a}} 
 \index{Power\+::\+String@{Power\+::\+String}!Count@{Count}}
 \index{Count@{Count}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Count()}{Count()}\hspace{0.1cm}{\footnotesize\ttfamily [7/12]}}
-{\footnotesize\ttfamily size\+\_\+t Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{const char $\ast$const}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{const char $\ast$const}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -817,17 +843,19 @@ Counts how many times the specified c-\/string occurs in the \hyperlink{class_po
 \mbox{\tt in}  & {\em length} & The length of the specified c-\/string excluding the null character. \\
 \hline
 \mbox{\tt in}  & {\em other} & The c-\/string to look for. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a745ee4d411ec80fd085017573760bff2}{Count(const char) const }instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a55085e218917bb734a53c150cb7b9d1e}{Count(const char) const }instead. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 How many times the specified c-\/string occurs. 
+
+Or 0 if the specified c-\/string does not occur. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_power_1_1_string_a844e07422a772b092d7ff06a61e2169d}\label{class_power_1_1_string_a844e07422a772b092d7ff06a61e2169d}} 
+\mbox{\Hypertarget{class_power_1_1_string_a03ad8ce778f9af4a18257082ef20e8c8}\label{class_power_1_1_string_a03ad8ce778f9af4a18257082ef20e8c8}} 
 \index{Power\+::\+String@{Power\+::\+String}!Count@{Count}}
 \index{Count@{Count}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Count()}{Count()}\hspace{0.1cm}{\footnotesize\ttfamily [8/12]}}
-{\footnotesize\ttfamily size\+\_\+t Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -838,19 +866,21 @@ Counts how many times the specified c-\/string occurs in the \hyperlink{class_po
 \mbox{\tt in}  & {\em length} & The length of the specified c-\/string excluding the null character. \\
 \hline
 \mbox{\tt in}  & {\em other} & The c-\/string to look for. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_ac19eefa8206d6e3b4cf31c0315254592}{Count(const char, size\+\_\+t) const }instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a235d184d97368dcffa1cbe0a085c0382}{Count(const char, size\+\_\+t) const }instead. \\
 \hline
 \mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 How many times the specified c-\/string occurs. 
+
+Or 0 if the specified c-\/string does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_power_1_1_string_a14cd200c761131f0fb212aeba08e5058}\label{class_power_1_1_string_a14cd200c761131f0fb212aeba08e5058}} 
+\mbox{\Hypertarget{class_power_1_1_string_a60f1505d3d34503c5f0f74730eb4c8fb}\label{class_power_1_1_string_a60f1505d3d34503c5f0f74730eb4c8fb}} 
 \index{Power\+::\+String@{Power\+::\+String}!Count@{Count}}
 \index{Count@{Count}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Count()}{Count()}\hspace{0.1cm}{\footnotesize\ttfamily [9/12]}}
-{\footnotesize\ttfamily size\+\_\+t Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -861,21 +891,24 @@ Counts how many times the specified c-\/string occurs in the \hyperlink{class_po
 \mbox{\tt in}  & {\em length} & The length of the specified c-\/string excluding the null character. \\
 \hline
 \mbox{\tt in}  & {\em other} & The c-\/string to look for. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a7b4bf7dae5999a8ef6c7025aaa76e129}{Count(const char, size\+\_\+t, size\+\_\+t) const }instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a973ec141cb308e2a6cb309b36f978c6b}{Count(const char, size\+\_\+t, size\+\_\+t) const }instead. \\
 \hline
 \mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
 \hline
-\mbox{\tt in}  & {\em end} & The index to where to stop looking. \\
+\mbox{\tt in}  & {\em end} & The index to where to stop looking. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 How many times the specified c-\/string occurs. 
+
+Or 0 if the specified c-\/string does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} or if the begin index is greater or equal to the end index. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_power_1_1_string_a745ee4d411ec80fd085017573760bff2}\label{class_power_1_1_string_a745ee4d411ec80fd085017573760bff2}} 
+\mbox{\Hypertarget{class_power_1_1_string_a55085e218917bb734a53c150cb7b9d1e}\label{class_power_1_1_string_a55085e218917bb734a53c150cb7b9d1e}} 
 \index{Power\+::\+String@{Power\+::\+String}!Count@{Count}}
 \index{Count@{Count}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Count()}{Count()}\hspace{0.1cm}{\footnotesize\ttfamily [10/12]}}
-{\footnotesize\ttfamily size\+\_\+t Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -888,12 +921,14 @@ Counts how many times the specified character occurs in the \hyperlink{class_pow
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 How many times the specified character occurs. 
+
+Or 0 if the specified character does not occur. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_power_1_1_string_ac19eefa8206d6e3b4cf31c0315254592}\label{class_power_1_1_string_ac19eefa8206d6e3b4cf31c0315254592}} 
+\mbox{\Hypertarget{class_power_1_1_string_a235d184d97368dcffa1cbe0a085c0382}\label{class_power_1_1_string_a235d184d97368dcffa1cbe0a085c0382}} 
 \index{Power\+::\+String@{Power\+::\+String}!Count@{Count}}
 \index{Count@{Count}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Count()}{Count()}\hspace{0.1cm}{\footnotesize\ttfamily [11/12]}}
-{\footnotesize\ttfamily size\+\_\+t Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const char}]{c,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const char}]{c,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -908,12 +943,14 @@ Counts how many times the specified character occurs in the \hyperlink{class_pow
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 How many times the specified character occurs. 
+
+Or 0 if the specified character does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_power_1_1_string_a7b4bf7dae5999a8ef6c7025aaa76e129}\label{class_power_1_1_string_a7b4bf7dae5999a8ef6c7025aaa76e129}} 
+\mbox{\Hypertarget{class_power_1_1_string_a973ec141cb308e2a6cb309b36f978c6b}\label{class_power_1_1_string_a973ec141cb308e2a6cb309b36f978c6b}} 
 \index{Power\+::\+String@{Power\+::\+String}!Count@{Count}}
 \index{Count@{Count}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Count()}{Count()}\hspace{0.1cm}{\footnotesize\ttfamily [12/12]}}
-{\footnotesize\ttfamily size\+\_\+t Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const char}]{c,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily int Power\+::\+String\+::\+Count (\begin{DoxyParamCaption}\item[{const char}]{c,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -925,11 +962,14 @@ Counts how many times the specified character occurs in the \hyperlink{class_pow
 \hline
 \mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
 \hline
-\mbox{\tt in}  & {\em end} & The index to where to stop looking. \\
+\mbox{\tt in}  & {\em end} & The index to where to stop looking. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 How many times the specified character occurs. 
+
+Or 0 if the specified character does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} or if the begin index is greater or equal to the end index. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_a8a0120f3e5dee6cb50be979f8b1175e4}\label{class_power_1_1_string_a8a0120f3e5dee6cb50be979f8b1175e4}} 
 \index{Power\+::\+String@{Power\+::\+String}!C\+String@{C\+String}}
@@ -1028,11 +1068,11 @@ True, if the \hyperlink{class_power_1_1_string}{Power\+::\+String} ends with the
 
 False, if it doesn\textquotesingle{}t, or if the length of the specified character is greater than the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_power_1_1_string_a6ad45299bb33d665b9536afac8508193}\label{class_power_1_1_string_a6ad45299bb33d665b9536afac8508193}} 
+\mbox{\Hypertarget{class_power_1_1_string_afcc55f4fa85bbde268d180fd3c515dac}\label{class_power_1_1_string_afcc55f4fa85bbde268d180fd3c515dac}} 
 \index{Power\+::\+String@{Power\+::\+String}!Fill@{Fill}}
 \index{Fill@{Fill}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Fill()}{Fill()}\hspace{0.1cm}{\footnotesize\ttfamily [1/12]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1043,11 +1083,14 @@ Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specifi
 \mbox{\tt in}  & {\em other} & The \hyperlink{class_power_1_1_string}{Power\+::\+String} to fill with. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a041bb71b50c121cddc1d70120158f358}\label{class_power_1_1_string_a041bb71b50c121cddc1d70120158f358}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a9f82a188fdb2c48185075dd778a1a048}\label{class_power_1_1_string_a9f82a188fdb2c48185075dd778a1a048}} 
 \index{Power\+::\+String@{Power\+::\+String}!Fill@{Fill}}
 \index{Fill@{Fill}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Fill()}{Fill()}\hspace{0.1cm}{\footnotesize\ttfamily [2/12]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1057,14 +1100,18 @@ Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specifi
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em other} & The \hyperlink{class_power_1_1_string}{Power\+::\+String} to fill with. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start filling. \\
+\mbox{\tt in}  & {\em begin} & The index from where to start filling. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return without filling. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_ac403ebc4bbb897d41bc8c141dee83209}\label{class_power_1_1_string_ac403ebc4bbb897d41bc8c141dee83209}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a5baac2af41bfe9f62f856bc2edc887f9}\label{class_power_1_1_string_a5baac2af41bfe9f62f856bc2edc887f9}} 
 \index{Power\+::\+String@{Power\+::\+String}!Fill@{Fill}}
 \index{Fill@{Fill}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Fill()}{Fill()}\hspace{0.1cm}{\footnotesize\ttfamily [3/12]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1074,16 +1121,21 @@ Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specifi
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em other} & The \hyperlink{class_power_1_1_string}{Power\+::\+String} to fill with. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start filling. \\
+\mbox{\tt in}  & {\em begin} & The index from where to start filling. ~\newline
+ If this index is greater or equal to the end index or the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return without filling. \\
 \hline
-\mbox{\tt in}  & {\em end} & The index to where to stop filling. \\
+\mbox{\tt in}  & {\em end} & The index to where to stop filling. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a036580e1df3637db23e5e359f497200b}\label{class_power_1_1_string_a036580e1df3637db23e5e359f497200b}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a8adb368321b42b3399836b4f1b6410e2}\label{class_power_1_1_string_a8adb368321b42b3399836b4f1b6410e2}} 
 \index{Power\+::\+String@{Power\+::\+String}!Fill@{Fill}}
 \index{Fill@{Fill}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Fill()}{Fill()}\hspace{0.1cm}{\footnotesize\ttfamily [4/12]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1092,14 +1144,17 @@ Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specifi
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em other} & The c-\/string to fill with. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a8dbe442eba279eaa441b8e99bc80cb5c}{Fill(const char) const }instead.  {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a2b89a279228596cafa6232007c7cc218}{Fill(size\+\_\+t, const char$\ast$ const) const }instead as it is faster.} \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a4f2b074b5fc10cad59a929dcfb158fc2}{Fill(const char)} instead.  {\bfseries If the length of the c-\/string is already known, it is recommended to use Fill(size\+\_\+t, const char$\ast$ const) const instead as it is faster.} \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_abc080efd52260d3c9f5c8a39e7108c94}\label{class_power_1_1_string_abc080efd52260d3c9f5c8a39e7108c94}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a8bbc67bacb2a655a92bd259a5541117d}\label{class_power_1_1_string_a8bbc67bacb2a655a92bd259a5541117d}} 
 \index{Power\+::\+String@{Power\+::\+String}!Fill@{Fill}}
 \index{Fill@{Fill}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Fill()}{Fill()}\hspace{0.1cm}{\footnotesize\ttfamily [5/12]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1108,16 +1163,20 @@ Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specifi
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em other} & The c-\/string to fill with. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a2dbda22c03de5742b8cf4fbd075e9dfd}{Fill(const char, size\+\_\+t) const }instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_ae8e44083b582d9409d9129d5282e19c3}{Fill(const char, size\+\_\+t)} instead. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start filling.  {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_adfd34ce7307abbb1ba9b0bb649e57e5f}{Fill(size\+\_\+t, const char$\ast$ const, size\+\_\+t) const }instead as it is faster.} \\
+\mbox{\tt in}  & {\em begin} & The index from where to start filling. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return without filling.  {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a8ed1d578da79962ec7c44419ae4df353}{Fill(size\+\_\+t, const char$\ast$ const, size\+\_\+t)} instead as it is faster.} \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a47b7175afd5bd1cdfd1d970d42e78b2d}\label{class_power_1_1_string_a47b7175afd5bd1cdfd1d970d42e78b2d}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a886afa62973aceb383e0560c3b6043f7}\label{class_power_1_1_string_a886afa62973aceb383e0560c3b6043f7}} 
 \index{Power\+::\+String@{Power\+::\+String}!Fill@{Fill}}
 \index{Fill@{Fill}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Fill()}{Fill()}\hspace{0.1cm}{\footnotesize\ttfamily [6/12]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1126,18 +1185,23 @@ Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specifi
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em other} & The c-\/string to fill with. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_ae1e7ac80b210811821a0a62eab36c2ac}{Fill(const char, size\+\_\+t, size\+\_\+t) const }instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_af62ccb89f536814db9d86b8c7a1c4eed}{Fill(const char, size\+\_\+t, size\+\_\+t)} instead. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start filling. \\
+\mbox{\tt in}  & {\em begin} & The index from where to start filling. ~\newline
+ If this index is greater or equal to the end index or the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return without filling. \\
 \hline
-\mbox{\tt in}  & {\em end} & The index to where to stop filling.  {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a6df9549c970e255b68be62942f4d83ca}{Fill(size\+\_\+t, const char$\ast$ const, size\+\_\+t, size\+\_\+t) const }instead as it is faster.} \\
+\mbox{\tt in}  & {\em end} & The index to where to stop filling. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}.  {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a0b32e7b8c1fde08ea22eab48a57badd8}{Fill(size\+\_\+t, const char$\ast$ const, size\+\_\+t, size\+\_\+t)} instead as it is faster.} \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a2b89a279228596cafa6232007c7cc218}\label{class_power_1_1_string_a2b89a279228596cafa6232007c7cc218}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a1f5d92e3f7c6d80bdcc6575c77689218}\label{class_power_1_1_string_a1f5d92e3f7c6d80bdcc6575c77689218}} 
 \index{Power\+::\+String@{Power\+::\+String}!Fill@{Fill}}
 \index{Fill@{Fill}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Fill()}{Fill()}\hspace{0.1cm}{\footnotesize\ttfamily [7/12]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{const char $\ast$const}]{other }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{const char $\ast$const}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1148,14 +1212,17 @@ Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specifi
 \mbox{\tt in}  & {\em length} & The length of the c-\/string excluding the null character. \\
 \hline
 \mbox{\tt in}  & {\em other} & The c-\/string to fill with. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a8dbe442eba279eaa441b8e99bc80cb5c}{Fill(const char) const }instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a4f2b074b5fc10cad59a929dcfb158fc2}{Fill(const char)} instead. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_adfd34ce7307abbb1ba9b0bb649e57e5f}\label{class_power_1_1_string_adfd34ce7307abbb1ba9b0bb649e57e5f}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a8ed1d578da79962ec7c44419ae4df353}\label{class_power_1_1_string_a8ed1d578da79962ec7c44419ae4df353}} 
 \index{Power\+::\+String@{Power\+::\+String}!Fill@{Fill}}
 \index{Fill@{Fill}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Fill()}{Fill()}\hspace{0.1cm}{\footnotesize\ttfamily [8/12]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1166,16 +1233,20 @@ Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specifi
 \mbox{\tt in}  & {\em length} & The length of the c-\/string excluding the null character. \\
 \hline
 \mbox{\tt in}  & {\em other} & The c-\/string to fill with. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a2dbda22c03de5742b8cf4fbd075e9dfd}{Fill(const char, size\+\_\+t) const }instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_ae8e44083b582d9409d9129d5282e19c3}{Fill(const char, size\+\_\+t)} instead. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start filling. \\
+\mbox{\tt in}  & {\em begin} & The index from where to start filling. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return without filling. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a6df9549c970e255b68be62942f4d83ca}\label{class_power_1_1_string_a6df9549c970e255b68be62942f4d83ca}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a0b32e7b8c1fde08ea22eab48a57badd8}\label{class_power_1_1_string_a0b32e7b8c1fde08ea22eab48a57badd8}} 
 \index{Power\+::\+String@{Power\+::\+String}!Fill@{Fill}}
 \index{Fill@{Fill}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Fill()}{Fill()}\hspace{0.1cm}{\footnotesize\ttfamily [9/12]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1186,18 +1257,23 @@ Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specifi
 \mbox{\tt in}  & {\em length} & The length of the c-\/string excluding the null character. \\
 \hline
 \mbox{\tt in}  & {\em other} & The c-\/string to fill with. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_ae1e7ac80b210811821a0a62eab36c2ac}{Fill(const char, size\+\_\+t, size\+\_\+t) const }instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_af62ccb89f536814db9d86b8c7a1c4eed}{Fill(const char, size\+\_\+t, size\+\_\+t)} instead. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start filling. \\
+\mbox{\tt in}  & {\em begin} & The index from where to start filling. ~\newline
+ If this index is greater or equal to the end index or the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return without filling. \\
 \hline
-\mbox{\tt in}  & {\em end} & The index to where to stop filling. \\
+\mbox{\tt in}  & {\em end} & The index to where to stop filling. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a8dbe442eba279eaa441b8e99bc80cb5c}\label{class_power_1_1_string_a8dbe442eba279eaa441b8e99bc80cb5c}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a4f2b074b5fc10cad59a929dcfb158fc2}\label{class_power_1_1_string_a4f2b074b5fc10cad59a929dcfb158fc2}} 
 \index{Power\+::\+String@{Power\+::\+String}!Fill@{Fill}}
 \index{Fill@{Fill}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Fill()}{Fill()}\hspace{0.1cm}{\footnotesize\ttfamily [10/12]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1208,11 +1284,14 @@ Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specifi
 \mbox{\tt in}  & {\em c} & The character to fill with. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a2dbda22c03de5742b8cf4fbd075e9dfd}\label{class_power_1_1_string_a2dbda22c03de5742b8cf4fbd075e9dfd}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_ae8e44083b582d9409d9129d5282e19c3}\label{class_power_1_1_string_ae8e44083b582d9409d9129d5282e19c3}} 
 \index{Power\+::\+String@{Power\+::\+String}!Fill@{Fill}}
 \index{Fill@{Fill}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Fill()}{Fill()}\hspace{0.1cm}{\footnotesize\ttfamily [11/12]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const char}]{c,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const char}]{c,  }\item[{size\+\_\+t}]{begin }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1222,14 +1301,18 @@ Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specifi
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em c} & The character to fill with. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start filling. \\
+\mbox{\tt in}  & {\em begin} & The index from where to start filling. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return without filling. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_ae1e7ac80b210811821a0a62eab36c2ac}\label{class_power_1_1_string_ae1e7ac80b210811821a0a62eab36c2ac}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_af62ccb89f536814db9d86b8c7a1c4eed}\label{class_power_1_1_string_af62ccb89f536814db9d86b8c7a1c4eed}} 
 \index{Power\+::\+String@{Power\+::\+String}!Fill@{Fill}}
 \index{Fill@{Fill}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Fill()}{Fill()}\hspace{0.1cm}{\footnotesize\ttfamily [12/12]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const char}]{c,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Fill (\begin{DoxyParamCaption}\item[{const char}]{c,  }\item[{size\+\_\+t}]{begin,  }\item[{size\+\_\+t}]{end }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1239,11 +1322,16 @@ Fills the \hyperlink{class_power_1_1_string}{Power\+::\+String} with the specifi
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em c} & The character to fill with. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start filling. \\
+\mbox{\tt in}  & {\em begin} & The index from where to start filling. ~\newline
+ If this index is greater or equal to the end index or the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return without filling. \\
 \hline
-\mbox{\tt in}  & {\em end} & The index to where to stop filling. \\
+\mbox{\tt in}  & {\em end} & The index to where to stop filling. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_a91a17a73900ea3e77e01f6d816a5bb39}\label{class_power_1_1_string_a91a17a73900ea3e77e01f6d816a5bb39}} 
 \index{Power\+::\+String@{Power\+::\+String}!Index\+Of@{Index\+Of}}
 \index{Index\+Of@{Index\+Of}!Power\+::\+String@{Power\+::\+String}}
@@ -1284,7 +1372,7 @@ Finds the first occurance of the specified \hyperlink{class_power_1_1_string}{Po
 \begin{DoxyReturn}{Returns}
 The start index of the first occurance of the specified \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 
-Or -\/1 if the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} does not occur. 
+Or -\/1 if the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_a9e204e6e8f98ebbd6db70bfb5312e7ae}\label{class_power_1_1_string_a9e204e6e8f98ebbd6db70bfb5312e7ae}} 
 \index{Power\+::\+String@{Power\+::\+String}!Index\+Of@{Index\+Of}}
@@ -1302,13 +1390,14 @@ Finds the first occurance of the specified \hyperlink{class_power_1_1_string}{Po
 \hline
 \mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
 \hline
-\mbox{\tt in}  & {\em end} & The index to where to stop looking. \\
+\mbox{\tt in}  & {\em end} & The index to where to stop looking. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 The start index of the first occurance of the specified \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 
-Or -\/1 if the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} does not occur. 
+Or -\/1 if the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} or if the begin index is greater or equal to the end index. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_a431cea53a02daa397a5598138fa0c656}\label{class_power_1_1_string_a431cea53a02daa397a5598138fa0c656}} 
 \index{Power\+::\+String@{Power\+::\+String}!Index\+Of@{Index\+Of}}
@@ -1355,7 +1444,7 @@ Finds the first occurance of the specified c-\/string starting from the specifie
 \begin{DoxyReturn}{Returns}
 The start index of the first occurance of the specified c-\/string. 
 
-Or -\/1 if the specified c-\/string does not occur. 
+Or -\/1 if the specified c-\/string does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 \end{DoxyReturn}
 \begin{DoxyNote}{Note}
 {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_aecff21ff789251b0dcda23a4f2797db2}{Index\+Of(size\+\_\+t, const char$\ast$ const, size\+\_\+t) const }instead as it is faster.} 
@@ -1377,13 +1466,14 @@ Finds the first occurance of the specified c-\/string between the specified star
 \hline
 \mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
 \hline
-\mbox{\tt in}  & {\em end} & The index to where to stop looking. \\
+\mbox{\tt in}  & {\em end} & The index to where to stop looking. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 The start index of the first occurance of the specified c-\/string. 
 
-Or -\/1 if the specified c-\/string does not occur. 
+Or -\/1 if the specified c-\/string does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} or if the begin index is greater or equal to the end index. 
 \end{DoxyReturn}
 \begin{DoxyNote}{Note}
 {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a6dbad87edb4036a9463399cfea31a14c}{Index\+Of(size\+\_\+t, const char$\ast$ const, size\+\_\+t, size\+\_\+t) const }instead as it is faster.} 
@@ -1434,7 +1524,7 @@ Finds the first occurance of the specified c-\/string starting from the specifie
 \begin{DoxyReturn}{Returns}
 The start index of the first occurance of the specified c-\/string. 
 
-Or -\/1 if the specified c-\/string does not occur. 
+Or -\/1 if the specified c-\/string does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_a6dbad87edb4036a9463399cfea31a14c}\label{class_power_1_1_string_a6dbad87edb4036a9463399cfea31a14c}} 
 \index{Power\+::\+String@{Power\+::\+String}!Index\+Of@{Index\+Of}}
@@ -1455,13 +1545,14 @@ Finds the first occurance of the specified c-\/string between the specified star
 \hline
 \mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
 \hline
-\mbox{\tt in}  & {\em end} & The index to where to stop looking. \\
+\mbox{\tt in}  & {\em end} & The index to where to stop looking. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 The start index of the first occurance of the specified c-\/string. 
 
-Or -\/1 if the specified c-\/string does not occur. 
+Or -\/1 if the specified c-\/string does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} or if the begin index is greater or equal to the end index. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_af1bd7ca5bdef376538e580fd61d7fb1d}\label{class_power_1_1_string_af1bd7ca5bdef376538e580fd61d7fb1d}} 
 \index{Power\+::\+String@{Power\+::\+String}!Index\+Of@{Index\+Of}}
@@ -1503,7 +1594,7 @@ Finds the first occurance of the specified character starting from the specified
 \begin{DoxyReturn}{Returns}
 The index of the first occurance of the specified character. 
 
-Or -\/1 if the specified character does not occur. 
+Or -\/1 if the specified character does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_acbdc3ba090c08065559d9ab32b753e27}\label{class_power_1_1_string_acbdc3ba090c08065559d9ab32b753e27}} 
 \index{Power\+::\+String@{Power\+::\+String}!Index\+Of@{Index\+Of}}
@@ -1521,19 +1612,20 @@ Finds the first occurance of the specified character between the specified start
 \hline
 \mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
 \hline
-\mbox{\tt in}  & {\em end} & The index to where to stop looking. \\
+\mbox{\tt in}  & {\em end} & The index to where to stop looking. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
 The index of the first occurance of the specified character. 
 
-Or -\/1 if the specified character does not occur. 
+Or -\/1 if the specified character does not occur or if the begin index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} or if the begin index is greater or equal to the end index. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_power_1_1_string_ae299096a84ec36c3a7d334ecbd98c8ac}\label{class_power_1_1_string_ae299096a84ec36c3a7d334ecbd98c8ac}} 
+\mbox{\Hypertarget{class_power_1_1_string_a2d92ca786aa910d06176b4107bebc285}\label{class_power_1_1_string_a2d92ca786aa910d06176b4107bebc285}} 
 \index{Power\+::\+String@{Power\+::\+String}!Insert@{Insert}}
 \index{Insert@{Insert}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Insert()}{Insert()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Insert (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Insert (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1541,16 +1633,20 @@ Inserts the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} at t
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index where the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} will be inserted at. \\
+\mbox{\tt in}  & {\em index} & The index where the specified \hyperlink{class_power_1_1_string}{Power\+::\+String} will be inserted at. ~\newline
+ If this index is greater than the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be inserted. \\
 \hline
 \mbox{\tt in}  & {\em other} & The \hyperlink{class_power_1_1_string}{Power\+::\+String} to be inserted. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_aae39de09c7d011d58c067545cbec254a}\label{class_power_1_1_string_aae39de09c7d011d58c067545cbec254a}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a44a8b56904401398d11ad927699414f4}\label{class_power_1_1_string_a44a8b56904401398d11ad927699414f4}} 
 \index{Power\+::\+String@{Power\+::\+String}!Insert@{Insert}}
 \index{Insert@{Insert}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Insert()}{Insert()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Insert (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char $\ast$const}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Insert (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char $\ast$const}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1558,20 +1654,24 @@ Inserts the specified c-\/string at the specified index.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index where the specified c-\/string will be inserted at. \\
+\mbox{\tt in}  & {\em index} & The index where the specified c-\/string will be inserted at. ~\newline
+ If this index is greater than the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be inserted. \\
 \hline
 \mbox{\tt in}  & {\em other} & The c-\/string to be inserted. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a07dc9c5bdb8dfc2dff7a49d5464b1017}{Insert(size\+\_\+t, const char)} instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a2a7e5bcd31c35003a35949cfd993528a}{Insert(size\+\_\+t, const char)} instead. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyNote}{Note}
 {\bfseries If the length of the c-\/string is already known, it is recommended to use Insert(sizt\+\_\+t, const char$\ast$ const, size\+\_\+t) instead as it is faster.} 
 \end{DoxyNote}
-\mbox{\Hypertarget{class_power_1_1_string_a9f13e94b3e64c51f1c3d809f2ac34b47}\label{class_power_1_1_string_a9f13e94b3e64c51f1c3d809f2ac34b47}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a6396f902cbd4cc5f8216f3b36a3d5718}\label{class_power_1_1_string_a6396f902cbd4cc5f8216f3b36a3d5718}} 
 \index{Power\+::\+String@{Power\+::\+String}!Insert@{Insert}}
 \index{Insert@{Insert}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Insert()}{Insert()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Insert (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Insert (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1579,19 +1679,23 @@ Inserts the specified c-\/string at the specified index.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index where the specified c-\/string will be inserted at. \\
+\mbox{\tt in}  & {\em index} & The index where the specified c-\/string will be inserted at. ~\newline
+ If this index is greater than the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be inserted. \\
 \hline
 \mbox{\tt in}  & {\em other} & The c-\/string to be inserted. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a07dc9c5bdb8dfc2dff7a49d5464b1017}{Insert(size\+\_\+t, const char)} instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a2a7e5bcd31c35003a35949cfd993528a}{Insert(size\+\_\+t, const char)} instead. \\
 \hline
 \mbox{\tt in}  & {\em length} & The length of the c-\/string excluding the null character. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a07dc9c5bdb8dfc2dff7a49d5464b1017}\label{class_power_1_1_string_a07dc9c5bdb8dfc2dff7a49d5464b1017}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a2a7e5bcd31c35003a35949cfd993528a}\label{class_power_1_1_string_a2a7e5bcd31c35003a35949cfd993528a}} 
 \index{Power\+::\+String@{Power\+::\+String}!Insert@{Insert}}
 \index{Insert@{Insert}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Insert()}{Insert()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Insert (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Insert (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -1599,11 +1703,15 @@ Inserts the specified character at the specified index.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index where the specified character will be inserted at. \\
+\mbox{\tt in}  & {\em index} & The index where the specified character will be inserted at. ~\newline
+ If this index is greater than the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be inserted. \\
 \hline
 \mbox{\tt in}  & {\em c} & The character to be inserted. \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_ac4197801cb69b5bc00714f1a5bb638a6}\label{class_power_1_1_string_ac4197801cb69b5bc00714f1a5bb638a6}} 
 \index{Power\+::\+String@{Power\+::\+String}!Join@{Join}}
 \index{Join@{Join}!Power\+::\+String@{Power\+::\+String}}
@@ -1834,7 +1942,7 @@ Finds the last occurance of the specified \hyperlink{class_power_1_1_string}{Pow
 \begin{DoxyReturn}{Returns}
 The start index of the last occurance of the specified \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 
-Or -\/1 if the spcified \hyperlink{class_power_1_1_string}{Power\+::\+String} does not occur. 
+Or -\/1 if the spcified \hyperlink{class_power_1_1_string}{Power\+::\+String} does not occur or if the end index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_ac22b55e02887c0087e3f07d22e91b542}\label{class_power_1_1_string_ac22b55e02887c0087e3f07d22e91b542}} 
 \index{Power\+::\+String@{Power\+::\+String}!Last\+Index\+Of@{Last\+Index\+Of}}
@@ -1850,7 +1958,8 @@ Finds the last occurance of the specified \hyperlink{class_power_1_1_string}{Pow
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em other} & The \hyperlink{class_power_1_1_string}{Power\+::\+String} for look for. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start lookin. \\
+\mbox{\tt in}  & {\em begin} & The index from where to start lookin. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \mbox{\tt in}  & {\em end} & The index to where to stop looking. \\
 \hline
@@ -1858,7 +1967,7 @@ Finds the last occurance of the specified \hyperlink{class_power_1_1_string}{Pow
 \begin{DoxyReturn}{Returns}
 The start index of the last occurance of the specified \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 
-Or -\/1 if the spcified \hyperlink{class_power_1_1_string}{Power\+::\+String} does not occur. 
+Or -\/1 if the spcified \hyperlink{class_power_1_1_string}{Power\+::\+String} does not occur or if the end index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} or if the end index is greater or equal to the begin index. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_ac48efb7e8ad6af8665b08cb2a3804dbc}\label{class_power_1_1_string_ac48efb7e8ad6af8665b08cb2a3804dbc}} 
 \index{Power\+::\+String@{Power\+::\+String}!Last\+Index\+Of@{Last\+Index\+Of}}
@@ -1899,7 +2008,8 @@ Finds the last occurance of the specified c-\/string starting from the specified
 \mbox{\tt in}  & {\em other} & The c-\/string to look for. ~\newline
  {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a0791550659fc2f5c9728eac06208d73c}{Last\+Index\+Of(const char, size\+\_\+t) const }instead. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
+\mbox{\tt in}  & {\em begin} & The index from where to start looking. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -1925,7 +2035,8 @@ Finds the last occurance of the specified c-\/string between the specified start
 \mbox{\tt in}  & {\em other} & The c-\/string to look for. ~\newline
  {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a983604990be4acb0f22ab400b46445ea}{Last\+Index\+Of(const char, size\+\_\+t, size\+\_\+t) const }instead. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
+\mbox{\tt in}  & {\em begin} & The index from where to start looking. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \mbox{\tt in}  & {\em end} & The index to where to stop looking. \\
 \hline
@@ -1933,7 +2044,7 @@ Finds the last occurance of the specified c-\/string between the specified start
 \begin{DoxyReturn}{Returns}
 The start index of the last occurance of the specified c-\/string. 
 
-Or -\/1 if the specified c-\/string does not occur. 
+Or -\/1 if the specified c-\/string does not occur or if the end index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} or if the end index is greater or equal to the eegin index. 
 \end{DoxyReturn}
 \begin{DoxyNote}{Note}
 {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_abf58cac446f5479ae4436974bad5e4af}{Last\+Index\+Of(size\+\_\+t, const char$\ast$ const, size\+\_\+t, size\+\_\+t) const }instead as it is faster.} 
@@ -1978,7 +2089,8 @@ Finds the last occurance of the specified c-\/string starting from the specified
 \mbox{\tt in}  & {\em other} & The c-\/string to look for. ~\newline
  {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a0791550659fc2f5c9728eac06208d73c}{Last\+Index\+Of(const char, size\+\_\+t) const }instead. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
+\mbox{\tt in}  & {\em begin} & The index from where to start looking. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -2003,7 +2115,8 @@ Finds the last occurance of the specified c-\/string between the specified start
 \mbox{\tt in}  & {\em other} & The c-\/string to look for. ~\newline
  {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a983604990be4acb0f22ab400b46445ea}{Last\+Index\+Of(const char, size\+\_\+t, size\+\_\+t) const }instead. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
+\mbox{\tt in}  & {\em begin} & The index from where to start looking. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \mbox{\tt in}  & {\em end} & The index to where to stop looking. \\
 \hline
@@ -2011,7 +2124,7 @@ Finds the last occurance of the specified c-\/string between the specified start
 \begin{DoxyReturn}{Returns}
 The start index of the last occurance of the specified c-\/string. 
 
-Or -\/1 if the specified c-\/string does not occur. 
+Or -\/1 if the specified c-\/string does not occur or if the end index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} or if the end index is greater or equal to the begin index. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_a5d19cb2d35f6cd396c1910579b5ba89e}\label{class_power_1_1_string_a5d19cb2d35f6cd396c1910579b5ba89e}} 
 \index{Power\+::\+String@{Power\+::\+String}!Last\+Index\+Of@{Last\+Index\+Of}}
@@ -2047,7 +2160,8 @@ Finds the last occurance of the specified character starting from the specified 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em c} & The character to look for. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
+\mbox{\tt in}  & {\em begin} & The index from where to start looking. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -2069,7 +2183,8 @@ Finds the last occurance of the specified character between the specified start 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em c} & The character to look for. \\
 \hline
-\mbox{\tt in}  & {\em begin} & The index from where to start looking. \\
+\mbox{\tt in}  & {\em begin} & The index from where to start looking. ~\newline
+ This index is clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
 \hline
 \mbox{\tt in}  & {\em end} & The index to where to stop looking. \\
 \hline
@@ -2077,7 +2192,7 @@ Finds the last occurance of the specified character between the specified start 
 \begin{DoxyReturn}{Returns}
 The index of the last occurance of the specified character. 
 
-Or -\/1 if the specified character does not occur. 
+Or -\/1 if the specified character does not occur or if the end index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} or if the end index is greater or equal to the begin index. 
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_a04a9b77cf53b0421d4da863ec1d62707}\label{class_power_1_1_string_a04a9b77cf53b0421d4da863ec1d62707}} 
 \index{Power\+::\+String@{Power\+::\+String}!Length@{Length}}
@@ -2513,11 +2628,11 @@ T\+O\+DO\+: Document.
 
 T\+O\+DO\+: Document. 
 
-\mbox{\Hypertarget{class_power_1_1_string_a7f70e85bdbec97cc247d08ba74cb00ed}\label{class_power_1_1_string_a7f70e85bdbec97cc247d08ba74cb00ed}} 
+\mbox{\Hypertarget{class_power_1_1_string_a56ba1cfcfb79834e8267266a19b9a6f1}\label{class_power_1_1_string_a56ba1cfcfb79834e8267266a19b9a6f1}} 
 \index{Power\+::\+String@{Power\+::\+String}!Pad\+Left@{Pad\+Left}}
 \index{Pad\+Left@{Pad\+Left}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Pad\+Left()}{PadLeft()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Pad\+Left (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Pad\+Left (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2525,14 +2640,18 @@ Right-\/aligns the \hyperlink{class_power_1_1_string}{Power\+::\+String} by fill
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em length} & The total length the \hyperlink{class_power_1_1_string}{Power\+::\+String} should be including the current length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
+\mbox{\tt in}  & {\em length} & The total length the \hyperlink{class_power_1_1_string}{Power\+::\+String} should be including the current length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. ~\newline
+ If this value is less or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, this method will return without padding. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_ae1a401f8fc597068ac70fc1f18dee45c}\label{class_power_1_1_string_ae1a401f8fc597068ac70fc1f18dee45c}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_aa194605077a9482279c88d7b3726c969}\label{class_power_1_1_string_aa194605077a9482279c88d7b3726c969}} 
 \index{Power\+::\+String@{Power\+::\+String}!Pad\+Left@{Pad\+Left}}
 \index{Pad\+Left@{Pad\+Left}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Pad\+Left()}{PadLeft()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Pad\+Left (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Pad\+Left (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2540,16 +2659,20 @@ Right-\/aligns the \hyperlink{class_power_1_1_string}{Power\+::\+String} by fill
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em length} & The total length the \hyperlink{class_power_1_1_string}{Power\+::\+String} should be including the current length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
+\mbox{\tt in}  & {\em length} & The total length the \hyperlink{class_power_1_1_string}{Power\+::\+String} should be including the current length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. ~\newline
+ If this value is less or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, this method will return without padding. \\
 \hline
 \mbox{\tt in}  & {\em c} & The character with which to fill. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a48bd3019edb44ed96a6b69f3adf0d82d}\label{class_power_1_1_string_a48bd3019edb44ed96a6b69f3adf0d82d}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_af28370a40056ed8d7b38bdeb590e0bce}\label{class_power_1_1_string_af28370a40056ed8d7b38bdeb590e0bce}} 
 \index{Power\+::\+String@{Power\+::\+String}!Pad\+Right@{Pad\+Right}}
 \index{Pad\+Right@{Pad\+Right}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Pad\+Right()}{PadRight()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Pad\+Right (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Pad\+Right (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2557,14 +2680,18 @@ Left-\/aligns the \hyperlink{class_power_1_1_string}{Power\+::\+String} by filli
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em length} & The total length the \hyperlink{class_power_1_1_string}{Power\+::\+String} should be including the current length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
+\mbox{\tt in}  & {\em length} & The total length the \hyperlink{class_power_1_1_string}{Power\+::\+String} should be including the current length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. ~\newline
+ If this value is less or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, this method will return without padding. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_ae8f53778737d45ccf92e466fb5d179de}\label{class_power_1_1_string_ae8f53778737d45ccf92e466fb5d179de}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_ada653441d51531127346cfb8e5a7aa63}\label{class_power_1_1_string_ada653441d51531127346cfb8e5a7aa63}} 
 \index{Power\+::\+String@{Power\+::\+String}!Pad\+Right@{Pad\+Right}}
 \index{Pad\+Right@{Pad\+Right}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Pad\+Right()}{PadRight()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Pad\+Right (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Pad\+Right (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{length,  }\item[{char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2572,16 +2699,20 @@ Left-\/aligns the \hyperlink{class_power_1_1_string}{Power\+::\+String} by filli
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em length} & The total length the \hyperlink{class_power_1_1_string}{Power\+::\+String} should be including the current length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. \\
+\mbox{\tt in}  & {\em length} & The total length the \hyperlink{class_power_1_1_string}{Power\+::\+String} should be including the current length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. ~\newline
+ If this value is less or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, this method will return without padding. \\
 \hline
 \mbox{\tt in}  & {\em c} & The character with which to fill. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a74417c6d558225c4bbd8e51128dc64fc}\label{class_power_1_1_string_a74417c6d558225c4bbd8e51128dc64fc}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a02dcfcbe27a01bf938d9ce038a0487ef}\label{class_power_1_1_string_a02dcfcbe27a01bf938d9ce038a0487ef}} 
 \index{Power\+::\+String@{Power\+::\+String}!Remove@{Remove}}
 \index{Remove@{Remove}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Remove()}{Remove()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Remove (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Remove (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2589,14 +2720,18 @@ Removes all characters in the Power\+::\+Strig starting from the specified index
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index from where to start. \\
+\mbox{\tt in}  & {\em index} & The index from where to start. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be removed. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_ae54d14f87fd2d2e66334697ea1a740a7}\label{class_power_1_1_string_ae54d14f87fd2d2e66334697ea1a740a7}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a43f1d459afdc0a80c72be214f54f7187}\label{class_power_1_1_string_a43f1d459afdc0a80c72be214f54f7187}} 
 \index{Power\+::\+String@{Power\+::\+String}!Remove@{Remove}}
 \index{Remove@{Remove}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Remove()}{Remove()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Remove (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Remove (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{size\+\_\+t}]{count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2604,16 +2739,21 @@ Removes a specified amount of characters in the \hyperlink{class_power_1_1_strin
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index from where to start. \\
+\mbox{\tt in}  & {\em index} & The index from where to start. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be removed. \\
 \hline
-\mbox{\tt in}  & {\em count} & How many characters shall be removed. \\
+\mbox{\tt in}  & {\em count} & How many characters shall be removed. ~\newline
+ This value gets clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} minus the specified index. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a0189bdb52b19b0f9e7929cb87b2fd66c}\label{class_power_1_1_string_a0189bdb52b19b0f9e7929cb87b2fd66c}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a43b649fe2658dc5d81e3c5e245dedc6e}\label{class_power_1_1_string_a43b649fe2658dc5d81e3c5e245dedc6e}} 
 \index{Power\+::\+String@{Power\+::\+String}!Remove\+All@{Remove\+All}}
 \index{Remove\+All@{Remove\+All}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Remove\+All()}{RemoveAll()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Remove\+All (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Remove\+All (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2624,11 +2764,14 @@ Removes all occurances of the specified \hyperlink{class_power_1_1_string}{Power
 \mbox{\tt in}  & {\em other} & The \hyperlink{class_power_1_1_string}{Power\+::\+String} to remove. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a1b237c81ea2a466c192cdd63e706f455}\label{class_power_1_1_string_a1b237c81ea2a466c192cdd63e706f455}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_add8a90782cd07cc66c639c364d828f1b}\label{class_power_1_1_string_add8a90782cd07cc66c639c364d828f1b}} 
 \index{Power\+::\+String@{Power\+::\+String}!Remove\+All@{Remove\+All}}
 \index{Remove\+All@{Remove\+All}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Remove\+All()}{RemoveAll()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Remove\+All (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Remove\+All (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2637,14 +2780,17 @@ Removes all occurances of the specified c-\/string.
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em other} & The c-\/string to remove. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_ac1a456c7f0f019263c424431b0fbeefa}{Remove\+All(const char)} instead.  {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a6418c5e3a28ef177a3516c17be3bfcb3}{Remove\+All(const char$\ast$ const, size\+\_\+t)} instead as it is faster.} \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a64645e19944f9cee21097d33dc704211}{Remove\+All(const char)} instead.  {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a749b4acfb84cb4865994d5094271ae86}{Remove\+All(const char$\ast$ const, size\+\_\+t)} instead as it is faster.} \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a6418c5e3a28ef177a3516c17be3bfcb3}\label{class_power_1_1_string_a6418c5e3a28ef177a3516c17be3bfcb3}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a749b4acfb84cb4865994d5094271ae86}\label{class_power_1_1_string_a749b4acfb84cb4865994d5094271ae86}} 
 \index{Power\+::\+String@{Power\+::\+String}!Remove\+All@{Remove\+All}}
 \index{Remove\+All@{Remove\+All}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Remove\+All()}{RemoveAll()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Remove\+All (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Remove\+All (\begin{DoxyParamCaption}\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2653,16 +2799,19 @@ Removes all occurances of the specified c-\/string.
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em other} & The c-\/string to remove. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_ac1a456c7f0f019263c424431b0fbeefa}{Remove\+All(const char)} instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a64645e19944f9cee21097d33dc704211}{Remove\+All(const char)} instead. \\
 \hline
 \mbox{\tt in}  & {\em length} & The length of the c-\/string excluding the null character. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_ac1a456c7f0f019263c424431b0fbeefa}\label{class_power_1_1_string_ac1a456c7f0f019263c424431b0fbeefa}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a64645e19944f9cee21097d33dc704211}\label{class_power_1_1_string_a64645e19944f9cee21097d33dc704211}} 
 \index{Power\+::\+String@{Power\+::\+String}!Remove\+All@{Remove\+All}}
 \index{Remove\+All@{Remove\+All}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Remove\+All()}{RemoveAll()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Remove\+All (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Remove\+All (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2673,11 +2822,14 @@ Removes all occurances of the specified character.
 \mbox{\tt in}  & {\em c} & The character to remove. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a8fc1e2630c8ce27765589c7cf8cce1d7}\label{class_power_1_1_string_a8fc1e2630c8ce27765589c7cf8cce1d7}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_ab0a52e24022cf0b22d7af6264ecc4c98}\label{class_power_1_1_string_ab0a52e24022cf0b22d7af6264ecc4c98}} 
 \index{Power\+::\+String@{Power\+::\+String}!Replace@{Replace}}
 \index{Replace@{Replace}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Replace()}{Replace()}\hspace{0.1cm}{\footnotesize\ttfamily [1/8]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2685,16 +2837,20 @@ Replaces all characters from the specified start index with the specified \hyper
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index from where to replace. \\
+\mbox{\tt in}  & {\em index} & The index from where to replace. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be replaced. \\
 \hline
 \mbox{\tt in}  & {\em other} & The \hyperlink{class_power_1_1_string}{Power\+::\+String} with which to replace. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a2c8234083a3b5b44387ba9712dd85344}\label{class_power_1_1_string_a2c8234083a3b5b44387ba9712dd85344}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a158278232a6b714c2bb5ce3a9cbf9642}\label{class_power_1_1_string_a158278232a6b714c2bb5ce3a9cbf9642}} 
 \index{Power\+::\+String@{Power\+::\+String}!Replace@{Replace}}
 \index{Replace@{Replace}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Replace()}{Replace()}\hspace{0.1cm}{\footnotesize\ttfamily [2/8]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{size\+\_\+t}]{count,  }\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{size\+\_\+t}]{count,  }\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2702,18 +2858,23 @@ Replaces a specified amount of characters from the specified start index with th
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index from where to replace. \\
+\mbox{\tt in}  & {\em index} & The index from where to replace. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be replaced. \\
 \hline
-\mbox{\tt in}  & {\em count} & How many characters will be replaced. \\
+\mbox{\tt in}  & {\em count} & How many characters will be replaced. ~\newline
+ This value gets clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} minus the specified index. \\
 \hline
 \mbox{\tt in}  & {\em other} & The \hyperlink{class_power_1_1_string}{Power\+::\+String} with which to replace. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a662ac2de658f0129ba3e20bbb8841c06}\label{class_power_1_1_string_a662ac2de658f0129ba3e20bbb8841c06}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_ad94fc777a94a27590e93c32b86c6f84b}\label{class_power_1_1_string_ad94fc777a94a27590e93c32b86c6f84b}} 
 \index{Power\+::\+String@{Power\+::\+String}!Replace@{Replace}}
 \index{Replace@{Replace}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Replace()}{Replace()}\hspace{0.1cm}{\footnotesize\ttfamily [3/8]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char $\ast$const}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char $\ast$const}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2721,17 +2882,21 @@ Replaces all characters from the specified start index with the specified c-\/st
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index from where to replace. \\
+\mbox{\tt in}  & {\em index} & The index from where to replace. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be replaced. \\
 \hline
 \mbox{\tt in}  & {\em other} & The c-\/string with which to replace. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_aaa587a207643c7dbb401574651b42ff2}{Replace(size\+\_\+t, const char)} instead.  {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a7df46dbd4f708f9c758f4b29f77ff1b5}{Replace(size\+\_\+t, const char$\ast$ const, size\+\_\+t)} instead as it is faster.} \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_aaeba6635317522959a39eb0d2daf1bfa}{Replace(size\+\_\+t, const char)} instead.  {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_ab20eff7cedd6965f29dececf8a9e4354}{Replace(size\+\_\+t, const char$\ast$ const, size\+\_\+t)} instead as it is faster.} \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_acbe6e2e31229075c99d1e498a02c8128}\label{class_power_1_1_string_acbe6e2e31229075c99d1e498a02c8128}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_aa22a5533bc6b831a6985fe55591508df}\label{class_power_1_1_string_aa22a5533bc6b831a6985fe55591508df}} 
 \index{Power\+::\+String@{Power\+::\+String}!Replace@{Replace}}
 \index{Replace@{Replace}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Replace()}{Replace()}\hspace{0.1cm}{\footnotesize\ttfamily [4/8]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{size\+\_\+t}]{count,  }\item[{const char $\ast$const}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{size\+\_\+t}]{count,  }\item[{const char $\ast$const}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2739,19 +2904,24 @@ Replaces all characters from the specified start index with the specified c-\/st
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index from where to replace. \\
+\mbox{\tt in}  & {\em index} & The index from where to replace. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be replaced. \\
 \hline
-\mbox{\tt in}  & {\em count} & How many characters will be replaced. \\
+\mbox{\tt in}  & {\em count} & How many characters will be replaced. ~\newline
+ This value gets clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} minus the specified index. \\
 \hline
 \mbox{\tt in}  & {\em other} & The c-\/string with which to replace. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_ac577d7badcecee8bf6f55bd7150bbb4b}{Replace(size\+\_\+t, size\+\_\+t, const char)} instead.  {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a7df46dbd4f708f9c758f4b29f77ff1b5}{Replace(size\+\_\+t, const char$\ast$ const, size\+\_\+t)} instead as it is faster.} \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a8bdd92abdc4f1e94ec9392aa2055c0a1}{Replace(size\+\_\+t, size\+\_\+t, const char)} instead.  {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_ab20eff7cedd6965f29dececf8a9e4354}{Replace(size\+\_\+t, const char$\ast$ const, size\+\_\+t)} instead as it is faster.} \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a7df46dbd4f708f9c758f4b29f77ff1b5}\label{class_power_1_1_string_a7df46dbd4f708f9c758f4b29f77ff1b5}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_ab20eff7cedd6965f29dececf8a9e4354}\label{class_power_1_1_string_ab20eff7cedd6965f29dececf8a9e4354}} 
 \index{Power\+::\+String@{Power\+::\+String}!Replace@{Replace}}
 \index{Replace@{Replace}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Replace()}{Replace()}\hspace{0.1cm}{\footnotesize\ttfamily [5/8]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2759,19 +2929,23 @@ Replaces all characters from the specified start index with the specified c-\/st
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index from where to replace. \\
+\mbox{\tt in}  & {\em index} & The index from where to replace. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be replaced. \\
 \hline
 \mbox{\tt in}  & {\em other} & The c-\/string with which to replace. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_aaa587a207643c7dbb401574651b42ff2}{Replace(size\+\_\+t, const char)} instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_aaeba6635317522959a39eb0d2daf1bfa}{Replace(size\+\_\+t, const char)} instead. \\
 \hline
 \mbox{\tt in}  & {\em length} & The length of the c-\/string excluding the null character. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a7cb1da79b5e33beb3591a554145aad32}\label{class_power_1_1_string_a7cb1da79b5e33beb3591a554145aad32}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_ab4cbd15d86f1284180bd10b418d14377}\label{class_power_1_1_string_ab4cbd15d86f1284180bd10b418d14377}} 
 \index{Power\+::\+String@{Power\+::\+String}!Replace@{Replace}}
 \index{Replace@{Replace}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Replace()}{Replace()}\hspace{0.1cm}{\footnotesize\ttfamily [6/8]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{size\+\_\+t}]{count,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{size\+\_\+t}]{count,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2779,21 +2953,26 @@ Replaces all characters from the specified start index with the specified c-\/st
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index from where to replace. \\
+\mbox{\tt in}  & {\em index} & The index from where to replace. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be replaced. \\
 \hline
-\mbox{\tt in}  & {\em count} & How many characters will be replaced. \\
+\mbox{\tt in}  & {\em count} & How many characters will be replaced. ~\newline
+ This value gets clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} minus the specified index. \\
 \hline
 \mbox{\tt in}  & {\em other} & The c-\/string with which to replace. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_ac577d7badcecee8bf6f55bd7150bbb4b}{Replace(size\+\_\+t, size\+\_\+t, const char)} instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_a8bdd92abdc4f1e94ec9392aa2055c0a1}{Replace(size\+\_\+t, size\+\_\+t, const char)} instead. \\
 \hline
 \mbox{\tt in}  & {\em length} & The length of the c-\/string excluding the null character. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_aaa587a207643c7dbb401574651b42ff2}\label{class_power_1_1_string_aaa587a207643c7dbb401574651b42ff2}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_aaeba6635317522959a39eb0d2daf1bfa}\label{class_power_1_1_string_aaeba6635317522959a39eb0d2daf1bfa}} 
 \index{Power\+::\+String@{Power\+::\+String}!Replace@{Replace}}
 \index{Replace@{Replace}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Replace()}{Replace()}\hspace{0.1cm}{\footnotesize\ttfamily [7/8]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2801,16 +2980,20 @@ Replaces all characters from the specified start index with the specified charac
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index from where to replace. \\
+\mbox{\tt in}  & {\em index} & The index from where to replace. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be replaced. \\
 \hline
 \mbox{\tt in}  & {\em c} & The character with which to replace. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_ac577d7badcecee8bf6f55bd7150bbb4b}\label{class_power_1_1_string_ac577d7badcecee8bf6f55bd7150bbb4b}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a8bdd92abdc4f1e94ec9392aa2055c0a1}\label{class_power_1_1_string_a8bdd92abdc4f1e94ec9392aa2055c0a1}} 
 \index{Power\+::\+String@{Power\+::\+String}!Replace@{Replace}}
 \index{Replace@{Replace}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Replace()}{Replace()}\hspace{0.1cm}{\footnotesize\ttfamily [8/8]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{size\+\_\+t}]{count,  }\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Replace (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{size\+\_\+t}]{count,  }\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2818,18 +3001,23 @@ Replaces a specified amount of characters from the specified start index with th
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index from where to replace. \\
+\mbox{\tt in}  & {\em index} & The index from where to replace. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be replaced. \\
 \hline
-\mbox{\tt in}  & {\em count} & How many characters will be replaced. \\
+\mbox{\tt in}  & {\em count} & How many characters will be replaced. ~\newline
+ This value gets clamped to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String} minus the specified index. \\
 \hline
 \mbox{\tt in}  & {\em c} & The character with which to replace. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_ac6ffc1ce89a2caff3d96cbb738f3f081}\label{class_power_1_1_string_ac6ffc1ce89a2caff3d96cbb738f3f081}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a72ad0e1293452ac1251a6b6458669340}\label{class_power_1_1_string_a72ad0e1293452ac1251a6b6458669340}} 
 \index{Power\+::\+String@{Power\+::\+String}!Replace\+At@{Replace\+At}}
 \index{Replace\+At@{Replace\+At}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Replace\+At()}{ReplaceAt()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Replace\+At (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Replace\+At (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2837,16 +3025,20 @@ Replaces the characters with the specified \hyperlink{class_power_1_1_string}{Po
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index from where to replace. \\
+\mbox{\tt in}  & {\em index} & The index from where to replace. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be replaced. \\
 \hline
 \mbox{\tt in}  & {\em other} & The \hyperlink{class_power_1_1_string}{Power\+::\+String} with which to replace. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_a5e666114028b7a41dc402eae7dd9ab37}\label{class_power_1_1_string_a5e666114028b7a41dc402eae7dd9ab37}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_af407db036d27c2fd06525801a6b84867}\label{class_power_1_1_string_af407db036d27c2fd06525801a6b84867}} 
 \index{Power\+::\+String@{Power\+::\+String}!Replace\+At@{Replace\+At}}
 \index{Replace\+At@{Replace\+At}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Replace\+At()}{ReplaceAt()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Replace\+At (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char $\ast$const}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Replace\+At (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char $\ast$const}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2854,17 +3046,21 @@ Replaces the characters with the specified c-\/string at the specified index.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index from where to replace. \\
+\mbox{\tt in}  & {\em index} & The index from where to replace. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be replaced. \\
 \hline
 \mbox{\tt in}  & {\em other} & The c-\/string with which to replace. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use Replace\+At(size\+\_\+t, const char) instead.  {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_af5aa96c8291a9aceb80aa7172a7a2790}{Replace\+At(size\+\_\+t, const char$\ast$ const, size\+\_\+t)} instead as it is faster.} \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_ad5c423d2d84539a6d9a203d2916d9851}{Replace\+At(size\+\_\+t, const char)} instead.  {\bfseries If the length of the c-\/string is already known, it is recommended to use \hyperlink{class_power_1_1_string_a4c9cc98d1582485e3e6a5487d5fec2fd}{Replace\+At(size\+\_\+t, const char$\ast$ const, size\+\_\+t)} instead as it is faster.} \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_af5aa96c8291a9aceb80aa7172a7a2790}\label{class_power_1_1_string_af5aa96c8291a9aceb80aa7172a7a2790}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a4c9cc98d1582485e3e6a5487d5fec2fd}\label{class_power_1_1_string_a4c9cc98d1582485e3e6a5487d5fec2fd}} 
 \index{Power\+::\+String@{Power\+::\+String}!Replace\+At@{Replace\+At}}
 \index{Replace\+At@{Replace\+At}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Replace\+At()}{ReplaceAt()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Replace\+At (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Replace\+At (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char $\ast$const}]{other,  }\item[{size\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2872,19 +3068,23 @@ Replaces the characters with the specified c-\/string at the specified index.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index from where to replace. \\
+\mbox{\tt in}  & {\em index} & The index from where to replace. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be replaced. \\
 \hline
 \mbox{\tt in}  & {\em other} & The c-\/string with which to replace. ~\newline
- {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_af0a58ed0c1b62fc36e60f5948d3e8052}{Replace\+At(size\+\_\+t, const char) const }instead. \\
+ {\bfseries Warning}\+: If a pointer to a char variable is passed, the behaviour is undefined. Use \hyperlink{class_power_1_1_string_ad5c423d2d84539a6d9a203d2916d9851}{Replace\+At(size\+\_\+t, const char)} instead. \\
 \hline
 \mbox{\tt in}  & {\em length} & The length of the c-\/string excluding the null character. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_af0a58ed0c1b62fc36e60f5948d3e8052}\label{class_power_1_1_string_af0a58ed0c1b62fc36e60f5948d3e8052}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_ad5c423d2d84539a6d9a203d2916d9851}\label{class_power_1_1_string_ad5c423d2d84539a6d9a203d2916d9851}} 
 \index{Power\+::\+String@{Power\+::\+String}!Replace\+At@{Replace\+At}}
 \index{Replace\+At@{Replace\+At}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Replace\+At()}{ReplaceAt()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Replace\+At (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char}]{c }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Replace\+At (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{index,  }\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -2892,11 +3092,15 @@ Replaces the character with the specified character at the specified index.
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index at where to replace. \\
+\mbox{\tt in}  & {\em index} & The index at where to replace. ~\newline
+ If this index is greater or equal to the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return and nothing will be replaced. \\
 \hline
 \mbox{\tt in}  & {\em c} & The character with which to replace. \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_a5a787c065417773262c90e8da4e8e079}\label{class_power_1_1_string_a5a787c065417773262c90e8da4e8e079}} 
 \index{Power\+::\+String@{Power\+::\+String}!Shrink\+To\+Fit@{Shrink\+To\+Fit}}
 \index{Shrink\+To\+Fit@{Shrink\+To\+Fit}!Power\+::\+String@{Power\+::\+String}}
@@ -2932,7 +3136,8 @@ Splits the \hyperlink{class_power_1_1_string}{Power\+::\+String} into two substr
 
 
 \begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em index} & The index at where to split. \\
+\mbox{\tt in}  & {\em index} & The index at where to split. ~\newline
+ If this index is greater than the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return wihout filling lhs and rhs. \\
 \hline
 \mbox{\tt out}  & {\em lhs} & A \hyperlink{class_power_1_1_string}{Power\+::\+String} containing the left-\/hand part from index. \\
 \hline
@@ -2953,7 +3158,8 @@ Splits a \hyperlink{class_power_1_1_string}{Power\+::\+String} into two substrin
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em source} & The \hyperlink{class_power_1_1_string}{Power\+::\+String} to be split. \\
 \hline
-\mbox{\tt in}  & {\em index} & The position where source should be split. \\
+\mbox{\tt in}  & {\em index} & The position where source should be split. ~\newline
+ If this index is greater than the length of the source \hyperlink{class_power_1_1_string}{Power\+::\+String}, the method will return wihout filling lhs and rhs. \\
 \hline
 \mbox{\tt out}  & {\em lhs} & A \hyperlink{class_power_1_1_string}{Power\+::\+String} containing the left-\/hand part from index. \\
 \hline
@@ -3086,16 +3292,19 @@ A \hyperlink{class_power_1_1_string}{Power\+::\+String} containing the substring
 
 The returned \hyperlink{class_power_1_1_string}{Power\+::\+String} will be empty, if the start index is greater than the end index or the length of the \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_power_1_1_string_ad1395f09eb54ec62ff077741203c27b5}\label{class_power_1_1_string_ad1395f09eb54ec62ff077741203c27b5}} 
+\mbox{\Hypertarget{class_power_1_1_string_aa0e68c88cb84dfa1142a20d2e0d59b3e}\label{class_power_1_1_string_aa0e68c88cb84dfa1142a20d2e0d59b3e}} 
 \index{Power\+::\+String@{Power\+::\+String}!To\+Lower@{To\+Lower}}
 \index{To\+Lower@{To\+Lower}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{To\+Lower()}{ToLower()}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+To\+Lower (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+To\+Lower (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Converts all upper case characters to lower case. 
 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
 \mbox{\Hypertarget{class_power_1_1_string_a8c1588b3f0b9edb49f72ecb3f83e6d8f}\label{class_power_1_1_string_a8c1588b3f0b9edb49f72ecb3f83e6d8f}} 
 \index{Power\+::\+String@{Power\+::\+String}!To\+String@{To\+String}}
 \index{To\+String@{To\+String}!Power\+::\+String@{Power\+::\+String}}
@@ -3301,31 +3510,37 @@ Converts a double value to a \hyperlink{class_power_1_1_string}{Power\+::\+Strin
 \begin{DoxyReturn}{Returns}
 A \hyperlink{class_power_1_1_string}{Power\+::\+String} containing the double value. 
 \end{DoxyReturn}
-\mbox{\Hypertarget{class_power_1_1_string_a9b4fbde0111caf61d777aec6b5becf59}\label{class_power_1_1_string_a9b4fbde0111caf61d777aec6b5becf59}} 
+\mbox{\Hypertarget{class_power_1_1_string_a032aabe48ca5b95b9e089998fb8806fa}\label{class_power_1_1_string_a032aabe48ca5b95b9e089998fb8806fa}} 
 \index{Power\+::\+String@{Power\+::\+String}!To\+Upper@{To\+Upper}}
 \index{To\+Upper@{To\+Upper}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{To\+Upper()}{ToUpper()}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+To\+Upper (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+To\+Upper (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Converts all lower case characters to upper case. 
 
-\mbox{\Hypertarget{class_power_1_1_string_adccf591064c5f8a4681930a01318e023}\label{class_power_1_1_string_adccf591064c5f8a4681930a01318e023}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a5fb76a178082f7fc2533745941558452}\label{class_power_1_1_string_a5fb76a178082f7fc2533745941558452}} 
 \index{Power\+::\+String@{Power\+::\+String}!Trim@{Trim}}
 \index{Trim@{Trim}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Trim()}{Trim()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Trim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Trim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Removes all leading and trailing whitespaces. 
 
-\mbox{\Hypertarget{class_power_1_1_string_afd78e65baee3fdbd249616dd03ee6eaa}\label{class_power_1_1_string_afd78e65baee3fdbd249616dd03ee6eaa}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a320511195a45fdb130083151a45bcf2d}\label{class_power_1_1_string_a320511195a45fdb130083151a45bcf2d}} 
 \index{Power\+::\+String@{Power\+::\+String}!Trim@{Trim}}
 \index{Trim@{Trim}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Trim()}{Trim()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Trim (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Trim (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -3336,21 +3551,27 @@ Removes all leading and trailing occurances of the specified character.
 \mbox{\tt in}  & {\em c} & The character to be trimmed. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_afd4d38398e47c0ab873e90431396663b}\label{class_power_1_1_string_afd4d38398e47c0ab873e90431396663b}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_ac5607bfb0efda47bafa4271a7ce6a3a9}\label{class_power_1_1_string_ac5607bfb0efda47bafa4271a7ce6a3a9}} 
 \index{Power\+::\+String@{Power\+::\+String}!Trim\+End@{Trim\+End}}
 \index{Trim\+End@{Trim\+End}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Trim\+End()}{TrimEnd()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Trim\+End (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Trim\+End (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Removes all trailing whitespaces. 
 
-\mbox{\Hypertarget{class_power_1_1_string_aedaa5e01d3bc63c803e8c379477ba114}\label{class_power_1_1_string_aedaa5e01d3bc63c803e8c379477ba114}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a7d7f493bed421a3919144c66fcb38121}\label{class_power_1_1_string_a7d7f493bed421a3919144c66fcb38121}} 
 \index{Power\+::\+String@{Power\+::\+String}!Trim\+End@{Trim\+End}}
 \index{Trim\+End@{Trim\+End}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Trim\+End()}{TrimEnd()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Trim\+End (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Trim\+End (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -3361,21 +3582,27 @@ Removes all trailing occurances of the specified character.
 \mbox{\tt in}  & {\em c} & The character to be trimmed. \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{class_power_1_1_string_ac83fee188935bfea5a486d135f8e39e3}\label{class_power_1_1_string_ac83fee188935bfea5a486d135f8e39e3}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a7c1c035836c4c42b4d6a118b7035742e}\label{class_power_1_1_string_a7c1c035836c4c42b4d6a118b7035742e}} 
 \index{Power\+::\+String@{Power\+::\+String}!Trim\+Start@{Trim\+Start}}
 \index{Trim\+Start@{Trim\+Start}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Trim\+Start()}{TrimStart()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Trim\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Trim\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
 Removes all leading whitespaces. 
 
-\mbox{\Hypertarget{class_power_1_1_string_ae4130f9754a9f1f6a2570a13429cb3d0}\label{class_power_1_1_string_ae4130f9754a9f1f6a2570a13429cb3d0}} 
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_power_1_1_string_a1c0bda3a9e8ac38157413bcce1600d14}\label{class_power_1_1_string_a1c0bda3a9e8ac38157413bcce1600d14}} 
 \index{Power\+::\+String@{Power\+::\+String}!Trim\+Start@{Trim\+Start}}
 \index{Trim\+Start@{Trim\+Start}!Power\+::\+String@{Power\+::\+String}}
 \subsubsection{\texorpdfstring{Trim\+Start()}{TrimStart()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily void Power\+::\+String\+::\+Trim\+Start (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily \hyperlink{class_power_1_1_string}{String}\& Power\+::\+String\+::\+Trim\+Start (\begin{DoxyParamCaption}\item[{const char}]{c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -3386,6 +3613,9 @@ Removes all leading occurances of the specified character.
 \mbox{\tt in}  & {\em c} & The character to be trimmed. \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the current \hyperlink{class_power_1_1_string}{Power\+::\+String}. 
+\end{DoxyReturn}
 
 
 \subsection{Member Data Documentation}

@@ -457,6 +457,10 @@ namespace Power {
 		assert(index == -1);
 		index = indexOfString.IndexOf("no index");
 		assert(index == -1);
+		index = indexOfString.IndexOf(indexOfString.CString());
+		assert(index == 0);
+		index = indexOfString.IndexOf(indexOfString.CString() + indexOfString.Length() - 5);
+		assert(index == 20);
 		index = indexOfString.IndexOf("w", 0);
 		assert(index == 0);
 		index = indexOfString.IndexOf("w", 4);
@@ -474,6 +478,14 @@ namespace Power {
 		index = indexOfString.IndexOf("no index", 0);
 		assert(index == -1);
 		index = indexOfString.IndexOf("w", 1000);
+		assert(index == -1);
+		index = indexOfString.IndexOf(indexOfString.CString(), 0);
+		assert(index == 0);
+		index = indexOfString.IndexOf(indexOfString.CString(), 5);
+		assert(index == -1);
+		index = indexOfString.IndexOf(indexOfString.CString() + indexOfString.Length() - 5, 0);
+		assert(index == 20);
+		index = indexOfString.IndexOf(indexOfString.CString() + indexOfString.Length() - 5, 21);
 		assert(index == -1);
 		index = indexOfString.IndexOf("w", 0, indexOfString.Length());
 		assert(index == 0);
@@ -498,6 +510,18 @@ namespace Power {
 		index = indexOfString.IndexOf("w", 1000, indexOfString.Length());
 		assert(index == -1);
 		index = indexOfString.IndexOf("w", 2, 1);
+		assert(index == -1);
+		index = indexOfString.IndexOf(indexOfString.CString(), 0, 1000);
+		assert(index == 0);
+		index = indexOfString.IndexOf(indexOfString.CString(), 5, indexOfString.Length());
+		assert(index == -1);
+		index = indexOfString.IndexOf(indexOfString.CString(), 0, indexOfString.Length() - 10);
+		assert(index == -1);
+		index = indexOfString.IndexOf(indexOfString.CString() + indexOfString.Length() - 5, 0, indexOfString.Length());
+		assert(index == 20);
+		index = indexOfString.IndexOf(indexOfString.CString() + indexOfString.Length() - 5, 20, indexOfString.Length());
+		assert(index == 20);
+		index = indexOfString.IndexOf(indexOfString.CString() + indexOfString.Length() - 5, 20, indexOfString.Length() - 3);
 		assert(index == -1);
 
 		index = indexOfString.IndexOf('w');
@@ -602,6 +626,10 @@ namespace Power {
 		assert(index == -1);
 		index = lastIndexOfString.LastIndexOf("no index");
 		assert(index == -1);
+		index = lastIndexOfString.LastIndexOf(lastIndexOfString.CString());
+		assert(index == 0);
+		index = lastIndexOfString.LastIndexOf(lastIndexOfString.CString() + lastIndexOfString.Length() - 5);
+		assert(index == 25);
 		index = lastIndexOfString.LastIndexOf("w", lastIndexOfString.Length());
 		assert(index == 29);
 		index = lastIndexOfString.LastIndexOf("w", 25);
@@ -619,6 +647,14 @@ namespace Power {
 		index = lastIndexOfString.LastIndexOf("no index", lastIndexOfString.Length());
 		assert(index == -1);
 		index = lastIndexOfString.LastIndexOf("w", 0);
+		assert(index == -1);
+		index = lastIndexOfString.LastIndexOf(lastIndexOfString.CString(), lastIndexOfString.Length());
+		assert(index == 0);
+		index = lastIndexOfString.LastIndexOf(lastIndexOfString.CString(), lastIndexOfString.Length() - 5);
+		assert(index == -1);
+		index = lastIndexOfString.LastIndexOf(lastIndexOfString.CString() + lastIndexOfString.Length() - 5, lastIndexOfString.Length());
+		assert(index == 25);
+		index = lastIndexOfString.LastIndexOf(lastIndexOfString.CString() + lastIndexOfString.Length() - 5, lastIndexOfString.Length() - 5);
 		assert(index == -1);
 		index = lastIndexOfString.LastIndexOf("w", 1000, 0);
 		assert(index == 29);
@@ -643,6 +679,18 @@ namespace Power {
 		index = lastIndexOfString.LastIndexOf("w", lastIndexOfString.Length(), 1000);
 		assert(index == -1);
 		index = lastIndexOfString.LastIndexOf("w", 1, 2);
+		assert(index == -1);
+		index = lastIndexOfString.LastIndexOf(lastIndexOfString.CString(), lastIndexOfString.Length(), 0);
+		assert(index == 0);
+		index = lastIndexOfString.LastIndexOf(lastIndexOfString.CString(), lastIndexOfString.Length(), 5);
+		assert(index == -1);
+		index = lastIndexOfString.LastIndexOf(lastIndexOfString.CString(), lastIndexOfString.Length() - 5, 0);
+		assert(index == -1);
+		index = lastIndexOfString.LastIndexOf(lastIndexOfString.CString() + lastIndexOfString.Length() - 5, lastIndexOfString.Length(), 0);
+		assert(index == 25);
+		index = lastIndexOfString.LastIndexOf(lastIndexOfString.CString() + lastIndexOfString.Length() - 5, lastIndexOfString.Length(), 25);
+		assert(index == 25);
+		index = lastIndexOfString.LastIndexOf(lastIndexOfString.CString() + lastIndexOfString.Length() - 5, lastIndexOfString.Length() - 5, 0);
 		assert(index == -1);
 
 		index = lastIndexOfString.LastIndexOf('w');
@@ -681,6 +729,65 @@ namespace Power {
 		assert(index == -1);
 	}
 
+	void TestContains() {
+		String containsString("wwww contains string wwww");
+
+		AssertString(containsString, 25, 25 + String::s_defaultCapacity, "wwww contains string wwww");
+
+		assert(containsString.Contains(String::ToString('w')));
+		assert(!containsString.Contains(String::ToString('z')));
+		assert(containsString.Contains(String::ToString("wwww")));
+		assert(!containsString.Contains(String::ToString("wwwww")));
+		assert(containsString.Contains(String::ToString("contains string")));
+		assert(!containsString.Contains(String::ToString("this string is way too long to contain itself!")));
+		assert(containsString.Contains(containsString));
+		assert(containsString.Contains("w"));
+		assert(!containsString.Contains("z"));
+		assert(containsString.Contains("wwww"));
+		assert(!containsString.Contains("wwwww"));
+		assert(containsString.Contains("contains string"));
+		assert(!containsString.Contains("this string is way too long to contain itself!"));
+		assert(containsString.Contains(containsString.CString()));
+		assert(containsString.Contains(containsString.CString() + containsString.Length() - 10));
+		assert(containsString.Contains('w'));
+		assert(!containsString.Contains('W'));
+	}
+
+	void TestSubstring() {
+		String substring("1. string number one2. string number two");
+
+		AssertString(substring, 40, 40 + String::s_defaultCapacity, "1. string number one2. string number two");
+
+		AssertString(substring.Substring(20), 20, 20 + String::s_defaultCapacity, "2. string number two");
+		AssertString(substring.Substring(substring.Length()), 0, String::s_defaultCapacity, "");
+		AssertString(substring.Substring(substring.Length() + 10), 0, String::s_defaultCapacity, "");		
+		AssertString(substring.Substring(20, substring.Length()), 20, 20 + String::s_defaultCapacity, "2. string number two");
+		AssertString(substring.Substring(20, substring.Length() + 10), 20, 20 + String::s_defaultCapacity, "2. string number two");
+		AssertString(substring.Substring(20, 10), 0, String::s_defaultCapacity, "");
+		AssertString(substring.Substring(substring.Length(), substring.Length()), 0, String::s_defaultCapacity, "");
+		AssertString(substring.Substring(substring.Length(), substring.Length() + 10), 0, String::s_defaultCapacity, "");
+		AssertString(substring.Substring(substring.Length(), 10), 0, String::s_defaultCapacity, "");
+		AssertString(substring.Substring(substring.Length() + 10, substring.Length()), 0, String::s_defaultCapacity, "");
+		AssertString(substring.Substring(substring.Length() + 10, substring.Length() + 10), 0, String::s_defaultCapacity, "");
+	}
+
+	void TestToUpperLower() {
+		String toUpper("To Upper");
+		String toLower("To Lower");
+
+		AssertString(toUpper, 8, 8 + String::s_defaultCapacity, "To Upper");
+		AssertString(toLower, 8, 8 + String::s_defaultCapacity, "To Lower");
+		
+		toUpper.ToUpper();
+		AssertString(toUpper, 8, 8 + String::s_defaultCapacity, "TO UPPER");
+		toUpper.ToLower();
+		AssertString(toUpper, 8, 8 + String::s_defaultCapacity, "to upper");
+		toLower.ToLower();
+		AssertString(toLower, 8, 8 + String::s_defaultCapacity, "to lower");
+		toLower.ToUpper();
+		AssertString(toLower, 8, 8 + String::s_defaultCapacity, "TO LOWER");
+	}
+
 	void RunUnitTests() {
 		TestComparisonOperators();
 		TestConstructors();
@@ -692,5 +799,8 @@ namespace Power {
 		TestBitwiseLeftShiftOperators();
 		TestIndexOf();
 		TestLastIndexOf();
+		TestContains();
+		TestSubstring();
+		TestToUpperLower();
 	}
 }

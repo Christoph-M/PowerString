@@ -650,17 +650,17 @@ namespace Power {
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Bitwise left shift operators-->
 		/// @brief TODO: Document behaviour when using pointer to self.
 		///
-		inline String& operator<<(const String& other) { this->Concatenate(other); return *this; }
+		inline String& operator<<(const String& other) { return this->Concatenate(other); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief TODO: Document
 		///
-		inline String& operator<<(const char* const other) { this->Concatenate(other, strlen(other)); return *this; }
+		inline String& operator<<(const char* const other) { return this->Concatenate(other, strlen(other)); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief TODO: Document
 		///
-		inline String& operator<<(const char c) { this->Concatenate(c); return *this; }
+		inline String& operator<<(const char c) { return this->Concatenate(c); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Subscript operator-->
 		/// @brief TODO: Document
@@ -739,12 +739,14 @@ namespace Power {
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Concatenate-->
 		/// @brief Merges the Power::String with another Power::String.
 		/// @param[in] other The Power::String to be merged with.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Concatenate(const String& other) {
+		inline String& Concatenate(const String& other) {
 			size_t newLength = length_ + other.length_;
 			this->CheckSizeAndReallocate(newLength);
 			memcpy(data_ + length_, other.data_, other.length_);
 			this->SetNewLength(newLength);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -752,32 +754,37 @@ namespace Power {
 		/// @param[in] other The c-string to be merged with.
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Concatenate(const char) instead.
 		/// @note <b>If the length of the c-string is already known, it is recommend to use Concatenate(const char* const, size_t) instead as it is faser.</b>
+		/// @return A reference to the current Power::String.
 		///
-		inline void Concatenate(const char* const other) { this->Concatenate(other, strlen(other)); }
+		inline String& Concatenate(const char* const other) { return this->Concatenate(other, strlen(other)); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Merges the Power::String with a c-string.
 		/// @param[in] other The c-string to be merged with.
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Concatenate(const char) instead.
 		/// @param[in] length The length of the c-string excluding the null character.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Concatenate(const char* const other, size_t length) {
+		inline String& Concatenate(const char* const other, size_t length) {
 			int64_t offset = other - data_;
 			size_t newLength = length_ + length;
 			this->CheckSizeAndReallocate(newLength);
 			if (offset >= 0 && offset < static_cast<int>(length_)) memcpy(data_ + length_, data_ + offset, length);
 			else memcpy(data_ + length_, other, length);
 			this->SetNewLength(newLength);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Merges the Power::String with a character.
 		/// @param[in] c The character to be merged with.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Concatenate(const char c) {
+		inline String& Concatenate(const char c) {
 			this->CheckSizeAndReallocate(++length_);
 			data_[length_ - 1] = c;
 			data_[length_] = '\0';
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Contains-->
@@ -836,7 +843,7 @@ namespace Power {
 		/// @return Or -1 if the specified Power::String does not occur or if the begin index is greater or equal to the length of the Power::String.
 		///
 		inline int IndexOf(const String& other, size_t begin) const { 
-			if (begin >= length_ || other.length_ > length_) return -1;
+			if (begin >= length_ || other.length_ > length_ - begin) return -1;
 			char* p = strstr(data_ + begin, other.data_);
 			return p ? static_cast<int>(p - data_) : -1;
 		}
@@ -853,7 +860,7 @@ namespace Power {
 		///
 		inline int IndexOf(const String& other, size_t begin, size_t end) const {
 			if (end > length_) end = length_;
-			if (begin >= end || other.length_ > length_) return -1;
+			if (begin >= end || other.length_ > end - begin) return -1;
 			for (size_t i = begin; i < end - other.length_ + 1; ++i) {
 				if (memcmp(data_ + i, other.data_, other.length_) == 0) return static_cast<int>(i);
 			}
@@ -868,10 +875,7 @@ namespace Power {
 		/// @return Or -1 if the specified c-string does not occur.
 		/// @note <b>If the length of the c-string is already known, it is recommended to use IndexOf(size_t, const char* const) const instead as it is faster.</b>
 		///
-		inline int IndexOf(const char* const other) const {
-			char* p = strstr(data_, other);
-			return p ? static_cast<int>(p - data_) : -1;
-		}
+		inline int IndexOf(const char* const other) const { return this->IndexOf(strlen(other), other); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Finds the first occurance of the specified c-string starting from the specified index.
@@ -882,11 +886,7 @@ namespace Power {
 		/// @return Or -1 if the specified c-string does not occur or if the begin index is greater or equal to the length of the Power::String.
 		/// @note <b>If the length of the c-string is already known, it is recommended to use IndexOf(size_t, const char* const, size_t) const instead as it is faster.</b>
 		///
-		inline int IndexOf(const char* const other, size_t begin) const {
-			if (begin >= length_) return -1;
-			char* p = strstr(data_ + begin, other);
-			return p ? static_cast<int>(p - data_) : -1;
-		}
+		inline int IndexOf(const char* const other, size_t begin) const { return this->IndexOf(strlen(other), other, begin); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Finds the first occurance of the specified c-string between the specified start and end index.
@@ -926,7 +926,7 @@ namespace Power {
 		/// @return Or -1 if the specified c-string does not occur or if the begin index is greater or equal to the length of the Power::String.
 		///
 		inline int IndexOf(size_t length, const char* const other, size_t begin) const {
-			if (begin >= length_ || length > length_) return -1;
+			if (begin >= length_ || length > length_ - begin) return -1;
 			char* p = strstr(data_ + begin, other);
 			return p ? static_cast<int>(p - data_) : -1;
 		}
@@ -945,7 +945,7 @@ namespace Power {
 		///
 		inline int IndexOf(size_t length, const char* const other, size_t begin, size_t end) const {
 			if (end > length_) end = length_;
-			if (begin >= end || length > length_) return -1;
+			if (begin >= end || length > end - begin) return -1;
 			for (size_t i = begin; i < end - length + 1; ++i) {
 				if (memcmp(data_ + i, other, length) == 0) return static_cast<int>(i);
 			}
@@ -1022,7 +1022,7 @@ namespace Power {
 		///
 		inline int LastIndexOf(const String& other, size_t begin, size_t end) const {
 			if (begin > length_) begin = length_;
-			if (end >= begin || other.length_ > length_) return -1;
+			if (end >= begin || other.length_ > end - begin) return -1;
 			for (int i = static_cast<int>(begin); i >= static_cast<int>(end + other.length_) - 1; --i) {
 				if (data_[i] != other.data_[other.length_ - 1]) continue;
 				int x = i - static_cast<int>(other.length_) + 1;
@@ -1104,7 +1104,7 @@ namespace Power {
 		///
 		inline int LastIndexOf(size_t length, const char* const other, size_t begin, size_t end) const {
 			if (begin > length_) begin = length_;
-			if (end >= begin || length > length_) return -1;
+			if (end >= begin || length > end - begin) return -1;
 			for (int i = static_cast<int>(begin); i >= static_cast<int>(end + length) - 1; --i) {
 				if (data_[i] != other[length - 1]) continue;
 				int x = i - static_cast<int>(length) + 1;
@@ -1333,15 +1333,17 @@ namespace Power {
 		/// @param[in] index The index where the specified Power::String will be inserted at.
 		/// \n If this index is greater than the length of the Power::String, the method will return and nothing will be inserted.
 		/// @param[in] other The Power::String to be inserted.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Insert(size_t index, const String& other) {
-			if (index > length_) return;
+		inline String& Insert(size_t index, const String& other) {
+			if (index > length_) return * this;
 			size_t newLength = length_ + other.length_;
 			this->CheckSizeAndReallocate(newLength);
 			memcpy(temp_, other.data_, other.length_);
 			memcpy(temp_ + other.length_, data_ + index, length_ - index);
 			memcpy(data_ + index, temp_, newLength - index);
 			this->SetNewLength(newLength);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1351,8 +1353,9 @@ namespace Power {
 		/// @param[in] other The c-string to be inserted.
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Insert(size_t, const char) instead.
 		/// @note <b>If the length of the c-string is already known, it is recommended to use Insert(sizt_t, const char* const, size_t) instead as it is faster.</b>
+		/// @return A reference to the current Power::String.
 		///
-		inline void Insert(size_t index, const char* const other) { this->Insert(index, other, strlen(other)); }
+		inline String& Insert(size_t index, const char* const other) { return this->Insert(index, other, strlen(other)); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Inserts the specified c-string at the specified index.
@@ -1361,15 +1364,17 @@ namespace Power {
 		/// @param[in] other The c-string to be inserted.
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Insert(size_t, const char) instead.
 		/// @param[in] length The length of the c-string excluding the null character.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Insert(size_t index, const char* const other, size_t length) {
-			if (index > length_) return;
+		inline String& Insert(size_t index, const char* const other, size_t length) {
+			if (index > length_) return *this;
 			size_t newLength = length_ + length;
 			this->CheckSizeAndReallocate(newLength);
 			memcpy(temp_, other, length);
 			memcpy(temp_ + length, data_ + index, length_ - index);
 			memcpy(data_ + index, temp_, newLength - index);
 			this->SetNewLength(newLength);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1377,23 +1382,26 @@ namespace Power {
 		/// @param[in] index The index where the specified character will be inserted at.
 		/// \n If this index is greater than the length of the Power::String, the method will return and nothing will be inserted.
 		/// @param[in] c The character to be inserted.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Insert(size_t index, const char c) {
-			if (index > length_) return;
+		inline String& Insert(size_t index, const char c) {
+			if (index > length_) return *this;
 			size_t newLength = length_ + 1;
 			this->CheckSizeAndReallocate(newLength);
 			temp_[index] = c;
 			memcpy(temp_ + 1, data_ + index, length_ - index);
 			memcpy(data_ + index, temp_, newLength - index);
 			this->SetNewLength(newLength);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Remove-->
 		/// @brief Removes all characters in the Power::Strig starting from the specified index.
 		/// @param[in] index The index from where to start.
 		/// \n If this index is greater or equal to the length of the Power::String, the method will return and nothing will be removed.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Remove(size_t index) { this->Remove(index, length_ - index); }
+		inline String& Remove(size_t index) { return this->Remove(index, length_ - index); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Removes a specified amount of characters in the Power::String starting from the specified index.
@@ -1401,25 +1409,28 @@ namespace Power {
 		/// \n If this index is greater or equal to the length of the Power::String, the method will return and nothing will be removed.
 		/// @param[in] count How many characters shall be removed.
 		/// \n This value gets clamped to the length of the Power::String minus the specified index.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Remove(size_t index, size_t count) {
-			if (index >= length_) return;
+		inline String& Remove(size_t index, size_t count) {
+			if (index >= length_) return *this;
 			if (count > length_ - index) count = length_ - index;
 			memcpy(temp_, data_, index);
 			memcpy(temp_ + index, data_ + index + count, index - count);
 			length_ = length_ - count;
 			memcpy(data_, temp_, length_);
 			data_[length_] = '\0';
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--RemoveAll-->
 		/// @brief Removes all occurances of the specified Power::String.
 		/// @param[in] other The Power::String to remove.
+		/// @return A reference to the current Power::String.
 		///
-		inline void RemoveAll(const String& other) {
+		inline String& RemoveAll(const String& other) {
 			int index = 0;
 			int nextIndex = static_cast<int>(this->IndexOf(other.data_));
-			if (nextIndex < 0) return;
+			if (nextIndex < 0) return *this;
 			size_t i = 0;
 			char* temp = temp_;
 			while (nextIndex >= 0) {
@@ -1433,6 +1444,7 @@ namespace Power {
 			length_ = length_ - i * other.length_;
 			memcpy(data_, temp_, length_);
 			data_[length_] = '\0';
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1440,19 +1452,21 @@ namespace Power {
 		/// @param[in] other The c-string to remove.
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use RemoveAll(const char) instead.
 		/// @node <b>If the length of the c-string is already known, it is recommended to use RemoveAll(const char* const, size_t) instead as it is faster.</b>
+		/// @return A reference to the current Power::String.
 		///
-		inline void RemoveAll(const char* const other) { this->RemoveAll(other, strlen(other)); }
+		inline String& RemoveAll(const char* const other) { return this->RemoveAll(other, strlen(other)); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Removes all occurances of the specified c-string.
 		/// @param[in] other The c-string to remove.
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use RemoveAll(const char) instead.
 		/// @param[in] length The length of the c-string excluding the null character.
+		/// @return A reference to the current Power::String.
 		///
-		inline void RemoveAll(const char* const other, size_t length) {
+		inline String& RemoveAll(const char* const other, size_t length) {
 			int index = 0;
 			int nextIndex = static_cast<int>(this->IndexOf(other));
-			if (nextIndex < 0) return;
+			if (nextIndex < 0) return *this;
 			size_t i = 0;
 			char* temp = temp_;
 			while (nextIndex >= 0) {
@@ -1466,16 +1480,18 @@ namespace Power {
 			length_ = length_ - i * length;
 			memcpy(data_, temp_, length_);
 			data_[length_] = '\0';
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Removes all occurances of the specified character.
 		/// @param[in] c The character to remove.
+		/// @return A reference to the current Power::String.
 		///
-		inline void RemoveAll(const char c) {
+		inline String& RemoveAll(const char c) {
 			size_t count = 0;
 			for (size_t i = 0; i < length_; ++i) if (data_[i] == c) ++count;
-			if (count == 0) return;
+			if (count == 0) return *this;
 			size_t newLength = length_ - count;
 			count = 0;
 			for (size_t i = 0; i < length_; ++i) {
@@ -1485,6 +1501,7 @@ namespace Power {
 			}
 			memcpy(data_, temp_, newLength);
 			this->SetNewLength(newLength);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Replace-->
@@ -1492,8 +1509,9 @@ namespace Power {
 		/// @param[in] index The index from where to replace.
 		/// \n If this index is greater or equal to the length of the Power::String, the method will return and nothing will be replaced.
 		/// @param[in] other The Power::String with which to replace.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Replace(size_t index, const String& other) { this->Replace(index, length_ - index, other); }
+		inline String& Replace(size_t index, const String& other) { return this->Replace(index, length_ - index, other); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Replaces a specified amount of characters from the specified start index with the specified Power::String.
@@ -1502,9 +1520,10 @@ namespace Power {
 		/// @param[in] count How many characters will be replaced.
 		/// \n This value gets clamped to the length of the Power::String minus the specified index.
 		/// @param[in] other The Power::String with which to replace.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Replace(size_t index, size_t count, const String& other) {
-			if (index >= length_) return;
+		inline String& Replace(size_t index, size_t count, const String& other) {
+			if (index >= length_) return *this;
 			if (count > length_ - index) count = length_ - index;
 			size_t newLength = length_ - count + other.length_;
 			this->CheckSizeAndReallocate(newLength);
@@ -1512,6 +1531,7 @@ namespace Power {
 			memcpy(temp_ + other.length_, data_ + index + count, length_ - index - count);
 			memcpy(data_ + index, temp_, newLength - index);
 			this->SetNewLength(newLength);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1521,8 +1541,9 @@ namespace Power {
 		/// @param[in] other The c-string with which to replace.
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Replace(size_t, const char) instead.
 		/// @node <b>If the length of the c-string is already known, it is recommended to use Replace(size_t, const char* const, size_t) instead as it is faster.</b>
+		/// @return A reference to the current Power::String.
 		///
-		inline void Replace(size_t index, const char* const other) { this->Replace(index, length_ - index, other, strlen(other)); }
+		inline String& Replace(size_t index, const char* const other) { return this->Replace(index, length_ - index, other, strlen(other)); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Replaces all characters from the specified start index with the specified c-string.
@@ -1533,8 +1554,9 @@ namespace Power {
 		/// @param[in] other The c-string with which to replace.
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Replace(size_t, size_t, const char) instead.
 		/// @node <b>If the length of the c-string is already known, it is recommended to use Replace(size_t, const char* const, size_t) instead as it is faster.</b>
+		/// @return A reference to the current Power::String.
 		///
-		inline void Replace(size_t index, size_t count, const char* const other) { this->Replace(index, count, other, strlen(other)); }
+		inline String& Replace(size_t index, size_t count, const char* const other) { return this->Replace(index, count, other, strlen(other)); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Replaces all characters from the specified start index with the specified c-string.
@@ -1543,8 +1565,9 @@ namespace Power {
 		/// @param[in] other The c-string with which to replace.
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Replace(size_t, const char) instead.
 		/// @param[in] length The length of the c-string excluding the null character.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Replace(size_t index, const char* const other, size_t length) { this->Replace(index, length_ - index, other, length); }
+		inline String& Replace(size_t index, const char* const other, size_t length) { return this->Replace(index, length_ - index, other, length); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Replaces all characters from the specified start index with the specified c-string.
@@ -1555,9 +1578,10 @@ namespace Power {
 		/// @param[in] other The c-string with which to replace.
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Replace(size_t, size_t, const char) instead.
 		/// @param[in] length The length of the c-string excluding the null character.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Replace(size_t index, size_t count, const char* const other, size_t length) {
-			if (index >= length_) return;
+		inline String& Replace(size_t index, size_t count, const char* const other, size_t length) {
+			if (index >= length_) return *this;
 			if (count > length_ - index) count = length_ - index;
 			size_t newLength = length_ - count + length;
 			this->CheckSizeAndReallocate(newLength);
@@ -1565,6 +1589,7 @@ namespace Power {
 			memcpy(temp_ + length, data_ + index + count, length_ - index - count);
 			memcpy(data_ + index, temp_, newLength - index);
 			this->SetNewLength(newLength);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1572,8 +1597,9 @@ namespace Power {
 		/// @param[in] index The index from where to replace.
 		/// \n If this index is greater or equal to the length of the Power::String, the method will return and nothing will be replaced.
 		/// @param[in] c The character with which to replace.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Replace(size_t index, const char c) { this->Replace(index, length_ - index, c); }
+		inline String& Replace(size_t index, const char c) { return this->Replace(index, length_ - index, c); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Replaces a specified amount of characters from the specified start index with the specified character.
@@ -1582,9 +1608,10 @@ namespace Power {
 		/// @param[in] count How many characters will be replaced.
 		/// \n This value gets clamped to the length of the Power::String minus the specified index.
 		/// @param[in] c The character with which to replace.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Replace(size_t index, size_t count, const char c) {
-			if (index >= length_) return;
+		inline String& Replace(size_t index, size_t count, const char c) {
+			if (index >= length_) return *this;
 			if (count > length_ - index) count = length_ - index;
 			size_t newLength = length_ - count + 1;
 			this->CheckSizeAndReallocate(newLength);
@@ -1592,6 +1619,7 @@ namespace Power {
 			memcpy(temp_ + 1, data_ + index + count, length_ - index - count);
 			memcpy(data_ + index, temp_, newLength - index);
 			this->SetNewLength(newLength);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--ReplaceAt-->
@@ -1599,13 +1627,15 @@ namespace Power {
 		/// @param[in] index The index from where to replace.
 		/// \n If this index is greater or equal to the length of the Power::String, the method will return and nothing will be replaced.
 		/// @param[in] other The Power::String with which to replace.
+		/// @return A reference to the current Power::String.
 		///
-		inline void ReplaceAt(size_t index, const String& other) {
-			if (index >= length_) return;
+		inline String& ReplaceAt(size_t index, const String& other) {
+			if (index >= length_) return *this;
 			size_t newLength = index + other.length_;
 			this->CheckSizeAndReallocate(newLength);
 			this->MemCpyCheckData(index, other.data_, other.length_);
 			if (newLength > length_) this->SetNewLength(newLength);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1615,19 +1645,21 @@ namespace Power {
 		/// @param[in] other The c-string with which to replace.
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use ReplaceAt(size_t, const char) instead.
 		/// @node <b>If the length of the c-string is already known, it is recommended to use ReplaceAt(size_t, const char* const, size_t) instead as it is faster.</b>
+		/// @return A reference to the current Power::String.
 		///
-		inline void ReplaceAt(size_t index, const char* const other) { this->ReplaceAt(index, other, strlen(other)); }
+		inline String& ReplaceAt(size_t index, const char* const other) { return  this->ReplaceAt(index, other, strlen(other)); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Replaces the characters with the specified c-string at the specified index.
 		/// @param[in] index The index from where to replace.
 		/// \n If this index is greater or equal to the length of the Power::String, the method will return and nothing will be replaced.
 		/// @param[in] other The c-string with which to replace.
-		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use ReplaceAt(size_t, const char) const instead.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use ReplaceAt(size_t, const char) instead.
 		/// @param[in] length The length of the c-string excluding the null character.
+		/// @return A reference to the current Power::String.
 		///
-		inline void ReplaceAt(size_t index, const char* const other, size_t length) {
-			if (index >= length_) return;
+		inline String& ReplaceAt(size_t index, const char* const other, size_t length) {
+			if (index >= length_) return *this;
 			size_t newLength = index + length;
 			int64_t offset = other - data_;
 			this->CheckSizeAndReallocate(newLength);
@@ -1637,6 +1669,7 @@ namespace Power {
 			} else
 				memcpy(data_ + index, other, length);
 			if (newLength > length_) this->SetNewLength(newLength);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1644,39 +1677,47 @@ namespace Power {
 		/// @param[in] index The index at where to replace.
 		/// \n If this index is greater or equal to the length of the Power::String, the method will return and nothing will be replaced.
 		/// @param[in] c The character with which to replace.
+		/// @return A reference to the current Power::String.
 		///
-		inline void ReplaceAt(size_t index, const char c) const {
-			if (index >= length_) return;
+		inline String& ReplaceAt(size_t index, const char c) {
+			if (index >= length_) return *this;
 			data_[index] = c;
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Trim-->
 		/// @brief Removes all leading and trailing whitespaces.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Trim() {
+		inline String& Trim() {
 			this->TrimEnd(' ');
 			this->TrimStart(' ');
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Removes all leading and trailing occurances of the specified character.
 		/// @param[in] c The character to be trimmed.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Trim(const char c) {
+		inline String& Trim(const char c) {
 			this->TrimEnd(c);
 			this->TrimStart(c);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--TrimStart-->
 		/// @brief Removes all leading whitespaces.
+		/// @return A reference to the current Power::String.
 		///
-		inline void TrimStart() { this->TrimStart(' '); }
+		inline String& TrimStart() { return this->TrimStart(' '); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Removes all leading occurances of the specified character.
 		/// @param[in] c The character to be trimmed.
+		/// @return A reference to the current Power::String.
 		///
-		inline void TrimStart(const char c) {
+		inline String& TrimStart(const char c) {
 			size_t startIndex = 0;
 			for (size_t i = 0; i < length_; ++i) {
 				if (data_[i] != c) {
@@ -1688,18 +1729,21 @@ namespace Power {
 			memcpy(temp_, data_ + startIndex, length_);
 			memcpy(data_, temp_, length_);
 			data_[length_] = '\0';
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--TrimEnd-->
 		/// @brief Removes all trailing whitespaces.
+		/// @return A reference to the current Power::String.
 		///
-		inline void TrimEnd() { this->TrimEnd(' '); }
+		inline String& TrimEnd() { return this->TrimEnd(' '); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Removes all trailing occurances of the specified character.
 		/// @param[in] c The character to be trimmed.
+		/// @return A reference to the current Power::String.
 		///
-		inline void TrimEnd(const char c) {
+		inline String& TrimEnd(const char c) {
 			for (int i = static_cast<int>(length_) - 1; i >= 0; --i) {
 				if (data_[i] != c) {
 					length_ = static_cast<size_t>(i + 1);
@@ -1707,52 +1751,59 @@ namespace Power {
 					break;
 				}
 			}
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--PadLeft-->
 		/// @brief Right-aligns the Power::String by filling it to the left with whitespaces to the specified total length.
 		/// @param[in] length The total length the Power::String should be including the current length of the Power::String.
 		/// \n If this value is less or equal to the length of the Power::String, this method will return without padding.
+		/// @return A reference to the current Power::String.
 		///
-		inline void PadLeft(size_t length) { this->PadLeft(length, ' '); }
+		inline String& PadLeft(size_t length) { return this->PadLeft(length, ' '); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Right-aligns the Power::String by filling it to the left with the specified character to the specified total length.
 		/// @param[in] length The total length the Power::String should be including the current length of the Power::String.
 		/// \n If this value is less or equal to the length of the Power::String, this method will return without padding.
 		/// @param[in] c The character with which to fill.
+		/// @return A reference to the current Power::String.
 		///
-		inline void PadLeft(size_t length, char c) {
-			if (length_ >= length) return;
+		inline String& PadLeft(size_t length, char c) {
+			if (length_ >= length) return *this;
 			this->CheckSizeAndReallocate(length);
 			memset(temp_, c, length - length_);
 			memcpy(temp_ + length - length_, data_, length_);
 			length_ = length;
 			memcpy(data_, temp_, length);
 			data_[length] = '\0';
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--PadRight-->
 		/// @brief Left-aligns the Power::String by filling it to the right with whitespaces to the specified total length.
 		/// @param[in] length The total length the Power::String should be including the current length of the Power::String.
 		/// \n If this value is less or equal to the length of the Power::String, this method will return without padding.
+		/// @return A reference to the current Power::String.
 		///
-		inline void PadRight(size_t length) { this->PadRight(length, ' '); }
+		inline String& PadRight(size_t length) { return this->PadRight(length, ' '); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Left-aligns the Power::String by filling it to the right with the specified character to the specified total length.
 		/// @param[in] length The total length the Power::String should be including the current length of the Power::String.
 		/// \n If this value is less or equal to the length of the Power::String, this method will return without padding.
 		/// @param[in] c The character with which to fill.
+		/// @return A reference to the current Power::String.
 		///
-		inline void PadRight(size_t length, char c) {
-			if (length_ >= length) return;
+		inline String& PadRight(size_t length, char c) {
+			if (length_ >= length) return *this;
 			this->CheckSizeAndReallocate(length);
 			memset(temp_ + length_, c, length - length_);
 			memcpy(temp_, data_, length_);
 			length_ = length;
 			memcpy(data_, temp_, length);
 			data_[length] = '\0';
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--StartsWith-->
@@ -1843,16 +1894,18 @@ namespace Power {
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Fill-->
 		/// @brief Fills the Power::String with the specified Power::String.
 		/// @param[in] other The Power::String to fill with.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Fill(const String& other) const { this->Fill(other, 0, length_); }
+		inline String& Fill(const String& other) { return this->Fill(other, 0, length_); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Fills the Power::String with the specified Power::String starting from the specified index.
 		/// @param[in] other The Power::String to fill with.
 		/// @param[in] begin The index from where to start filling.
 		/// \n If this index is greater or equal to the length of the Power::String, the method will return without filling.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Fill(const String& other, size_t begin) const { this->Fill(other, begin, length_); }
+		inline String& Fill(const String& other, size_t begin) { return this->Fill(other, begin, length_); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Fills the Power::String with the specified Power::String between the specified start and end index.
@@ -1861,98 +1914,108 @@ namespace Power {
 		/// \n If this index is greater or equal to the end index or the length of the Power::String, the method will return without filling.
 		/// @param[in] end The index to where to stop filling.
 		/// \n This index is clamped to the length of the Power::String.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Fill(const String& other, size_t begin, size_t end) const {
-			if (other.data_ == data_) return;
+		inline String& Fill(const String& other, size_t begin, size_t end) {
 			if (end > length_) end = length_;
-			if (begin >= end) return;
+			if (begin >= end) return *this;
 			int count = static_cast<int>((end - begin) / other.length_);
 			for (int i = 0; i < count; ++i) memcpy(data_ + begin + i * other.length_, other.data_, other.length_);
 			memcpy(data_ + begin + count + other.length_, other.data_, (end - begin) % other.length_);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Fills the Power::String with the specified c-string.
 		/// @param[in] other The c-string to fill with.
-		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char) const instead.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char) instead.
 		/// @node <b>If the length of the c-string is already known, it is recommended to use Fill(size_t, const char* const) const instead as it is faster.</b>
+		/// @return A reference to the current Power::String.
 		///
-		inline void Fill(const char* const other) const { this->Fill(strlen(other), other, 0, length_); }
+		inline String& Fill(const char* const other) { return this->Fill(strlen(other), other, 0, length_); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Fills the Power::String with the specified c-string starting from the specified index.
 		/// @param[in] other The c-string to fill with.
-		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char, size_t) const instead.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char, size_t) instead.
 		/// @param[in] begin The index from where to start filling.
 		/// \n If this index is greater or equal to the length of the Power::String, the method will return without filling.
-		/// @node <b>If the length of the c-string is already known, it is recommended to use Fill(size_t, const char* const, size_t) const instead as it is faster.</b>
+		/// @node <b>If the length of the c-string is already known, it is recommended to use Fill(size_t, const char* const, size_t) instead as it is faster.</b>
+		/// @return A reference to the current Power::String.
 		///
-		inline void Fill(const char* const other, size_t begin) const { this->Fill(strlen(other), other, begin, length_); }
+		inline String& Fill(const char* const other, size_t begin) { return this->Fill(strlen(other), other, begin, length_); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Fills the Power::String with the specified c-string between the specified start and end index.
 		/// @param[in] other The c-string to fill with.
-		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char, size_t, size_t) const instead.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char, size_t, size_t) instead.
 		/// @param[in] begin The index from where to start filling.
 		/// \n If this index is greater or equal to the end index or the length of the Power::String, the method will return without filling.
 		/// @param[in] end The index to where to stop filling.
 		/// \n This index is clamped to the length of the Power::String.
-		/// @node <b>If the length of the c-string is already known, it is recommended to use Fill(size_t, const char* const, size_t, size_t) const instead as it is faster.</b>
+		/// @node <b>If the length of the c-string is already known, it is recommended to use Fill(size_t, const char* const, size_t, size_t) instead as it is faster.</b>
+		/// @return A reference to the current Power::String.
 		///
-		inline void Fill(const char* const other, size_t begin, size_t end) const { this->Fill(strlen(other), other, begin, end); }
+		inline String& Fill(const char* const other, size_t begin, size_t end) { return this->Fill(strlen(other), other, begin, end); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Fills the Power::String with the specified c-string.
 		/// @param[in] length The length of the c-string excluding the null character.
 		/// @param[in] other The c-string to fill with.
-		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char) const instead.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char) instead.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Fill(size_t length, const char* const other) const { this->Fill(length, other, 0, length_); }
+		inline String& Fill(size_t length, const char* const other) { return this->Fill(length, other, 0, length_); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Fills the Power::String with the specified c-string starting from the specified index.
 		/// @param[in] length The length of the c-string excluding the null character.
 		/// @param[in] other The c-string to fill with.
-		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char, size_t) const instead.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char, size_t) instead.
 		/// @param[in] begin The index from where to start filling.
 		/// \n If this index is greater or equal to the length of the Power::String, the method will return without filling.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Fill(size_t length, const char* const other, size_t begin) const { this->Fill(length, other, begin, length_); }
+		inline String& Fill(size_t length, const char* const other, size_t begin) { return this->Fill(length, other, begin, length_); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Fills the Power::String with the specified c-string between the specified start and end index.
 		/// @param[in] length The length of the c-string excluding the null character.
 		/// @param[in] other The c-string to fill with.
-		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char, size_t, size_t) const instead.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Fill(const char, size_t, size_t) instead.
 		/// @param[in] begin The index from where to start filling.
 		/// \n If this index is greater or equal to the end index or the length of the Power::String, the method will return without filling.
 		/// @param[in] end The index to where to stop filling.
 		/// \n This index is clamped to the length of the Power::String.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Fill(size_t length, const char* const other, size_t begin, size_t end) const {
-			if (other == data_) return;
+		inline String& Fill(size_t length, const char* const other, size_t begin, size_t end) {
 			if (end > length_) end = length_;
-			if (begin >= end) return;
+			if (begin >= end) return *this;
 			int count = static_cast<int>((end - begin) / length);
 			for (int i = 0; i < count; ++i) this->MemCpyCheckData(begin + i * length, other, length);
 			this->MemCpyCheckData(begin + count * length, other, (end - begin) % length);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Fills the Power::String with the specified character.
 		/// @param[in] c The character to fill with.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Fill(const char c) const { memset(data_, c, length_); }
+		inline String& Fill(const char c) { memset(data_, c, length_); return *this; }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Fills the Power::String with the specified character starting from the specified index.
 		/// @param[in] c The character to fill with.
 		/// @param[in] begin The index from where to start filling.
 		/// \n If this index is greater or equal to the length of the Power::String, the method will return without filling.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Fill(const char c, size_t begin) const {
-			if (begin >= length_) return;
+		inline String& Fill(const char c, size_t begin) {
+			if (begin >= length_) return *this;
 			memset(data_, c, length_ - begin);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1962,11 +2025,13 @@ namespace Power {
 		/// \n If this index is greater or equal to the end index or the length of the Power::String, the method will return without filling.
 		/// @param[in] end The index to where to stop filling.
 		/// \n This index is clamped to the length of the Power::String.
+		/// @return A reference to the current Power::String.
 		///
-		inline void Fill(const char c, size_t begin, size_t end) const {
+		inline String& Fill(const char c, size_t begin, size_t end) {
 			if (end > length_) end = length_;
-			if (begin >= end) return;
+			if (begin >= end) return *this;
 			memset(data_, c, end - begin);
+			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--SplitAt-->
@@ -1984,13 +2049,15 @@ namespace Power {
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--ToLower-->
 		/// @brief Converts all upper case characters to lower case.
+		/// @return A reference to the current Power::String.
 		///
-		inline void ToLower() const { _strlwr_s(data_, length_ + 1); }
+		inline String& ToLower() { _strlwr_s(data_, length_ + 1); return *this; }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--ToUpper-->
 		/// @brief Converts all lower case characters to upper case.
+		/// @return A reference to the current Power::String.
 		///
-		inline void ToUpper() const { _strupr_s(data_, length_ + 1); }
+		inline String& ToUpper() { _strupr_s(data_, length_ + 1); return *this; }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Destructor-->
 		/// @brief TODO: Document

@@ -333,7 +333,7 @@ int main() {
 
 		for (int i = 0; i < measureCount; ++i) {
 			uint64_t startCount = __rdtsc();
-			int index = string.LastIndexOf('w', 0, string.Length());
+			int index = string.LastIndexOf('w', string.Length(), 0);
 			uint64_t endCount = __rdtsc();
 			deltaTimes[i] = endCount - startCount;
 		}
