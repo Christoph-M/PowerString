@@ -96,30 +96,30 @@ int main() {
 		assert(pos == 13);
 
 		string = "";
-		assert(string.Length() == 0);
+		assert(string.Size() == 0);
 
 		string = "Hallo";
 		string.PadLeft(10, '0');
-		assert(string.Length() == 10);
+		assert(string.Size() == 10);
 		printf("String: %s|\n", string.CString());
 		string.PadLeft(5);
-		assert(string.Length() == 10);
+		assert(string.Size() == 10);
 		string.PadRight(15, '0');
-		assert(string.Length() == 15);
+		assert(string.Size() == 15);
 		printf("String: %s|\n", string.CString());
 		string.PadRight(5);
-		assert(string.Length() == 15);
+		assert(string.Size() == 15);
 
 		string.Insert(10, " Welt");
-		assert(string.Length() == 20);
+		assert(string.Size() == 20);
 		printf("String: %s|\n", string.CString());
 
 		string.Remove(string.IndexOf(" Welt"), 5);
-		assert(string.Length() == 15);
+		assert(string.Size() == 15);
 		printf("String: %s|\n", string.CString());
 
 		string.RemoveAll('0');
-		assert(string.Length() == 5);
+		assert(string.Size() == 5);
 		printf("String: %s|\n", string.CString());
 
 		Power::String insertString = "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
@@ -195,7 +195,7 @@ int main() {
 		Power::AssertString(string, 10);
 		printf("String: %s|\n", string.CString());
 
-		string.Insert(string.Length(), " -> Nein!");
+		string.Insert(string.Size(), " -> Nein!");
 		Power::AssertString(string, 19);
 		printf("String: %s|\n", string.CString());
 		
@@ -316,7 +316,7 @@ int main() {
 		}
 		printf("Concatenate average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
 
-		size_t count = string.Count('w', 0 , string.Length());
+		size_t count = string.Count('w', 0 , string.Size());
 		printf("Count: %zd\n", count);
 
 		string = "doodle_";
@@ -333,7 +333,7 @@ int main() {
 
 		for (int i = 0; i < measureCount; ++i) {
 			uint64_t startCount = __rdtsc();
-			int index = string.LastIndexOf('w', string.Length(), 0);
+			int index = string.LastIndexOf('w', string.Size(), 0);
 			uint64_t endCount = __rdtsc();
 			deltaTimes[i] = endCount - startCount;
 		}
