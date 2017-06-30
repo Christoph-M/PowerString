@@ -441,7 +441,8 @@ namespace Power {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Assignment operators-->
-		/// @brief TODO: Document
+		/// @brief Assignes the content of another Power::String to the Power::String.
+		/// @param other The Power::String to be assigned.
 		///
 		inline void operator=(const String& other) {
 			this->CheckSizeAndReallocate(other.size_);
@@ -450,7 +451,9 @@ namespace Power {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Assignes a c-string to the Power::String.
+		/// @param other The c-string to be assigned.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use operator=(const char) instead.
 		///
 		inline void operator=(const char* const other) {
 			size_t newSize = strlen(other);
@@ -465,7 +468,8 @@ namespace Power {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Assigns a character to the Power::String.
+		/// @param c The character to be assigned.
 		///
 		inline void operator=(const char c) {
 			this->CheckSizeAndReallocate(1);
@@ -474,77 +478,105 @@ namespace Power {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Addition operators-->
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with another Power::String.
+		/// @param[in] other The Power::String to be merged with.
+		/// @return A copy of the new Power::String.
 		///
 		inline String operator+(const String& other) const { return String(*this, other); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a c-string.
+		/// @param[in] other The c-string to be merged with.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use operator+(const char) const instead.
+		/// @return A copy of the new Power::String.
 		///
 		inline String operator+(const char* const other) const { return String(*this, other); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a character.
+		/// @param[in] c The character to be merged with.
+		/// @return A copy of the new Power::String.
 		///
 		inline String operator+(const char c) const { return String(*this, c); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a signed short value.
+		/// @param[in] value The signed short value to be merged with.
+		/// @return A copy of the new Power::String.
 		///
 		inline String operator+(const int16_t value) const { return String(*this, value); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a unsigned short value.
+		/// @param[in] value The unsigned short value to be merged with.
+		/// @return A copy of the new Power::String.
 		///
 		inline String operator+(const uint16_t value) const { return String(*this, value); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a signed integer value.
+		/// @param[in] value The signed integer value to be merged with.
+		/// @return A copy of the new Power::String.
 		///
 		inline String operator+(const int32_t value) const { return String(*this, value); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a unsigned integer value.
+		/// @param[in] value The unsigned integer value to be merged with.
+		/// @return A copy of the new Power::String.
 		///
 		inline String operator+(const uint32_t value) const { return String(*this, value); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a signed long long value.
+		/// @param[in] value The signed long long value to be merged with.
+		/// @return A copy of the new Power::String.
 		///
 		inline String operator+(const int64_t value) const { return String(*this, value); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a unsigned long long value.
+		/// @param[in] value The unsigned long long value to be merged with.
+		/// @return A copy of the new Power::String.
 		///
 		inline String operator+(const uint64_t value) const { return String(*this, value); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a float value.
+		/// @param[in] value The float value to be merged with.
+		/// @return A copy of the new Power::String.
 		///
 		inline String operator+(const float value) const { return String(*this, value); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a double value.
+		/// @param[in] value The double value to be merged with.
+		/// @return A copy of the new Power::String.
 		///
 		inline String operator+(const double value) const { return String(*this, value); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Compound addition operators-->
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with another Power::String.
+		/// @param[in] other The Power::String to be merged with.
 		///
 		inline void operator+=(const String& other) { this->Concatenate(other); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a c-string.
+		/// @param[in] other The c-string to be merged with.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use operator+=(const char) instead.
 		///
 		inline void operator+=(const char* const other) { this->Concatenate(other, strlen(other)); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a character.
+		/// @param[in] c The character to be merged with.
 		///
 		inline void operator+=(const char c) { this->Concatenate(c); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a signed short value.
+		/// @param[in] value The signed short value to be merged with.
 		///
 		inline void operator+=(const int16_t value) {
 			char buffer[INT16_MAX_CHR_COUNT];
@@ -557,7 +589,8 @@ namespace Power {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a unsigned short value.
+		/// @param[in] value The unsigned short value to be merged with.
 		///
 		inline void operator+=(const uint16_t value) {
 			char buffer[UINT16_MAX_CHR_COUNT];
@@ -570,7 +603,8 @@ namespace Power {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief TMerges the Power::String with a signed integer value.
+		/// @param[in] value The signed integer value to be merged with.
 		///
 		inline void operator+=(const int32_t value) {
 			char buffer[INT32_MAX_CHR_COUNT];
@@ -583,7 +617,8 @@ namespace Power {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a unsigned integer value.
+		/// @param[in] value The unsigned integer value to be merged with.
 		///
 		inline void operator+=(const uint32_t value) {
 			char buffer[UINT32_MAX_CHR_COUNT];
@@ -596,7 +631,8 @@ namespace Power {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a signed long long value.
+		/// @param[in] value The signed long long value to be merged with.
 		///
 		inline void operator+=(const int64_t value) {
 			char buffer[INT64_MAX_CHR_COUNT];
@@ -609,7 +645,8 @@ namespace Power {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a unsigned long long value.
+		/// @param[in] value The unsigned long long value to be merged with.
 		///
 		inline void operator+=(const uint64_t value) {
 			char buffer[UINT64_MAX_CHR_COUNT];
@@ -622,7 +659,8 @@ namespace Power {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a float value.
+		/// @param[in] value The float value to be merged with.
 		///
 		inline void operator+=(const float value) {
 			char buffer[FLOAT_MAX_CHR_COUNT];
@@ -635,7 +673,8 @@ namespace Power {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a double value.
+		/// @param[in] value The double value to be merged with.
 		///
 		inline void operator+=(const double value) {
 			char buffer[DOUBLE_MAX_CHR_COUNT];
@@ -648,62 +687,102 @@ namespace Power {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Bitwise left shift operators-->
-		/// @brief TODO: Document behaviour when using pointer to self.
+		/// @brief Merges the Power::String with another Power::String.
+		/// @param[in] other The Power::String to be merged with.
+		/// @return A reference to the current Power::String.
+		/// @note This operator is faster than the addition operator since it returns a reference instead of a copy.
+		/// \n As a result this can lead to unexpected behaviour when chaining this operator.
+		/// \n If for example the operator is used like this: "string << string << string << string;", the contents will double with each operator call.
+		/// \n If that behaviour is undesired, use the operator+(const String& other) const instead.
 		///
 		inline String& operator<<(const String& other) { return this->Concatenate(other); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a c-string.
+		/// @param[in] other The c-string to be merged with.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use operator<<(const char) instead.
+		/// @return A reference to the current Power::String.
+		/// @note This operator is faster than the addition operator since it returns a reference instead of a copy.
+		/// \n As a result this can lead to unexpected behaviour when chaining this operator.
+		/// \n If for example the operator is used like this: "string << string.CString() << string.CString() << string.CString();", the contents will double with each operator call.
+		/// \n If that behaviour is undesired, use operator+(const char* const other) const instead.
 		///
 		inline String& operator<<(const char* const other) { return this->Concatenate(other, strlen(other)); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Merges the Power::String with a character.
+		/// @param[in] c The character to be merged with.
+		/// @return A reference to the current Power::String.
 		///
 		inline String& operator<<(const char c) { return this->Concatenate(c); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Subscript operator-->
-		/// @brief TODO: Document
+		/// @brief Returns the character at the specified index.
+		/// @param i The index.
+		/// @return The character at the specified index.
 		///
 		inline char operator[](size_t i) const { return *(data_ + i); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Cast operators-->
-		/// @brief TODO: Document
+		/// @brief Gets the underlying c-string as a constant.
+		/// @return The underlying c-string as a constant.
 		///
 		inline explicit operator const char*() const { return data_; }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Checks if the Power::String is not empty.
+		/// @return <span style="color:#30AA00">True</span>, if the size of the Power::String is not zero.
+		/// @return <span style="color:#CC3000">False</span>, if the size of the Power::String is zero.
 		///
 		inline explicit operator bool() const { return size_ != 0; }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Comparison equal operators-->
-		/// @brief TODO: Document
+		/// @brief Compares the current Power::String to the specified Power::String.
+		/// @param other The Power::String to be compared against.
+		/// @return <span style="color:#30AA00">True</span>, if both Power::Strings are equal.
+		/// @return <span style="color:#CC3000">False</span>, if both Power::Strings are not equal.
 		///
 		inline bool operator==(const String& other) const { return size_ == other.size_ && memcmp(data_, other.data_, other.size_) == 0; }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Compares the current Power::String to the specified c-string.
+		/// @param other The c-string to be compared against.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use operator==(const char) const instead.
+		/// @return <span style="color:#30AA00">True</span>, if the Power::String is equal to the c-string.
+		/// @return <span style="color:#CC3000">False</span>, if the Power::String is not equal to the c-string.
 		///
 		inline bool operator==(const char* const other) const { return strcmp(data_, other) == 0; }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Compares the current Power::String to the specified character.
+		/// @param c The character to be compared against.
+		/// @return <span style="color:#30AA00">True</span>, if the Power::String is equal to the character.
+		/// @return <span style="color:#CC3000">False</span>, if the Power::String is not equal to the character.
 		///
 		inline bool operator==(const char c) const { return size_ == 1 && *data_ == c; }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Comparison not equal operators-->
-		/// @brief TODO: Document
+		/// @brief Compares the current Power::String to the specified Power::String.
+		/// @param other The Power::String to be compared against.
+		/// @return <span style="color:#30AA00">True</span>, if both Power::Strings are not equal.
+		/// @return <span style="color:#CC3000">False</span>, if both Power::Strings are equal.
 		///
 		inline bool operator!=(const String& other) const { return size_ != other.size_ || memcmp(data_, other.data_, other.size_) != 0; }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Compares the current Power::String to the specified c-string.
+		/// @param other The c-string to be compared against.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use operator!=(const char) const instead.
+		/// @return <span style="color:#30AA00">True</span>, if the Power::String is not equal to the c-string.
+		/// @return <span style="color:#CC3000">False</span>, if the Power::String is equal to the c-string.
 		///
 		inline bool operator!=(const char* const other) const { return strcmp(data_, other) != 0; }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief TODO: Document
+		/// @brief Compares the current Power::String to the specified character.
+		/// @param c The character to be compared against.
+		/// @return <span style="color:#30AA00">True</span>, if the Power::String is not equal to the character.
+		/// @return <span style="color:#CC3000">False</span>, if the Power::String is equal to the character.
 		///
 		inline bool operator!=(const char c) const { return size_ > 1 || *data_ != c; }
 
@@ -2072,7 +2151,7 @@ namespace Power {
 		inline String& ToUpper() { _strupr_s(data_, size_ + 1); return *this; }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Destructor-->
-		/// @brief TODO: Document
+		/// @brief Frees all allocated memory of the Power::String.
 		///
 		~String() {
 			free(data_);
