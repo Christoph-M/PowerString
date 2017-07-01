@@ -1570,7 +1570,7 @@ namespace Power {
 			if (index >= size_) return *this;
 			if (count > size_ - index) count = size_ - index;
 			memcpy(temp_, data_, index);
-			memcpy(temp_ + index, data_ + index + count, index - count);
+			memcpy(temp_ + index, data_ + index + count, size_ - index - count);
 			size_ = size_ - count;
 			memcpy(data_, temp_, size_);
 			data_[size_] = '\0';
@@ -1874,7 +1874,7 @@ namespace Power {
 		///
 		inline String& TrimStart(const char c) {
 			size_t startIndex = 0;
-			for (size_t i = 0; i < size_; ++i) {
+			for (size_t i = 0; i <= size_; ++i) {
 				if (data_[i] != c) {
 					startIndex = i;
 					break;
@@ -1901,8 +1901,10 @@ namespace Power {
 		inline String& TrimEnd(const char c) {
 			for (int32_t i = static_cast<int32_t>(size_) - 1; i >= 0; --i) {
 				if (data_[i] != c) {
-					size_ = static_cast<size_t>(i + 1);
-					data_[size_] = '\0';
+					this->SetNewSize(static_cast<size_t>(i + 1));
+					break;
+				} else if (i == 0) {
+					this->SetNewSize(static_cast<size_t>(0));
 					break;
 				}
 			}

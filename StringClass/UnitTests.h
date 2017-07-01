@@ -1209,11 +1209,137 @@ namespace Power {
 		AssertString(insertCharacter, 11, ResizedCapacity(11, 11), "i will be x");
 	}
 	
-	void TestRemove() { }
-	void TestRemoveAll() { }
+	void TestRemove() {
+		String removeString("this will be removed");
+
+		AssertString(removeString, 20, 20 + String::s_defaultCapacity, "this will be removed");
+
+		removeString.Remove(21);
+		AssertString(removeString, 20, 20 + String::s_defaultCapacity, "this will be removed");
+		removeString.Remove(15);
+		AssertString(removeString, 15, 20 + String::s_defaultCapacity, "this will be re");
+		removeString.Remove(0);
+		AssertString(removeString, 0, 20 + String::s_defaultCapacity, "");
+		removeString.Remove(0);
+		AssertString(removeString, 0, 20 + String::s_defaultCapacity, "");
+
+		removeString = String("this will be removed again");
+		AssertString(removeString, 26, 20 + String::s_defaultCapacity, "this will be removed again");
+		removeString.Remove(0, 0);
+		AssertString(removeString, 26, 20 + String::s_defaultCapacity, "this will be removed again");
+		removeString.Remove(20, 9999);
+		AssertString(removeString, 20, 20 + String::s_defaultCapacity, "this will be removed");
+		removeString.Remove(10, 3);
+		AssertString(removeString, 17, 20 + String::s_defaultCapacity, "this will removed");
+		removeString.Remove(0, 5);
+		AssertString(removeString, 12, 20 + String::s_defaultCapacity, "will removed");
+		removeString.Remove(0, 9999);
+		AssertString(removeString, 0, 20 + String::s_defaultCapacity, "");
+		removeString.Remove(0, 9999);
+		AssertString(removeString, 0, 20 + String::s_defaultCapacity, "");
+	}
+
+	void TestRemoveAll() {
+		String removeAllString("... all all all be all removed ...");
+		String removeAllCString("... all all all be all removed ...");
+		String removeAllCharacter("...aafaafafffaafafertzfaaffafaaa.f.a.");
+
+		AssertString(removeAllString, 34, 34 + String::s_defaultCapacity, "... all all all be all removed ...");
+		AssertString(removeAllCString, 34, 34 + String::s_defaultCapacity, "... all all all be all removed ...");
+		AssertString(removeAllCharacter, 37, 37 + String::s_defaultCapacity, "...aafaafafffaafafertzfaaffafaaa.f.a.");
+
+		removeAllString.RemoveAll(String::ToString("this does not occur"));
+		AssertString(removeAllString, 34, 34 + String::s_defaultCapacity, "... all all all be all removed ...");
+		removeAllString.RemoveAll(String::ToString(""));
+		AssertString(removeAllString, 34, 34 + String::s_defaultCapacity, "... all all all be all removed ...");
+		removeAllString.RemoveAll(String::ToString("removed"));
+		AssertString(removeAllString, 27, 34 + String::s_defaultCapacity, "... all all all be all  ...");
+		removeAllString.RemoveAll(String::ToString("..."));
+		AssertString(removeAllString, 21, 34 + String::s_defaultCapacity, " all all all be all  ");
+		removeAllString.RemoveAll(String::ToString("all"));
+		AssertString(removeAllString, 9, 34 + String::s_defaultCapacity, "    be   ");
+		removeAllString.RemoveAll(removeAllString);
+		AssertString(removeAllString, 0, 34 + String::s_defaultCapacity, "");
+		removeAllString.RemoveAll(removeAllString);
+		AssertString(removeAllString, 0, 34 + String::s_defaultCapacity, "");
+
+		removeAllCString.RemoveAll("this does not occur");
+		AssertString(removeAllCString, 34, 34 + String::s_defaultCapacity, "... all all all be all removed ...");
+		removeAllCString.RemoveAll("");
+		AssertString(removeAllCString, 34, 34 + String::s_defaultCapacity, "... all all all be all removed ...");
+		removeAllCString.RemoveAll("removed");
+		AssertString(removeAllCString, 27, 34 + String::s_defaultCapacity, "... all all all be all  ...");
+		removeAllCString.RemoveAll(removeAllCString.CString() + removeAllCString.Size() - 3);
+		AssertString(removeAllCString, 21, 34 + String::s_defaultCapacity, " all all all be all  ");
+		removeAllCString.RemoveAll("all");
+		AssertString(removeAllCString, 9, 34 + String::s_defaultCapacity, "    be   ");
+		removeAllCString.RemoveAll(removeAllCString.CString());
+		AssertString(removeAllCString, 0, 34 + String::s_defaultCapacity, "");
+		removeAllCString.RemoveAll(removeAllCString.CString());
+		AssertString(removeAllCString, 0, 34 + String::s_defaultCapacity, "");
+
+		removeAllCharacter.RemoveAll('x');
+		AssertString(removeAllCharacter, 37, 37 + String::s_defaultCapacity, "...aafaafafffaafafertzfaaffafaaa.f.a.");
+		removeAllCharacter.RemoveAll('z');
+		AssertString(removeAllCharacter, 36, 37 + String::s_defaultCapacity, "...aafaafafffaafafertfaaffafaaa.f.a.");
+		removeAllCharacter.RemoveAll('.');
+		AssertString(removeAllCharacter, 30, 37 + String::s_defaultCapacity, "aafaafafffaafafertfaaffafaaafa");
+		removeAllCharacter.RemoveAll('a');
+		AssertString(removeAllCharacter, 15, 37 + String::s_defaultCapacity, "fffffffertfffff");
+		removeAllCharacter.RemoveAll('f');
+		AssertString(removeAllCharacter, 3, 37 + String::s_defaultCapacity, "ert");
+		removeAllCharacter.RemoveAll('e').RemoveAll('r').RemoveAll('t');
+		AssertString(removeAllCharacter, 0, 37 + String::s_defaultCapacity, "");
+		removeAllCharacter.RemoveAll('f');
+		AssertString(removeAllCharacter, 0, 37 + String::s_defaultCapacity, "");
+	}
+
 	void TestReplace() { }
 	void TestReplaceAt() { }
-	void TestTrim() { }
+
+	void TestTrim() {
+		String trim("       vvvvvvvvvvv      xxxxxxmiddlexxxxxxxx        vvvvvvv           ");
+
+		AssertString(trim, 70, 70 + String::s_defaultCapacity, "       vvvvvvvvvvv      xxxxxxmiddlexxxxxxxx        vvvvvvv           ");
+
+		trim.Trim();
+		AssertString(trim, 52, 70 + String::s_defaultCapacity, "vvvvvvvvvvv      xxxxxxmiddlexxxxxxxx        vvvvvvv");
+		trim.Trim();
+		AssertString(trim, 52, 70 + String::s_defaultCapacity, "vvvvvvvvvvv      xxxxxxmiddlexxxxxxxx        vvvvvvv");
+		trim.Trim('v');
+		AssertString(trim, 34, 70 + String::s_defaultCapacity, "      xxxxxxmiddlexxxxxxxx        ");
+		trim.Trim('v');
+		AssertString(trim, 34, 70 + String::s_defaultCapacity, "      xxxxxxmiddlexxxxxxxx        ");
+		trim.TrimStart();
+		AssertString(trim, 28, 70 + String::s_defaultCapacity, "xxxxxxmiddlexxxxxxxx        ");
+		trim.TrimStart();
+		AssertString(trim, 28, 70 + String::s_defaultCapacity, "xxxxxxmiddlexxxxxxxx        ");
+		trim.TrimStart('x');
+		AssertString(trim, 22, 70 + String::s_defaultCapacity, "middlexxxxxxxx        ");
+		trim.TrimStart('x');
+		AssertString(trim, 22, 70 + String::s_defaultCapacity, "middlexxxxxxxx        ");
+		trim.TrimEnd();
+		AssertString(trim, 14, 70 + String::s_defaultCapacity, "middlexxxxxxxx");
+		trim.TrimEnd();
+		AssertString(trim, 14, 70 + String::s_defaultCapacity, "middlexxxxxxxx");
+		trim.TrimEnd('x');
+		AssertString(trim, 6, 70 + String::s_defaultCapacity, "middle");
+		trim.TrimEnd('x');
+		AssertString(trim, 6, 70 + String::s_defaultCapacity, "middle");
+		trim.Trim('m');
+		AssertString(trim, 5, 70 + String::s_defaultCapacity, "iddle");
+		trim.Trim('e');
+		AssertString(trim, 4, 70 + String::s_defaultCapacity, "iddl");
+		trim.Trim('i').Trim('l');
+		AssertString(trim, 2, 70 + String::s_defaultCapacity, "dd");
+		trim.TrimStart('d');
+		AssertString(trim, 0, 70 + String::s_defaultCapacity, "");
+		trim.Trim();
+		AssertString(trim, 0, 70 + String::s_defaultCapacity, "");
+		trim = String("dd").TrimEnd('d');
+		AssertString(trim, 0, 70 + String::s_defaultCapacity, "");
+	}
+
 	void TestPadLeft() { }
 	void TestPadRight() { }
 	void TestStartswith() { }
