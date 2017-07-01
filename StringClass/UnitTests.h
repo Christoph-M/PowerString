@@ -11,6 +11,8 @@ namespace Power {
 		if (data) assert(string == data);
 	}
 
+	size_t ResizedCapacity(size_t oldCapcity, size_t newSize) { return oldCapcity * 2 + newSize; }
+
 	void TestComparisonOperators() {
 		String equalsPowerString = "equalsPowerString";
 		String equalsCString = "equalsCString";
@@ -103,19 +105,19 @@ namespace Power {
 		stringAssignment = cstringAssignment;
 		AssertString(stringAssignment, 8, 13, "c-string");
 		cstringAssignment = "c-string assignment";
-		AssertString(cstringAssignment, 19, 16 * 2 + 19, "c-string assignment");
+		AssertString(cstringAssignment, 19, ResizedCapacity(16, 19), "c-string assignment");
 		cstringAssignment = cstringAssignment.CString();
-		AssertString(cstringAssignment, 19, 16 * 2 + 19, "c-string assignment");
+		AssertString(cstringAssignment, 19, ResizedCapacity(16, 19), "c-string assignment");
 		stringAssignment = cstringAssignment;
-		AssertString(stringAssignment, 19, 13 * 2 + 19, "c-string assignment");
+		AssertString(stringAssignment, 19, ResizedCapacity(13, 19), "c-string assignment");
 		stringAssignment = stringAssignment;
-		AssertString(stringAssignment, 19, 13 * 2 + 19, "c-string assignment");
+		AssertString(stringAssignment, 19, ResizedCapacity(13, 19), "c-string assignment");
 		cstringAssignment = cstringAssignment.CString() + cstringAssignment.Size() - 10;
-		AssertString(cstringAssignment, 10, 16 * 2 + 19, "assignment");
+		AssertString(cstringAssignment, 10, ResizedCapacity(16, 19), "assignment");
 		cstringAssignment = "";
-		AssertString(cstringAssignment, 0, 16 * 2 + 19, "");
+		AssertString(cstringAssignment, 0, ResizedCapacity(16, 19), "");
 		stringAssignment = charAssignment;
-		AssertString(stringAssignment, 0, 13 * 2 + 19, "");
+		AssertString(stringAssignment, 0, ResizedCapacity(13, 19), "");
 		charAssignment = 'c';
 		AssertString(charAssignment, 1, 2, "c");
 	}
@@ -205,72 +207,72 @@ namespace Power {
 		AssertString(plusStringAssignment, 0, 1, "");
 		assignmentString = 'c';
 		plusStringAssignment += assignmentString;
-		AssertString(plusStringAssignment, 1, 1 * 2 + 1, "c");
+		AssertString(plusStringAssignment, 1, ResizedCapacity(1, 1), "c");
 		plusStringAssignment += plusStringAssignment;
-		AssertString(plusStringAssignment, 2, 1 * 2 + 1, "cc");
+		AssertString(plusStringAssignment, 2, ResizedCapacity(1, 1), "cc");
 		plusStringAssignment += plusStringAssignment;
-		AssertString(plusStringAssignment, 4, 3 * 2 + 4, "cccc");
+		AssertString(plusStringAssignment, 4, ResizedCapacity(ResizedCapacity(1, 1), 4), "cccc");
 		plusCStringAssignment += "";
 		AssertString(plusCStringAssignment, 0, 1, "");
 		plusCStringAssignment += "plus c-string assignment";
-		AssertString(plusCStringAssignment, 24, 1 * 2 + 24, "plus c-string assignment");
+		AssertString(plusCStringAssignment, 24, ResizedCapacity(1, 24), "plus c-string assignment");
 		plusCStringAssignment += "2";
-		AssertString(plusCStringAssignment, 25, 1 * 2 + 24, "plus c-string assignment2");
+		AssertString(plusCStringAssignment, 25, ResizedCapacity(1, 24), "plus c-string assignment2");
 		plusCStringAssignment += plusCStringAssignment.CString();
-		AssertString(plusCStringAssignment, 50, 26 * 2 + 50, "plus c-string assignment2plus c-string assignment2");
+		AssertString(plusCStringAssignment, 50, ResizedCapacity(ResizedCapacity(1, 24), 50), "plus c-string assignment2plus c-string assignment2");
 		plusCStringAssignment += plusCStringAssignment.CString() + plusCStringAssignment.Size() - 5;
 		plusCStringAssignment.ShrinkToFit();
 		AssertString(plusCStringAssignment, 55, 56, "plus c-string assignment2plus c-string assignment2ment2");
 		plusCStringAssignment += plusCStringAssignment.CString() + plusCStringAssignment.Size() - 1;
-		AssertString(plusCStringAssignment, 56, 56 * 2 + 56, "plus c-string assignment2plus c-string assignment2ment22");
+		AssertString(plusCStringAssignment, 56, ResizedCapacity(56, 56), "plus c-string assignment2plus c-string assignment2ment22");
 		plusCharAssignment += 'c';
-		AssertString(plusCharAssignment, 1, 1 * 2 + 1, "c");
+		AssertString(plusCharAssignment, 1, ResizedCapacity(1, 1), "c");
 		plusCharAssignment += 'd';
-		AssertString(plusCharAssignment, 2, 1 * 2 + 1, "cd");
+		AssertString(plusCharAssignment, 2, ResizedCapacity(1, 1), "cd");
 		plusCharAssignment += 'e';
-		AssertString(plusCharAssignment, 3, 3 * 2 + 3, "cde");
+		AssertString(plusCharAssignment, 3, ResizedCapacity(ResizedCapacity(1, 1), 3), "cde");
 		plusShortAssignment += static_cast<int16_t>(0);
-		AssertString(plusShortAssignment, 1, 1 * 2 + 1, "0");
+		AssertString(plusShortAssignment, 1, ResizedCapacity(1, 1), "0");
 		plusShortAssignment += std::numeric_limits<int16_t>::min();
-		AssertString(plusShortAssignment, 7, 3 * 2 + 7, "0-32768");
+		AssertString(plusShortAssignment, 7, ResizedCapacity(ResizedCapacity(1, 1), 7), "0-32768");
 		plusShortAssignment += std::numeric_limits<int16_t>::max();
-		AssertString(plusShortAssignment, 12, 3 * 2 + 7, "0-3276832767");
+		AssertString(plusShortAssignment, 12, ResizedCapacity(ResizedCapacity(1, 1), 7), "0-3276832767");
 		plusUnsignedShortAssignment += std::numeric_limits<uint16_t>::min();
-		AssertString(plusUnsignedShortAssignment, 1, 1 * 2 + 1, "0");
+		AssertString(plusUnsignedShortAssignment, 1, ResizedCapacity(1, 1), "0");
 		plusUnsignedShortAssignment += std::numeric_limits<uint16_t>::max();
-		AssertString(plusUnsignedShortAssignment, 6, 3 * 2 + 6, "065535");
+		AssertString(plusUnsignedShortAssignment, 6, ResizedCapacity(ResizedCapacity(1, 1), 6), "065535");
 		plusIntegerAssignment += static_cast<int32_t>(0);
-		AssertString(plusIntegerAssignment, 1, 1 * 2 + 1, "0");
+		AssertString(plusIntegerAssignment, 1, ResizedCapacity(1, 1), "0");
 		plusIntegerAssignment += std::numeric_limits<int32_t>::min();
-		AssertString(plusIntegerAssignment, 12, 3 * 2 + 12, "0-2147483648");
+		AssertString(plusIntegerAssignment, 12, ResizedCapacity(ResizedCapacity(1, 1), 12), "0-2147483648");
 		plusIntegerAssignment += std::numeric_limits<int32_t>::max();
-		AssertString(plusIntegerAssignment, 22, 18 * 2 + 22, "0-21474836482147483647");
+		AssertString(plusIntegerAssignment, 22, ResizedCapacity(ResizedCapacity(ResizedCapacity(1, 1), 12), 22), "0-21474836482147483647");
 		plusUnsignedIntegerAssignment += std::numeric_limits<uint32_t>::min();
-		AssertString(plusUnsignedIntegerAssignment, 1, 1 * 2 + 1, "0");
+		AssertString(plusUnsignedIntegerAssignment, 1, ResizedCapacity(1, 1), "0");
 		plusUnsignedIntegerAssignment += std::numeric_limits<uint32_t>::max();
-		AssertString(plusUnsignedIntegerAssignment, 11, 3 * 2 + 11, "04294967295");
+		AssertString(plusUnsignedIntegerAssignment, 11, ResizedCapacity(ResizedCapacity(1, 1), 11), "04294967295");
 		plusLongLongAssignment += static_cast<int64_t>(0);
-		AssertString(plusLongLongAssignment, 1, 1 * 2 + 1, "0");
+		AssertString(plusLongLongAssignment, 1, ResizedCapacity(1, 1), "0");
 		plusLongLongAssignment += std::numeric_limits<int64_t>::min();
-		AssertString(plusLongLongAssignment, 21, 3 * 2 + 21, "0-9223372036854775808");
+		AssertString(plusLongLongAssignment, 21, ResizedCapacity(ResizedCapacity(1, 1), 21), "0-9223372036854775808");
 		plusLongLongAssignment += std::numeric_limits<int64_t>::max();
-		AssertString(plusLongLongAssignment, 40, 27 * 2 + 40, "0-92233720368547758089223372036854775807");
+		AssertString(plusLongLongAssignment, 40, ResizedCapacity(ResizedCapacity(ResizedCapacity(1, 1), 21), 40), "0-92233720368547758089223372036854775807");
 		plusUnsignedLongLongAssignment += std::numeric_limits<uint64_t>::min();
-		AssertString(plusUnsignedLongLongAssignment, 1, 1 * 2 + 1, "0");
+		AssertString(plusUnsignedLongLongAssignment, 1, ResizedCapacity(1, 1), "0");
 		plusUnsignedLongLongAssignment += std::numeric_limits<uint64_t>::max();
-		AssertString(plusUnsignedLongLongAssignment, 21, 3 * 2 + 21, "018446744073709551615");
+		AssertString(plusUnsignedLongLongAssignment, 21, ResizedCapacity(ResizedCapacity(1, 1), 21), "018446744073709551615");
 		plusFloatAssignment += 0.0f;
-		AssertString(plusFloatAssignment, 1, 1 * 2 + 1, "0");
+		AssertString(plusFloatAssignment, 1, ResizedCapacity(1, 1), "0");
 		plusFloatAssignment += -std::numeric_limits<float>::min();
-		AssertString(plusFloatAssignment, 13, 3 * 2 + 13, "0-1.17549e-38");
+		AssertString(plusFloatAssignment, 13, ResizedCapacity(ResizedCapacity(1, 1), 13), "0-1.17549e-38");
 		plusFloatAssignment += std::numeric_limits<float>::max();
-		AssertString(plusFloatAssignment, 24, 19 * 2 + 24, "0-1.17549e-383.40282e+38");
+		AssertString(plusFloatAssignment, 24, ResizedCapacity(ResizedCapacity(ResizedCapacity(1, 1), 13), 24), "0-1.17549e-383.40282e+38");
 		plusDoubleAssignment += 0.0;
-		AssertString(plusDoubleAssignment, 1, 1 * 2 + 1, "0");
+		AssertString(plusDoubleAssignment, 1, ResizedCapacity(1, 1), "0");
 		plusDoubleAssignment += -std::numeric_limits<double>::min();
-		AssertString(plusDoubleAssignment, 14, 3 * 2 + 14, "0-2.22507e-308");
+		AssertString(plusDoubleAssignment, 14, ResizedCapacity(ResizedCapacity(1, 1), 14), "0-2.22507e-308");
 		plusDoubleAssignment += std::numeric_limits<double>::max();
-		AssertString(plusDoubleAssignment, 26, 20 * 2 + 26, "0-2.22507e-3081.79769e+308");
+		AssertString(plusDoubleAssignment, 26, ResizedCapacity(ResizedCapacity(ResizedCapacity(1, 1), 14), 26), "0-2.22507e-3081.79769e+308");
 	}
 
 	void TestAdditionOperators() {
@@ -283,61 +285,63 @@ namespace Power {
 		AssertString(plusCStringOperator, 22, 22 + String::s_defaultCapacity, "plus c-string operator");
 
 		plusString = plusStringOperator + plusString;
-		AssertString(plusString, 20, 1 * 2 + 20, "plus string operator");
+		AssertString(plusString, 20, ResizedCapacity(1, 20), "plus string operator");
 		plusString = plusStringOperator + plusStringOperator;
-		AssertString(plusString, 40, 22 * 2 + 40, "plus string operatorplus string operator");
+		AssertString(plusString, 40, ResizedCapacity(ResizedCapacity(1, 20), 40), "plus string operatorplus string operator");
 		plusString = plusStringOperator + plusStringOperator + plusStringOperator + plusStringOperator + String("");
-		AssertString(plusString, 80, 22 * 2 + 40, "plus string operatorplus string operatorplus string operatorplus string operator");
+		AssertString(plusString, 80, ResizedCapacity(ResizedCapacity(1, 20), 40), "plus string operatorplus string operatorplus string operatorplus string operator");
 		plusString = plusCStringOperator + "";
-		AssertString(plusString, 22, 22 * 2 + 40, "plus c-string operator");
+		AssertString(plusString, 22, ResizedCapacity(ResizedCapacity(1, 20), 40), "plus c-string operator");
 		plusString = plusCStringOperator + " c-string";
-		AssertString(plusString, 31, 22 * 2 + 40, "plus c-string operator c-string");
+		AssertString(plusString, 31, ResizedCapacity(ResizedCapacity(1, 20), 40), "plus c-string operator c-string");
 		plusString = plusCStringOperator + plusCStringOperator.CString();
-		AssertString(plusString, 44, 22 * 2 + 40, "plus c-string operatorplus c-string operator");
+		AssertString(plusString, 44, ResizedCapacity(ResizedCapacity(1, 20), 40), "plus c-string operatorplus c-string operator");
 		plusString.ShrinkToFit();
+		AssertString(plusString, 44, 45, "plus c-string operatorplus c-string operator");
 		plusString = plusCStringOperator + plusCStringOperator.CString() + plusCStringOperator.CString() + "";
-		AssertString(plusString, 66, 45 * 2 + 66, "plus c-string operatorplus c-string operatorplus c-string operator");
+		AssertString(plusString, 66, ResizedCapacity(45, 66), "plus c-string operatorplus c-string operatorplus c-string operator");
 		plusString = plusCStringOperator + (plusCStringOperator.CString() + plusCStringOperator.Size() - 8);
-		AssertString(plusString, 30, 45 * 2 + 66, "plus c-string operatoroperator");
+		AssertString(plusString, 30, ResizedCapacity(45, 66), "plus c-string operatoroperator");
 		plusString = String::ToString("plus char operator") + 'c';
-		AssertString(plusString, 19, 45 * 2 + 66, "plus char operatorc");
+		AssertString(plusString, 19, ResizedCapacity(45, 66), "plus char operatorc");
 		plusString = String::ToString("short min: ") + std::numeric_limits<int16_t>::min();
-		AssertString(plusString, 17, 45 * 2 + 66, "short min: -32768");
+		AssertString(plusString, 17, ResizedCapacity(45, 66), "short min: -32768");
 		plusString = String::ToString("short max: ") + std::numeric_limits<int16_t>::max();
-		AssertString(plusString, 16, 45 * 2 + 66, "short max: 32767");
+		AssertString(plusString, 16, ResizedCapacity(45, 66), "short max: 32767");
 		plusString = String::ToString("unsigned short min: ") + std::numeric_limits<uint16_t>::min();
-		AssertString(plusString, 21, 45 * 2 + 66, "unsigned short min: 0");
+		AssertString(plusString, 21, ResizedCapacity(45, 66), "unsigned short min: 0");
 		plusString = String::ToString("unsigned short max: ") + std::numeric_limits<uint16_t>::max();
-		AssertString(plusString, 25, 45 * 2 + 66, "unsigned short max: 65535");
+		AssertString(plusString, 25, ResizedCapacity(45, 66), "unsigned short max: 65535");
 		plusString = String::ToString("integer min: ") + std::numeric_limits<int32_t>::min();
-		AssertString(plusString, 24, 45 * 2 + 66, "integer min: -2147483648");
+		AssertString(plusString, 24, ResizedCapacity(45, 66), "integer min: -2147483648");
 		plusString = String::ToString("integer max: ") + std::numeric_limits<int32_t>::max();
-		AssertString(plusString, 23, 45 * 2 + 66, "integer max: 2147483647");
+		AssertString(plusString, 23, ResizedCapacity(45, 66), "integer max: 2147483647");
 		plusString = String::ToString("unsigned integer min: ") + std::numeric_limits<uint32_t>::min();
-		AssertString(plusString, 23, 45 * 2 + 66, "unsigned integer min: 0");
+		AssertString(plusString, 23, ResizedCapacity(45, 66), "unsigned integer min: 0");
 		plusString = String::ToString("unsigned integer max: ") + std::numeric_limits<uint32_t>::max();
-		AssertString(plusString, 32, 45 * 2 + 66, "unsigned integer max: 4294967295");
+		AssertString(plusString, 32, ResizedCapacity(45, 66), "unsigned integer max: 4294967295");
 		plusString = String::ToString("long long min: ") + std::numeric_limits<int64_t>::min();
-		AssertString(plusString, 35, 45 * 2 + 66, "long long min: -9223372036854775808");
+		AssertString(plusString, 35, ResizedCapacity(45, 66), "long long min: -9223372036854775808");
 		plusString = String::ToString("long long max: ") + std::numeric_limits<int64_t>::max();
-		AssertString(plusString, 34, 45 * 2 + 66, "long long max: 9223372036854775807");
+		AssertString(plusString, 34, ResizedCapacity(45, 66), "long long max: 9223372036854775807");
 		plusString = String::ToString("unsigned long long min: ") + std::numeric_limits<uint64_t>::min();
-		AssertString(plusString, 25, 45 * 2 + 66, "unsigned long long min: 0");
+		AssertString(plusString, 25, ResizedCapacity(45, 66), "unsigned long long min: 0");
 		plusString = String::ToString("unsigned long long max: ") + std::numeric_limits<uint64_t>::max();
-		AssertString(plusString, 44, 45 * 2 + 66, "unsigned long long max: 18446744073709551615");
+		AssertString(plusString, 44, ResizedCapacity(45, 66), "unsigned long long max: 18446744073709551615");
 		plusString = String::ToString("float min: ") + -std::numeric_limits<float>::min();
-		AssertString(plusString, 23, 45 * 2 + 66, "float min: -1.17549e-38");
+		AssertString(plusString, 23, ResizedCapacity(45, 66), "float min: -1.17549e-38");
 		plusString = String::ToString("float max: ") + std::numeric_limits<float>::max();
-		AssertString(plusString, 22, 45 * 2 + 66, "float max: 3.40282e+38");
+		AssertString(plusString, 22, ResizedCapacity(45, 66), "float max: 3.40282e+38");
 		plusString = String::ToString("double min: ") + -std::numeric_limits<double>::min();
-		AssertString(plusString, 25, 45 * 2 + 66, "double min: -2.22507e-308");
+		AssertString(plusString, 25, ResizedCapacity(45, 66), "double min: -2.22507e-308");
 		plusString = String::ToString("double max: ") + std::numeric_limits<double>::max();
-		AssertString(plusString, 24, 45 * 2 + 66, "double max: 1.79769e+308");
+		AssertString(plusString, 24, ResizedCapacity(45, 66), "double max: 1.79769e+308");
 		plusString = "";
+		AssertString(plusString, 0, ResizedCapacity(45, 66), "");
 		plusString.ShrinkToFit();
 		AssertString(plusString, 0, 1, "");
 		plusString = plusString + 1 + -1 + 1.01f + -1.01f + 1.01 + -1.01 + 'c' + false + true + "c-string" + String::ToString("string");
-		AssertString(plusString, 38, 1 * 2 + 38, "1-11.01-1.011.01-1.01c01c-stringstring");
+		AssertString(plusString, 38, ResizedCapacity(1, 38), "1-11.01-1.011.01-1.01c01c-stringstring");
 	}
 
 	void TestBitwiseLeftShiftOperators() {
@@ -354,39 +358,40 @@ namespace Power {
 		plusStringAssignment << assignmentString;
 		AssertString(plusStringAssignment, 0, 1, "");
 		assignmentString = 'c';
+		AssertString(assignmentString, 1, String::s_defaultCapacity, "c");
 		plusStringAssignment << assignmentString;
-		AssertString(plusStringAssignment, 1, 1 * 2 + 1, "c");
+		AssertString(plusStringAssignment, 1, ResizedCapacity(1, 1), "c");
 		plusStringAssignment << plusStringAssignment;
-		AssertString(plusStringAssignment, 2, 1 * 2 + 1, "cc");
+		AssertString(plusStringAssignment, 2, ResizedCapacity(1, 1), "cc");
 		plusStringAssignment << plusStringAssignment;
-		AssertString(plusStringAssignment, 4, 3 * 2 + 4, "cccc");
+		AssertString(plusStringAssignment, 4, ResizedCapacity(ResizedCapacity(1, 1), 4), "cccc");
 		plusStringAssignment << plusStringAssignment << plusStringAssignment << plusStringAssignment;
-		AssertString(plusStringAssignment, 32, 10 * 2 + 16, "cccccccccccccccccccccccccccccccc");
+		AssertString(plusStringAssignment, 32, ResizedCapacity(ResizedCapacity(ResizedCapacity(1, 1), 4), 16), "cccccccccccccccccccccccccccccccc");
 		plusCStringAssignment << "";
 		AssertString(plusCStringAssignment, 0, 1, "");
 		plusCStringAssignment << "plus c-string assignment";
-		AssertString(plusCStringAssignment, 24, 1 * 2 + 24, "plus c-string assignment");
+		AssertString(plusCStringAssignment, 24, ResizedCapacity(1, 24), "plus c-string assignment");
 		plusCStringAssignment << "2";
-		AssertString(plusCStringAssignment, 25, 1 * 2 + 24, "plus c-string assignment2");
+		AssertString(plusCStringAssignment, 25, ResizedCapacity(1, 24), "plus c-string assignment2");
 		plusCStringAssignment << plusCStringAssignment.CString();
-		AssertString(plusCStringAssignment, 50, 26 * 2 + 50, "plus c-string assignment2plus c-string assignment2");
+		AssertString(plusCStringAssignment, 50, ResizedCapacity(ResizedCapacity(1, 24), 50), "plus c-string assignment2plus c-string assignment2");
 		plusCStringAssignment << plusCStringAssignment.CString() + plusCStringAssignment.Size() - 5;
 		plusCStringAssignment.ShrinkToFit();
 		AssertString(plusCStringAssignment, 55, 56, "plus c-string assignment2plus c-string assignment2ment2");
 		plusCStringAssignment << plusCStringAssignment.CString() + plusCStringAssignment.Size() - 1;
-		AssertString(plusCStringAssignment, 56, 56 * 2 + 56, "plus c-string assignment2plus c-string assignment2ment22");
+		AssertString(plusCStringAssignment, 56, ResizedCapacity(56, 56), "plus c-string assignment2plus c-string assignment2ment22");
 		plusCStringAssignment << plusCStringAssignment.CString() + plusCStringAssignment.Size() - 1 << plusCStringAssignment.CString() + plusCStringAssignment.Size() - 1;
-		AssertString(plusCStringAssignment, 59, 56 * 2 + 56, "plus c-string assignment2plus c-string assignment2ment22222");
+		AssertString(plusCStringAssignment, 59, ResizedCapacity(56, 56), "plus c-string assignment2plus c-string assignment2ment22222");
 		plusCharAssignment << 'c';
-		AssertString(plusCharAssignment, 1, 1 * 2 + 1, "c");
+		AssertString(plusCharAssignment, 1, ResizedCapacity(1, 1), "c");
 		plusCharAssignment << 'd';
-		AssertString(plusCharAssignment, 2, 1 * 2 + 1, "cd");
+		AssertString(plusCharAssignment, 2, ResizedCapacity(1, 1), "cd");
 		plusCharAssignment << 'e';
-		AssertString(plusCharAssignment, 3, 3 * 2 + 3, "cde");
+		AssertString(plusCharAssignment, 3, ResizedCapacity(ResizedCapacity(1, 1), 3), "cde");
 		plusCharAssignment << 'f' << 'g' << 'h';
-		AssertString(plusCharAssignment, 6, 3 * 2 + 3, "cdefgh");
+		AssertString(plusCharAssignment, 6, ResizedCapacity(ResizedCapacity(1, 1), 3), "cdefgh");
 		plusStringAssignment << plusCharAssignment << plusCStringAssignment.CString() << 'z';
-		AssertString(plusStringAssignment, 98, 36 * 2 + 38, "cccccccccccccccccccccccccccccccccdefghplus c-string assignment2plus c-string assignment2ment22222z");
+		AssertString(plusStringAssignment, 98, ResizedCapacity(ResizedCapacity(ResizedCapacity(ResizedCapacity(1, 1), 4), 16), 38), "cccccccccccccccccccccccccccccccccdefghplus c-string assignment2plus c-string assignment2ment22222z");
 	}
 
 	void TestIndexOf() {
@@ -788,6 +793,181 @@ namespace Power {
 		AssertString(toLower, 8, 8 + String::s_defaultCapacity, "TO LOWER");
 	}
 
+	void TestConcatenate() {
+		String concatString("concat string");
+		String concatCString("concat c-string");
+		String concatCharacter("concat character");
+		String otherPart("; other part");
+		String empty(static_cast<size_t>(0));
+		String mergeString;
+
+		AssertString(concatString, 13, 13 + String::s_defaultCapacity, "concat string");
+		AssertString(concatCString, 15, 15 + String::s_defaultCapacity, "concat c-string");
+		AssertString(concatCharacter, 16, 16 + String::s_defaultCapacity, "concat character");
+		AssertString(otherPart, 12, 12 + String::s_defaultCapacity, "; other part");
+		AssertString(empty, 0, 1, "");
+		AssertString(mergeString, 0, String::s_defaultCapacity, "");
+
+		mergeString = String::Merge(concatString, otherPart);
+		AssertString(mergeString, 25, String::s_defaultCapacity, "concat string; other part");
+		mergeString = String::Merge(concatString, empty);
+		AssertString(mergeString, 13, String::s_defaultCapacity, "concat string");
+		mergeString = String::Merge(empty, otherPart);
+		AssertString(mergeString, 12, String::s_defaultCapacity, "; other part");
+		mergeString = String::Merge(empty, empty);
+		AssertString(mergeString, 0, String::s_defaultCapacity, "");
+		mergeString = String::Merge(concatString, concatString);
+		AssertString(mergeString, 26, String::s_defaultCapacity, "concat stringconcat string");
+
+		mergeString = String::Merge(concatString, "; other part");
+		AssertString(mergeString, 25, String::s_defaultCapacity, "concat string; other part");
+		mergeString = String::Merge(concatString, "");
+		AssertString(mergeString, 13, String::s_defaultCapacity, "concat string");
+		mergeString = String::Merge(empty, "; other part");
+		AssertString(mergeString, 12, String::s_defaultCapacity, "; other part");
+		mergeString = String::Merge(empty, "");
+		AssertString(mergeString, 0, String::s_defaultCapacity, "");
+		mergeString = String::Merge(concatString, concatString.CString());
+		AssertString(mergeString, 26, String::s_defaultCapacity, "concat stringconcat string");
+		mergeString = String::Merge(concatString, concatString.CString() + concatString.Size() - 7);
+		AssertString(mergeString, 20, String::s_defaultCapacity, "concat string string");
+
+		mergeString = String::Merge("; other part", concatString);
+		AssertString(mergeString, 25, String::s_defaultCapacity, "; other partconcat string");
+		mergeString = String::Merge("", concatString);
+		AssertString(mergeString, 13, String::s_defaultCapacity, "concat string");
+		mergeString = String::Merge("; other part", empty);
+		AssertString(mergeString, 12, String::s_defaultCapacity, "; other part");
+		mergeString = String::Merge("", empty);
+		AssertString(mergeString, 0, String::s_defaultCapacity, "");
+		mergeString = String::Merge(concatString.CString(), concatString);
+		AssertString(mergeString, 26, String::s_defaultCapacity, "concat stringconcat string");
+		mergeString = String::Merge(concatString.CString() + concatString.Size() - 7, concatString);
+		AssertString(mergeString, 20, String::s_defaultCapacity, " stringconcat string");
+
+		mergeString = String::Merge(concatString, 'c');
+		AssertString(mergeString, 14, String::s_defaultCapacity, "concat stringc");
+		mergeString = String::Merge(concatString, concatString[4]);
+		AssertString(mergeString, 14, String::s_defaultCapacity, "concat stringa");
+		mergeString = String::Merge(empty, 'c');
+		AssertString(mergeString, 1, String::s_defaultCapacity, "c");
+		mergeString = String::Merge(empty, empty[0]);
+		AssertString(mergeString, 1, String::s_defaultCapacity, "");
+
+		mergeString = String::Merge('c', concatString);
+		AssertString(mergeString, 14, String::s_defaultCapacity, "cconcat string");
+		mergeString = String::Merge(concatString[4], concatString);
+		AssertString(mergeString, 14, String::s_defaultCapacity, "aconcat string");
+		mergeString = String::Merge('c', empty);
+		AssertString(mergeString, 1, String::s_defaultCapacity, "c");
+		mergeString = String::Merge(empty[0], empty);
+		AssertString(mergeString, 1, String::s_defaultCapacity, "");
+
+		concatString.Concatenate(otherPart);
+		AssertString(concatString, 25, 13 + String::s_defaultCapacity, "concat string; other part");
+		concatString.Concatenate(empty);
+		AssertString(concatString, 25, 13 + String::s_defaultCapacity, "concat string; other part");
+		concatString.Concatenate(concatString);
+		AssertString(concatString, 50, 13 + String::s_defaultCapacity, "concat string; other partconcat string; other part");
+		concatString.ShrinkToFit();
+		AssertString(concatString, 50, 51, "concat string; other partconcat string; other part");
+		concatString.Concatenate(concatString);
+		AssertString(concatString, 100, ResizedCapacity(51, 100), "concat string; other partconcat string; other partconcat string; other partconcat string; other part");
+
+		concatCString.Concatenate("; other part");
+		AssertString(concatCString, 27, 15 + String::s_defaultCapacity, "concat c-string; other part");
+		concatCString.Concatenate("");
+		AssertString(concatCString, 27, 15 + String::s_defaultCapacity, "concat c-string; other part");
+		concatCString.Concatenate(concatCString.CString());
+		AssertString(concatCString, 54, 15 + String::s_defaultCapacity, "concat c-string; other partconcat c-string; other part");
+		concatCString.Concatenate(concatCString.CString() + concatCString.Size() - 5);
+		AssertString(concatCString, 59, 15 + String::s_defaultCapacity, "concat c-string; other partconcat c-string; other part part");
+		concatCString.ShrinkToFit();
+		AssertString(concatCString, 59, 60, "concat c-string; other partconcat c-string; other part part");
+		concatCString.Concatenate(concatCString.CString() + concatCString.Size() - 5);
+		AssertString(concatCString, 64, ResizedCapacity(60, 64), "concat c-string; other partconcat c-string; other part part part");
+
+		concatCharacter.Concatenate('c');
+		AssertString(concatCharacter, 17, 16 + String::s_defaultCapacity, "concat characterc");
+		concatCharacter.Concatenate(concatCharacter[4]);
+		AssertString(concatCharacter, 18, 16 + String::s_defaultCapacity, "concat characterca");
+		concatCharacter.ShrinkToFit();
+		AssertString(concatCharacter, 18, 19, "concat characterca");
+		concatCharacter.Concatenate(concatCharacter[5]);
+		AssertString(concatCharacter, 19, ResizedCapacity(19, 19), "concat charactercat");
+
+		concatCString = String("concat c-string");
+		AssertString(concatCString, 15, ResizedCapacity(60, 64), "concat c-string");
+		concatCString.ConcatenateAfter("; other part");
+		AssertString(concatCString, 27, ResizedCapacity(60, 64), "; other partconcat c-string");
+		concatCString.ConcatenateAfter("");
+		AssertString(concatCString, 27, ResizedCapacity(60, 64), "; other partconcat c-string");
+		concatCString.ConcatenateAfter(concatCString.CString());
+		AssertString(concatCString, 54, ResizedCapacity(60, 64), "; other partconcat c-string; other partconcat c-string");
+		concatCString.ConcatenateAfter(concatCString.CString() + concatCString.Size() - 8);
+		AssertString(concatCString, 62, ResizedCapacity(60, 64), "c-string; other partconcat c-string; other partconcat c-string");
+		concatCString.ShrinkToFit();
+		AssertString(concatCString, 62, 63, "c-string; other partconcat c-string; other partconcat c-string");
+		concatCString.ConcatenateAfter(concatCString.CString() + concatCString.Size() - 8);
+		AssertString(concatCString, 70, ResizedCapacity(63, 70), "c-stringc-string; other partconcat c-string; other partconcat c-string");
+
+		concatCharacter = String("concat character");
+		AssertString(concatCharacter, 16, ResizedCapacity(19, 19), "concat character");
+		concatCharacter.ConcatenateAfter('c');
+		AssertString(concatCharacter, 17, ResizedCapacity(19, 19), "cconcat character");
+		concatCharacter.ConcatenateAfter(concatCharacter[5]);
+		AssertString(concatCharacter, 18, ResizedCapacity(19, 19), "acconcat character");
+		concatCharacter.ShrinkToFit();
+		AssertString(concatCharacter, 18, 19, "acconcat character");
+		concatCharacter.ConcatenateAfter(concatCharacter[7]);
+		AssertString(concatCharacter, 19, ResizedCapacity(19, 19), "tacconcat character");
+	}
+
+	void TestCount() { }
+	void TestInsert() { }
+	void TestRemove() { }
+	void TestRemoveAll() { }
+	void TestReplace() { }
+	void TestReplaceAt() { }
+	void TestTrim() { }
+	void TestPadLeft() { }
+	void TestPadRight() { }
+	void TestStartswith() { }
+	void TestEndsWith() { }
+	void TestFill() { }
+
+	void TestSplitAt() {
+		String stringToBeSplit("I am a string that will be cut into two pieces.");
+		String leftPart(static_cast<size_t>(0));
+		String rightPart(static_cast<size_t>(0));
+
+		AssertString(stringToBeSplit, 47, 47 + String::s_defaultCapacity, "I am a string that will be cut into two pieces.");
+		AssertString(leftPart, 0, 1, "");
+		AssertString(rightPart, 0, 1, "");
+
+		stringToBeSplit.SplitAt(0, leftPart, rightPart);
+		AssertString(leftPart, 0, 1, "");
+		AssertString(rightPart, 47, 49, "I am a string that will be cut into two pieces.");
+		stringToBeSplit.SplitAt(33, leftPart, rightPart);
+		AssertString(leftPart, 33, 35, "I am a string that will be cut in");
+		AssertString(rightPart, 14, 49, "to two pieces.");
+		stringToBeSplit.SplitAt(60, leftPart, rightPart);
+		AssertString(leftPart, 33, 35, "I am a string that will be cut in");
+		AssertString(rightPart, 14, 49, "to two pieces.");
+
+		String::SplitStringAt(stringToBeSplit, 0, leftPart, rightPart);
+		AssertString(leftPart, 0, 35, "");
+		AssertString(rightPart, 47, 49, "I am a string that will be cut into two pieces.");
+		String::SplitStringAt(stringToBeSplit, 33, leftPart, rightPart);
+		AssertString(leftPart, 33, 35, "I am a string that will be cut in");
+		AssertString(rightPart, 14, 49, "to two pieces.");
+		String::SplitStringAt(stringToBeSplit, 60, leftPart, rightPart);
+		AssertString(leftPart, 33, 35, "I am a string that will be cut in");
+		AssertString(rightPart, 14, 49, "to two pieces.");
+	}
+
+	void TestJoin() { }
+
 	void RunUnitTests() {
 		TestComparisonOperators();
 		TestConstructors();
@@ -802,5 +982,20 @@ namespace Power {
 		TestContains();
 		TestSubstring();
 		TestToUpperLower();
+		TestConcatenate();
+		TestCount();
+		TestInsert();
+		TestRemove();
+		TestRemoveAll();
+		TestReplace();
+		TestReplaceAt();
+		TestTrim();
+		TestPadLeft();
+		TestPadRight();
+		TestStartswith();
+		TestEndsWith();
+		TestFill();
+		TestSplitAt();
+		TestJoin();
 	}
 }

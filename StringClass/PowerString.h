@@ -152,12 +152,29 @@ namespace Power {
 		inline static String Merge(const String& lhs, const char* const rhs) { return String(lhs, rhs); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges a c-string with a Power::String.
+		/// @param[in] lhs Left-hand side of the merged Power::String.
+		/// @param[in] rhs Right-Hand side of the merged Power::String.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Merge(const char, const String&) instead.
+		/// @return A Power::String containing lhs+rhs.
+		///
+		inline static String Merge(const char* const lhs, const String& rhs) { return String(lhs, rhs); }
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Merges a Power::String with a character.
 		/// @param[in] lhs Left-hand side of the merged Power::String.
 		/// @param[in] rhs Right-hand side of the merged Power::String.
 		/// @return A Power::String containing lhs+rhs.
 		///
 		inline static String Merge(const String& lhs, const char rhs) { return String(lhs, rhs); }
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges a character with a Power::String.
+		/// @param[in] lhs Left-hand side of the merged Power::String.
+		/// @param[in] rhs Right-hand side of the merged Power::String.
+		/// @return A Power::String containing lhs+rhs.
+		///
+		inline static String Merge(const char lhs, const String& rhs) { return String(lhs, rhs); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--Join-->
 		/// @brief Merges multiple Power::Strings with the specified seperator between each Power::String.
@@ -445,7 +462,7 @@ namespace Power {
 		/// @param other The Power::String to be assigned.
 		///
 		inline void operator=(const String& other) {
-			this->CheckSizeAndReallocate(other.size_);
+			this->CheckCapacityAndReallocate(other.size_);
 			memcpy(data_, other.data_, other.size_);
 			this->SetNewSize(other.size_);
 		}
@@ -458,7 +475,7 @@ namespace Power {
 		inline void operator=(const char* const other) {
 			size_t newSize = strlen(other);
 			int64_t offset = other - data_;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			if (offset >= 0 && offset < static_cast<int64_t>(size_)) {
 				memcpy(temp_, data_ + offset, newSize);
 				memcpy(data_, temp_, newSize);
@@ -472,7 +489,7 @@ namespace Power {
 		/// @param c The character to be assigned.
 		///
 		inline void operator=(const char c) {
-			this->CheckSizeAndReallocate(1);
+			this->CheckCapacityAndReallocate(1);
 			*data_ = c;
 			this->SetNewSize(1);
 		}
@@ -583,7 +600,7 @@ namespace Power {
 			snprintf(buffer, INT16_MAX_CHR_COUNT, "%hd", value);
 			size_t otherSize = strlen(buffer);
 			size_t newSize = size_ + otherSize;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			memcpy(data_ + size_, buffer, otherSize + 1);
 			size_ = newSize;
 		}
@@ -597,7 +614,7 @@ namespace Power {
 			snprintf(buffer, UINT16_MAX_CHR_COUNT, "%hu", value);
 			size_t otherSize = strlen(buffer);
 			size_t newSize = size_ + otherSize;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			memcpy(data_ + size_, buffer, otherSize + 1);
 			size_ = newSize;
 		}
@@ -611,7 +628,7 @@ namespace Power {
 			snprintf(buffer, INT32_MAX_CHR_COUNT, "%d", value);
 			size_t otherSize = strlen(buffer);
 			size_t newSize = size_ + otherSize;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			memcpy(data_ + size_, buffer, otherSize + 1);
 			size_ = newSize;
 		}
@@ -625,7 +642,7 @@ namespace Power {
 			snprintf(buffer, UINT32_MAX_CHR_COUNT, "%u", value);
 			size_t otherSize = strlen(buffer);
 			size_t newSize = size_ + otherSize;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			memcpy(data_ + size_, buffer, otherSize + 1);
 			size_ = newSize;
 		}
@@ -639,7 +656,7 @@ namespace Power {
 			snprintf(buffer, INT64_MAX_CHR_COUNT, "%lld", value);
 			size_t otherSize = strlen(buffer);
 			size_t newSize = size_ + otherSize;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			memcpy(data_ + size_, buffer, otherSize + 1);
 			size_ = newSize;
 		}
@@ -653,7 +670,7 @@ namespace Power {
 			snprintf(buffer, UINT64_MAX_CHR_COUNT, "%llu", value);
 			size_t otherSize = strlen(buffer);
 			size_t newSize = size_ + otherSize;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			memcpy(data_ + size_, buffer, otherSize + 1);
 			size_ = newSize;
 		}
@@ -667,7 +684,7 @@ namespace Power {
 			snprintf(buffer, FLOAT_MAX_CHR_COUNT, "%g", value);
 			size_t otherSize = strlen(buffer);
 			size_t newSize = size_ + otherSize;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			memcpy(data_ + size_, buffer, otherSize + 1);
 			size_ = newSize;
 		}
@@ -681,7 +698,7 @@ namespace Power {
 			snprintf(buffer, DOUBLE_MAX_CHR_COUNT, "%g", value);
 			size_t otherSize = strlen(buffer);
 			size_t newSize = size_ + otherSize;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			memcpy(data_ + size_, buffer, otherSize + 1);
 			size_ = newSize;
 		}
@@ -731,8 +748,8 @@ namespace Power {
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/// @brief Checks if the Power::String is not empty.
-		/// @return <span style="color:#30AA00">True</span>, if the size of the Power::String is not zero.
-		/// @return <span style="color:#CC3000">False</span>, if the size of the Power::String is zero.
+		/// @return <span style="color:#30AA00">True</span>, if the size is not 0.
+		/// @return <span style="color:#CC3000">False</span>, if the size is 0.
 		///
 		inline explicit operator bool() const { return size_ != 0; }
 
@@ -834,14 +851,14 @@ namespace Power {
 		///
 		inline String& Concatenate(const String& other) {
 			size_t newSize = size_ + other.size_;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			memcpy(data_ + size_, other.data_, other.size_);
 			this->SetNewSize(newSize);
 			return *this;
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief Merges the Power::String with a c-string.
+		/// @brief Merges the Power::String with a c-string. The c-string will be placed after the Power::String.
 		/// @param[in] other The c-string to be merged with.
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Concatenate(const char) instead.
 		/// @note <b>If the size of the c-string is already known, it is recommend to use Concatenate(const char* const, size_t) instead as it is faser.</b>
@@ -850,7 +867,7 @@ namespace Power {
 		inline String& Concatenate(const char* const other) { return this->Concatenate(other, strlen(other)); }
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief Merges the Power::String with a c-string.
+		/// @brief Merges the Power::String with a c-string. The c-string will be placed after the Power::String.
 		/// @param[in] other The c-string to be merged with.
 		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use Concatenate(const char) instead.
 		/// @param[in] size The size of the c-string excluding the null character.
@@ -859,7 +876,7 @@ namespace Power {
 		inline String& Concatenate(const char* const other, size_t size) {
 			int64_t offset = other - data_;
 			size_t newSize = size_ + size;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			if (offset >= 0 && offset < static_cast<int64_t>(size_)) memcpy(data_ + size_, data_ + offset, size);
 			else memcpy(data_ + size_, other, size);
 			this->SetNewSize(newSize);
@@ -867,13 +884,60 @@ namespace Power {
 		}
 
 		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		/// @brief Merges the Power::String with a character.
+		/// @brief Merges the Power::String with a character. The character will be placed after the Power::String.
 		/// @param[in] c The character to be merged with.
 		/// @return A reference to the current Power::String.
 		///
 		inline String& Concatenate(const char c) {
-			this->CheckSizeAndReallocate(++size_);
+			this->CheckCapacityAndReallocate(++size_);
 			data_[size_ - 1] = c;
+			data_[size_] = '\0';
+			return *this;
+		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges a c-string with the Power::String. The c-string will be placed before the Power::String.
+		/// @param[in] other The c-string to be merged with.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use ConcatenateAfter(const char) instead.
+		/// @note <b>If the size of the c-string is already known, it is recommend to use ConcatenateAfter(const char* const, size_t) instead as it is faser.</b>
+		/// @return A reference to the current Power::String.
+		///
+		inline String& ConcatenateAfter(const char* const other) { return this->ConcatenateAfter(other, strlen(other)); }
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges a c-string with the Power::String. The c-string will be placed before the Power::String.
+		/// @param[in] other The c-string to be merged with.
+		/// \n <span style="color:#FF0000"><b>Warning</b></span>: If a pointer to a char variable is passed, the behaviour is undefined. Use ConcatenateAfter(const char) instead.
+		/// @param[in] size The size of the c-string excluding the null character.
+		/// @return A reference to the current Power::String.
+		///
+		inline String& ConcatenateAfter(const char* const other, size_t size) {
+			int64_t offset = other - data_;
+			size_t newSize = size_ + size;
+			this->CheckCapacityAndReallocate(newSize);
+			if (offset >= 0 && offset < static_cast<int64_t>(size_)) {
+				memcpy(temp_, data_, size_);
+				memcpy(data_, temp_ + offset, size);
+				memcpy(data_ + size, temp_, size_);
+			} else {
+				memcpy(temp_, data_, size_);
+				memcpy(data_, other, size);
+				memcpy(data_ + size, temp_, size_);
+			}
+			this->SetNewSize(newSize);
+			return *this;
+		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Merges a character with the Power::String. The character will be placed before the Power::String.
+		/// @param[in] c The character to be merged with.
+		/// @return A reference to the current Power::String.
+		///
+		inline String& ConcatenateAfter(const char c) {
+			this->CheckCapacityAndReallocate(++size_);
+			memcpy(temp_, data_, size_ - 1);
+			*data_ = c;
+			memcpy(data_ + 1, temp_, size_ - 1);
 			data_[size_] = '\0';
 			return *this;
 		}
@@ -1429,7 +1493,7 @@ namespace Power {
 		inline String& Insert(size_t index, const String& other) {
 			if (index > size_) return * this;
 			size_t newSize = size_ + other.size_;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			memcpy(temp_, other.data_, other.size_);
 			memcpy(temp_ + other.size_, data_ + index, size_ - index);
 			memcpy(data_ + index, temp_, newSize - index);
@@ -1460,7 +1524,7 @@ namespace Power {
 		inline String& Insert(size_t index, const char* const other, size_t size) {
 			if (index > size_) return *this;
 			size_t newSize = size_ + size;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			memcpy(temp_, other, size);
 			memcpy(temp_ + size, data_ + index, size_ - index);
 			memcpy(data_ + index, temp_, newSize - index);
@@ -1478,7 +1542,7 @@ namespace Power {
 		inline String& Insert(size_t index, const char c) {
 			if (index > size_) return *this;
 			size_t newSize = size_ + 1;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			temp_[index] = c;
 			memcpy(temp_ + 1, data_ + index, size_ - index);
 			memcpy(data_ + index, temp_, newSize - index);
@@ -1617,7 +1681,7 @@ namespace Power {
 			if (index >= size_) return *this;
 			if (count > size_ - index) count = size_ - index;
 			size_t newSize = size_ - count + other.size_;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			memcpy(temp_, other.data_, other.size_);
 			memcpy(temp_ + other.size_, data_ + index + count, size_ - index - count);
 			memcpy(data_ + index, temp_, newSize - index);
@@ -1675,7 +1739,7 @@ namespace Power {
 			if (index >= size_) return *this;
 			if (count > size_ - index) count = size_ - index;
 			size_t newSize = size_ - count + size;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			memcpy(temp_, other, size);
 			memcpy(temp_ + size, data_ + index + count, size_ - index - count);
 			memcpy(data_ + index, temp_, newSize - index);
@@ -1705,7 +1769,7 @@ namespace Power {
 			if (index >= size_) return *this;
 			if (count > size_ - index) count = size_ - index;
 			size_t newSize = size_ - count + 1;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			temp_[index] = c;
 			memcpy(temp_ + 1, data_ + index + count, size_ - index - count);
 			memcpy(data_ + index, temp_, newSize - index);
@@ -1723,7 +1787,7 @@ namespace Power {
 		inline String& ReplaceAt(size_t index, const String& other) {
 			if (index >= size_) return *this;
 			size_t newSize = index + other.size_;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			this->MemCpyCheckData(index, other.data_, other.size_);
 			if (newSize > size_) this->SetNewSize(newSize);
 			return *this;
@@ -1753,7 +1817,7 @@ namespace Power {
 			if (index >= size_) return *this;
 			size_t newSize = index + size;
 			int64_t offset = other - data_;
-			this->CheckSizeAndReallocate(newSize);
+			this->CheckCapacityAndReallocate(newSize);
 			if (offset >= 0 && offset < static_cast<int64_t>(size_)) {
 				memcpy(temp_, data_ + offset, size);
 				memcpy(data_ + index, temp_, size);
@@ -1862,7 +1926,7 @@ namespace Power {
 		///
 		inline String& PadLeft(size_t size, char c) {
 			if (size_ >= size) return *this;
-			this->CheckSizeAndReallocate(size);
+			this->CheckCapacityAndReallocate(size);
 			memset(temp_, c, size - size_);
 			memcpy(temp_ + size - size_, data_, size_);
 			size_ = size;
@@ -1888,7 +1952,7 @@ namespace Power {
 		///
 		inline String& PadRight(size_t size, char c) {
 			if (size_ >= size) return *this;
-			this->CheckSizeAndReallocate(size);
+			this->CheckCapacityAndReallocate(size);
 			memset(temp_ + size_, c, size - size_);
 			memcpy(temp_, data_, size_);
 			size_ = size;
@@ -2186,6 +2250,22 @@ namespace Power {
 			memcpy(data_ + lhs.size_, rhs, rhsSize);
 			data_[size_] = '\0';
 		}
+		String(const char* const lhs, const String& rhs) :
+			capacity_(0),
+			size_(0),
+			data_(nullptr),
+			temp_(nullptr)
+		{
+			size_t lhsSize = strlen(lhs);
+			size_ = rhs.size_ + lhsSize;
+			capacity_ = size_ + 1;
+			data_ = static_cast<char*>(malloc(capacity_ * 2));
+			this->IncInstCounter();
+			temp_ = data_ + capacity_;
+			memcpy(data_, lhs, lhsSize);
+			memcpy(data_ + lhsSize, rhs.data_, rhs.size_);
+			data_[size_] = '\0';
+		}
 		String(const String& lhs, const char rhs) :
 			capacity_(lhs.size_ + 2),
 			size_(lhs.size_ + 1),
@@ -2194,6 +2274,17 @@ namespace Power {
 		{
 			memcpy(data_, lhs.data_, lhs.size_);
 			data_[lhs.size_] = rhs;
+			data_[size_] = '\0';
+			this->IncInstCounter();
+		}
+		String(const char lhs, const String& rhs) :
+			capacity_(rhs.size_ + 2),
+			size_(rhs.size_ + 1),
+			data_(static_cast<char*>(malloc(capacity_ * 2))),
+			temp_(data_ + capacity_)
+		{
+			data_[0] = lhs;
+			memcpy(data_ + 1, rhs.data_, rhs.size_);
 			data_[size_] = '\0';
 			this->IncInstCounter();
 		}
@@ -2352,7 +2443,7 @@ namespace Power {
 			size_ = newSize;
 		}
 
-		inline void CheckSizeAndReallocate(size_t newSize) {
+		inline void CheckCapacityAndReallocate(size_t newSize) {
 			if (newSize < capacity_) return;
 			capacity_ = capacity_ * 2 + newSize;
 			data_ = static_cast<char*>(realloc(data_, capacity_ * 2));
