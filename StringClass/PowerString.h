@@ -710,7 +710,7 @@ namespace Power {
 		/// @note This operator is faster than the addition operator since it returns a reference instead of a copy.
 		/// \n As a result this can lead to unexpected behaviour when chaining this operator.
 		/// \n If for example the operator is used like this: "string << string << string << string;", the contents will double with each operator call.
-		/// \n If that behaviour is undesired, use the operator+(const String& other) const instead.
+		/// \n If that behaviour is undesired, use operator+(const String& other) const instead.
 		///
 		inline String& operator<<(const String& other) { return this->Concatenate(other); }
 
@@ -985,7 +985,7 @@ namespace Power {
 		/// @return Or -1 if the specified Power::String does not occur.
 		///
 		inline int32_t IndexOf(const String& other) const {
-			if (other.size_ > size_) return -1;
+			if (other.size_ > size_ || other.size_ == 0) return -1;
 			char* p = strstr(data_, other.data_);
 			return p ? static_cast<int32_t>(p - data_) : -1;
 		}
@@ -998,7 +998,7 @@ namespace Power {
 		/// @return Or -1 if the specified Power::String does not occur or if the begin index is greater or equal to the size of the Power::String.
 		///
 		inline int32_t IndexOf(const String& other, size_t begin) const { 
-			if (begin >= size_ || other.size_ > size_ - begin) return -1;
+			if (begin >= size_ || other.size_ > size_ - begin || other.size_ == 0) return -1;
 			char* p = strstr(data_ + begin, other.data_);
 			return p ? static_cast<int32_t>(p - data_) : -1;
 		}
@@ -1015,7 +1015,7 @@ namespace Power {
 		///
 		inline int32_t IndexOf(const String& other, size_t begin, size_t end) const {
 			if (end > size_) end = size_;
-			if (begin >= end || other.size_ > end - begin) return -1;
+			if (begin >= end || other.size_ > end - begin || other.size_ == 0) return -1;
 			for (size_t i = begin; i < end - other.size_ + 1; ++i) {
 				if (memcmp(data_ + i, other.data_, other.size_) == 0) return static_cast<int32_t>(i);
 			}
@@ -1066,7 +1066,7 @@ namespace Power {
 		/// @return Or -1 if the specified c-string does not occur.
 		///
 		inline int32_t IndexOf(size_t size, const char* const other) const {
-			if (size > size_) return -1;
+			if (size > size_ || size == 0) return -1;
 			char* p = strstr(data_, other);
 			return p ? static_cast<int32_t>(p - data_) : -1;
 		}
@@ -1081,7 +1081,7 @@ namespace Power {
 		/// @return Or -1 if the specified c-string does not occur or if the begin index is greater or equal to the size of the Power::String.
 		///
 		inline int32_t IndexOf(size_t size, const char* const other, size_t begin) const {
-			if (begin >= size_ || size > size_ - begin) return -1;
+			if (begin >= size_ || size > size_ - begin || size == 0) return -1;
 			char* p = strstr(data_ + begin, other);
 			return p ? static_cast<int32_t>(p - data_) : -1;
 		}
@@ -1100,7 +1100,7 @@ namespace Power {
 		///
 		inline int32_t IndexOf(size_t size, const char* const other, size_t begin, size_t end) const {
 			if (end > size_) end = size_;
-			if (begin >= end || size > end - begin) return -1;
+			if (begin >= end || size > end - begin || size == 0) return -1;
 			for (size_t i = begin; i < end - size + 1; ++i) {
 				if (memcmp(data_ + i, other, size) == 0) return static_cast<int32_t>(i);
 			}
@@ -1177,7 +1177,7 @@ namespace Power {
 		///
 		inline int32_t LastIndexOf(const String& other, size_t begin, size_t end) const {
 			if (begin > size_) begin = size_;
-			if (end >= begin || other.size_ > end - begin) return -1;
+			if (end >= begin || other.size_ > end - begin || other.size_ == 0) return -1;
 			for (int32_t i = static_cast<int32_t>(begin); i >= static_cast<int32_t>(end + other.size_) - 1; --i) {
 				if (data_[i] != other.data_[other.size_ - 1]) continue;
 				int32_t x = i - static_cast<int32_t>(other.size_) + 1;
@@ -1259,7 +1259,7 @@ namespace Power {
 		///
 		inline int32_t LastIndexOf(size_t size, const char* const other, size_t begin, size_t end) const {
 			if (begin > size_) begin = size_;
-			if (end >= begin || size > end - begin) return -1;
+			if (end >= begin || size > end - begin || size == 0) return -1;
 			for (int32_t i = static_cast<int32_t>(begin); i >= static_cast<int32_t>(end + size) - 1; --i) {
 				if (data_[i] != other[size - 1]) continue;
 				int32_t x = i - static_cast<int32_t>(size) + 1;
@@ -1491,7 +1491,7 @@ namespace Power {
 		/// @return A reference to the current Power::String.
 		///
 		inline String& Insert(size_t index, const String& other) {
-			if (index > size_) return * this;
+			if (index > size_) return *this;
 			size_t newSize = size_ + other.size_;
 			this->CheckCapacityAndReallocate(newSize);
 			memcpy(temp_, other.data_, other.size_);
@@ -1543,7 +1543,7 @@ namespace Power {
 			if (index > size_) return *this;
 			size_t newSize = size_ + 1;
 			this->CheckCapacityAndReallocate(newSize);
-			temp_[index] = c;
+			*temp_ = c;
 			memcpy(temp_ + 1, data_ + index, size_ - index);
 			memcpy(data_ + index, temp_, newSize - index);
 			this->SetNewSize(newSize);
