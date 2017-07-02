@@ -476,7 +476,7 @@ namespace Power {
 			size_t newSize = strlen(other);
 			int64_t offset = other - data_;
 			this->CheckCapacityAndReallocate(newSize);
-			if (offset >= 0 && offset < static_cast<int64_t>(size_)) {
+			if (this->PointerToSelf(offset)) {
 				memcpy(temp_, data_ + offset, newSize);
 				memcpy(data_, temp_, newSize);
 			} else 
@@ -877,7 +877,7 @@ namespace Power {
 			int64_t offset = other - data_;
 			size_t newSize = size_ + size;
 			this->CheckCapacityAndReallocate(newSize);
-			if (offset >= 0 && offset < static_cast<int64_t>(size_)) memcpy(data_ + size_, data_ + offset, size);
+			if (this->PointerToSelf(offset)) memcpy(data_ + size_, data_ + offset, size);
 			else memcpy(data_ + size_, other, size);
 			this->SetNewSize(newSize);
 			return *this;
@@ -915,7 +915,7 @@ namespace Power {
 			int64_t offset = other - data_;
 			size_t newSize = size_ + size;
 			this->CheckCapacityAndReallocate(newSize);
-			if (offset >= 0 && offset < static_cast<int64_t>(size_)) {
+			if (this->PointerToSelf(offset)) {
 				memcpy(temp_, data_, size_);
 				memcpy(data_, temp_ + offset, size);
 				memcpy(data_ + size, temp_, size_);
@@ -1525,7 +1525,9 @@ namespace Power {
 			if (index > size_) return *this;
 			size_t newSize = size_ + size;
 			this->CheckCapacityAndReallocate(newSize);
-			memcpy(temp_, other, size);
+			int64_t offset = other - data_;
+			if (this->PointerToSelf(offset)) memcpy(temp_, data_ + offset, size);
+			else memcpy(temp_, other, size);
 			memcpy(temp_ + size, data_ + index, size_ - index);
 			memcpy(data_ + index, temp_, newSize - index);
 			this->SetNewSize(newSize);
@@ -1740,7 +1742,9 @@ namespace Power {
 			if (count > size_ - index) count = size_ - index;
 			size_t newSize = size_ - count + size;
 			this->CheckCapacityAndReallocate(newSize);
-			memcpy(temp_, other, size);
+			int64_t offset = other - data_;
+			if (this->PointerToSelf(offset)) memcpy(temp_, data_ + offset, size);
+			else memcpy(temp_, other, size);
 			memcpy(temp_ + size, data_ + index + count, size_ - index - count);
 			memcpy(data_ + index, temp_, newSize - index);
 			this->SetNewSize(newSize);
@@ -1770,7 +1774,7 @@ namespace Power {
 			if (count > size_ - index) count = size_ - index;
 			size_t newSize = size_ - count + 1;
 			this->CheckCapacityAndReallocate(newSize);
-			temp_[index] = c;
+			temp_[0] = c;
 			memcpy(temp_ + 1, data_ + index + count, size_ - index - count);
 			memcpy(data_ + index, temp_, newSize - index);
 			this->SetNewSize(newSize);
@@ -1818,7 +1822,7 @@ namespace Power {
 			size_t newSize = index + size;
 			int64_t offset = other - data_;
 			this->CheckCapacityAndReallocate(newSize);
-			if (offset >= 0 && offset < static_cast<int64_t>(size_)) {
+			if (this->PointerToSelf(offset)) {
 				memcpy(temp_, data_ + offset, size);
 				memcpy(data_ + index, temp_, size);
 			} else
@@ -1931,9 +1935,8 @@ namespace Power {
 			this->CheckCapacityAndReallocate(size);
 			memset(temp_, c, size - size_);
 			memcpy(temp_ + size - size_, data_, size_);
-			size_ = size;
 			memcpy(data_, temp_, size);
-			data_[size] = '\0';
+			this->SetNewSize(size);
 			return *this;
 		}
 
@@ -1955,11 +1958,8 @@ namespace Power {
 		inline String& PadRight(size_t size, char c) {
 			if (size_ >= size) return *this;
 			this->CheckCapacityAndReallocate(size);
-			memset(temp_ + size_, c, size - size_);
-			memcpy(temp_, data_, size_);
-			size_ = size;
-			memcpy(data_, temp_, size);
-			data_[size] = '\0';
+			memset(data_ + size_, c, size - size_);
+			this->SetNewSize(size);
 			return *this;
 		}
 
@@ -1970,7 +1970,7 @@ namespace Power {
 		/// @return <span style="color:#CC3000">False</span>, if it doesn't, or if the size of the specified Power::String is greater than the size of the Power::String.
 		///
 		inline bool StartsWith(const String& other) const {
-			if (other.size_ > size_) return false;
+			if (other.size_ > size_ || other.size_ == 0) return false;
 			return memcmp(data_, other.data_, other.size_) == 0;
 		}
 
@@ -1993,7 +1993,7 @@ namespace Power {
 		/// @return <span style="color:#CC3000">False</span>, if it doesn't, or if the size of the specified c-string is greater than the size of the Power::String.
 		///
 		inline bool StartsWith(const char* const other, size_t size) const {
-			if (size > size_) return false;
+			if (size > size_ || size == 0) return false;
 			return memcmp(data_, other, size) == 0;
 		}
 
@@ -2013,7 +2013,7 @@ namespace Power {
 		/// @return <span style="color:#CC3000">False</span>, if it doesn't, or if the size of the specified Power::String is greater than the size of the Power::String.
 		///
 		inline bool EndsWith(const String& other) const {
-			if (other.size_ > size_) return false;
+			if (other.size_ > size_ || other.size_ == 0) return false;
 			return memcmp(data_ + size_ - other.size_, other.data_, other.size_) == 0;
 		}
 
@@ -2036,7 +2036,7 @@ namespace Power {
 		/// @return <span style="color:#CC3000">False</span>, if it doesn't, or if the size of the specified c-string is greater than the size of the Power::String.
 		///
 		inline bool EndsWith(const char* const other, size_t size) const {
-			if (size > size_) return false;
+			if (size > size_ || size == 0) return false;
 			return memcmp(data_ + size_ - size, other, size) == 0;
 		}
 
@@ -2452,9 +2452,11 @@ namespace Power {
 			temp_ = data_ + capacity_;
 		}
 
+		inline bool PointerToSelf(int64_t offset) const { return offset >= 0 && offset < static_cast<int64_t>(size_); }
+
 		inline void MemCpyCheckData(size_t index, const char* source, size_t size) const {
 			int64_t offset = source - data_;
-			if (offset < 0 || offset >= static_cast<int64_t>(size_)) memcpy(data_ + index, source, size);
+			if (!this->PointerToSelf(offset)) memcpy(data_ + index, source, size);
 			else {
 				memcpy(temp_, data_ + offset, size);
 				memcpy(data_ + index, temp_, size);

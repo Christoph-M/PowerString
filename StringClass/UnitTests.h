@@ -1294,8 +1294,205 @@ namespace Power {
 		AssertString(removeAllCharacter, 0, 37 + String::s_defaultCapacity, "");
 	}
 
-	void TestReplace() { }
-	void TestReplaceAt() { }
+	void TestReplace() {
+		String replaceString("I am going to be replaced with other strings!");
+
+		AssertString(replaceString, 45, 45 + String::s_defaultCapacity, "I am going to be replaced with other strings!");
+
+		replaceString.Replace(0, String::ToString("I am a new string now!"));
+		AssertString(replaceString, 22, 45 + String::s_defaultCapacity, "I am a new string now!");
+		replaceString.Replace(11, String::ToString("face"));
+		AssertString(replaceString, 15, 45 + String::s_defaultCapacity, "I am a new face");
+		replaceString.Replace(11, String::ToString("butt with ears"));
+		AssertString(replaceString, 25, 45 + String::s_defaultCapacity, "I am a new butt with ears");
+		replaceString.Replace(9999, String::ToString("index too high"));
+		AssertString(replaceString, 25, 45 + String::s_defaultCapacity, "I am a new butt with ears");
+		replaceString.Replace(15, String::ToString(""));
+		AssertString(replaceString, 15, 45 + String::s_defaultCapacity, "I am a new butt");
+		replaceString.Replace(replaceString.Size() - 1, replaceString);
+		AssertString(replaceString, 29, 45 + String::s_defaultCapacity, "I am a new butI am a new butt");
+		replaceString.Replace(0, replaceString);
+		AssertString(replaceString, 29, 45 + String::s_defaultCapacity, "I am a new butI am a new butt");
+		replaceString.ShrinkToFit();
+		AssertString(replaceString, 29, 30, "I am a new butI am a new butt");
+		replaceString.Replace(25, String::ToString("string"));
+		AssertString(replaceString, 31, ResizedCapacity(30, 31), "I am a new butI am a new string");
+		replaceString = String("I am going to be replaced with other strings!");
+		AssertString(replaceString, 45, ResizedCapacity(30, 31), "I am going to be replaced with other strings!");
+		replaceString.Replace(0, replaceString.Size(), String::ToString("I am a new string now!"));
+		AssertString(replaceString, 22, ResizedCapacity(30, 31), "I am a new string now!");
+		replaceString.Replace(11, 11, String::ToString("face"));
+		AssertString(replaceString, 15, ResizedCapacity(30, 31), "I am a new face");
+		replaceString.Replace(11, 4, String::ToString("butt with ears"));
+		AssertString(replaceString, 25, ResizedCapacity(30, 31), "I am a new butt with ears");
+		replaceString.Replace(9999, 2, String::ToString("index too high"));
+		AssertString(replaceString, 25, ResizedCapacity(30, 31), "I am a new butt with ears");
+		replaceString.Replace(15, 10, String::ToString(""));
+		AssertString(replaceString, 15, ResizedCapacity(30, 31), "I am a new butt");
+		replaceString.Replace(replaceString.Size() - 1, 1, replaceString);
+		AssertString(replaceString, 29, ResizedCapacity(30, 31), "I am a new butI am a new butt");
+		replaceString.Replace(0, replaceString.Size(), replaceString);
+		AssertString(replaceString, 29, ResizedCapacity(30, 31), "I am a new butI am a new butt");
+		replaceString.ShrinkToFit();
+		AssertString(replaceString, 29, 30, "I am a new butI am a new butt");
+		replaceString.Replace(25, 4, String::ToString("string"));
+		AssertString(replaceString, 31, ResizedCapacity(30, 31), "I am a new butI am a new string");
+		replaceString.Replace(14, 0, String::ToString(" I will be inserted "));
+		AssertString(replaceString, 51, ResizedCapacity(30, 31), "I am a new but I will be inserted I am a new string");
+		replaceString.Replace(0, 9999, String::ToString("Replaced everything!"));
+		AssertString(replaceString, 20, ResizedCapacity(30, 31), "Replaced everything!");
+		replaceString.Replace(9, 10, String::ToString("0123456789"));
+		AssertString(replaceString, 20, ResizedCapacity(30, 31), "Replaced 0123456789!");
+
+		replaceString = String("I am going to be replaced with other strings!");
+		AssertString(replaceString, 45, ResizedCapacity(30, 31), "I am going to be replaced with other strings!");
+		replaceString.Replace(0, "I am a new string now!");
+		AssertString(replaceString, 22, ResizedCapacity(30, 31), "I am a new string now!");
+		replaceString.Replace(11, "face");
+		AssertString(replaceString, 15, ResizedCapacity(30, 31), "I am a new face");
+		replaceString.Replace(11, "butt with ears");
+		AssertString(replaceString, 25, ResizedCapacity(30, 31), "I am a new butt with ears");
+		replaceString.Replace(9999, "index too high");
+		AssertString(replaceString, 25, ResizedCapacity(30, 31), "I am a new butt with ears");
+		replaceString.Replace(15, "");
+		AssertString(replaceString, 15, ResizedCapacity(30, 31), "I am a new butt");
+		replaceString.Replace(replaceString.Size() - 1, replaceString.CString());
+		AssertString(replaceString, 29, ResizedCapacity(30, 31), "I am a new butI am a new butt");
+		replaceString.Replace(0, replaceString.CString());
+		AssertString(replaceString, 29, ResizedCapacity(30, 31), "I am a new butI am a new butt");
+		replaceString.ShrinkToFit();
+		AssertString(replaceString, 29, 30, "I am a new butI am a new butt");
+		replaceString.Replace(25, "string");
+		AssertString(replaceString, 31, ResizedCapacity(30, 31), "I am a new butI am a new string");
+		replaceString.Replace(14, replaceString.CString() + replaceString.Size() - 7);
+		AssertString(replaceString, 21, ResizedCapacity(30, 31), "I am a new but string");
+		replaceString.ShrinkToFit();
+		AssertString(replaceString, 21, 22, "I am a new but string");
+		replaceString.Replace(replaceString.Size() - 1, replaceString.CString() + replaceString.Size() - 7);
+		AssertString(replaceString, 27, ResizedCapacity(22, 27), "I am a new but strin string");
+		replaceString = String("I am going to be replaced with other strings!");
+		AssertString(replaceString, 45, ResizedCapacity(22, 27), "I am going to be replaced with other strings!");
+		replaceString.Replace(0, replaceString.Size(), "I am a new string now!");
+		AssertString(replaceString, 22, ResizedCapacity(22, 27), "I am a new string now!");
+		replaceString.Replace(11, 11, "face");
+		AssertString(replaceString, 15, ResizedCapacity(22, 27), "I am a new face");
+		replaceString.Replace(11, 4, "butt with ears");
+		AssertString(replaceString, 25, ResizedCapacity(22, 27), "I am a new butt with ears");
+		replaceString.Replace(9999, 2, "index too high");
+		AssertString(replaceString, 25, ResizedCapacity(22, 27), "I am a new butt with ears");
+		replaceString.Replace(15, 10, "");
+		AssertString(replaceString, 15, ResizedCapacity(22, 27), "I am a new butt");
+		replaceString.Replace(replaceString.Size() - 1, 1, replaceString.CString());
+		AssertString(replaceString, 29, ResizedCapacity(22, 27), "I am a new butI am a new butt");
+		replaceString.Replace(0, replaceString.Size(), replaceString.CString());
+		AssertString(replaceString, 29, ResizedCapacity(22, 27), "I am a new butI am a new butt");
+		replaceString.ShrinkToFit();
+		AssertString(replaceString, 29, 30, "I am a new butI am a new butt");
+		replaceString.Replace(25, 4, "string");
+		AssertString(replaceString, 31, ResizedCapacity(30, 31), "I am a new butI am a new string");
+		replaceString.Replace(14, 17, replaceString.CString() + replaceString.Size() - 7);
+		AssertString(replaceString, 21, ResizedCapacity(30, 31), "I am a new but string");
+		replaceString.ShrinkToFit();
+		AssertString(replaceString, 21, 22, "I am a new but string");
+		replaceString.Replace(replaceString.Size() - 1, 1, replaceString.CString() + replaceString.Size() - 7);
+		AssertString(replaceString, 27, ResizedCapacity(22, 27), "I am a new but strin string");
+		replaceString.Replace(14, 0, " I will be inserted");
+		AssertString(replaceString, 46, ResizedCapacity(22, 27), "I am a new but I will be inserted strin string");
+		replaceString.Replace(0, 9999, "Replaced everything!");
+		AssertString(replaceString, 20, ResizedCapacity(22, 27), "Replaced everything!");
+		replaceString.Replace(9, 10, "0123456789");
+		AssertString(replaceString, 20, ResizedCapacity(22, 27), "Replaced 0123456789!");
+		replaceString.Replace(0, 8, replaceString.CString() + replaceString.Size() - 7);
+		AssertString(replaceString, 19, ResizedCapacity(22, 27), "456789! 0123456789!");
+
+		replaceString = String("I am going to be replaced with other strings!");
+		AssertString(replaceString, 45, ResizedCapacity(22, 27), "I am going to be replaced with other strings!");
+		replaceString.Replace(9999, 'c');
+		AssertString(replaceString, 45, ResizedCapacity(22, 27), "I am going to be replaced with other strings!");
+		replaceString.Replace(replaceString.Size() - 8, 'c');
+		AssertString(replaceString, 38, ResizedCapacity(22, 27), "I am going to be replaced with other c");
+		replaceString.Replace(replaceString.Size() - 1, 'e');
+		AssertString(replaceString, 38, ResizedCapacity(22, 27), "I am going to be replaced with other e");
+		replaceString = String("I am going to be replaced with other strings!");
+		AssertString(replaceString, 45, ResizedCapacity(22, 27), "I am going to be replaced with other strings!");
+		replaceString.Replace(9999, 2, 'c');
+		AssertString(replaceString, 45, ResizedCapacity(22, 27), "I am going to be replaced with other strings!");
+		replaceString.Replace(replaceString.Size() - 8, 8, 'c');
+		AssertString(replaceString, 38, ResizedCapacity(22, 27), "I am going to be replaced with other c");
+		replaceString.Replace(replaceString.Size() - 1, 1, 'e');
+		AssertString(replaceString, 38, ResizedCapacity(22, 27), "I am going to be replaced with other e");
+		replaceString.Replace(0, 0, ' ');
+		AssertString(replaceString, 39, ResizedCapacity(22, 27), " I am going to be replaced with other e");
+		replaceString.Replace(replaceString.Size() - 7, 9999, 'c');
+		AssertString(replaceString, 33, ResizedCapacity(22, 27), " I am going to be replaced with c");
+		replaceString.ShrinkToFit();
+		AssertString(replaceString, 33, 34, " I am going to be replaced with c");
+		replaceString.Replace(5, 0, ' ');
+		AssertString(replaceString, 34, ResizedCapacity(34, 34), " I am  going to be replaced with c");
+		replaceString.Replace(3, 10, 'a');
+		AssertString(replaceString, 25, ResizedCapacity(34, 34), " I ato be replaced with c");
+	}
+
+	void TestReplaceAt() {
+		String replaceAtString("I am going to be replaced with other strings!");
+
+		AssertString(replaceAtString, 45, 45 + String::s_defaultCapacity, "I am going to be replaced with other strings!");
+
+		replaceAtString.ReplaceAt(0, String::ToString("This"));
+		AssertString(replaceAtString, 45, 45 + String::s_defaultCapacity, "This going to be replaced with other strings!");
+		replaceAtString.ReplaceAt(5, String::ToString(""));
+		AssertString(replaceAtString, 45, 45 + String::s_defaultCapacity, "This going to be replaced with other strings!");
+		replaceAtString.ReplaceAt(9999, String::ToString("Index too high"));
+		AssertString(replaceAtString, 45, 45 + String::s_defaultCapacity, "This going to be replaced with other strings!");
+		replaceAtString.ReplaceAt(5, String::ToString("01234"));
+		AssertString(replaceAtString, 45, 45 + String::s_defaultCapacity, "This 01234 to be replaced with other strings!");
+		replaceAtString.ReplaceAt(replaceAtString.Size() - 8, String::ToString("01234567"));
+		AssertString(replaceAtString, 45, 45 + String::s_defaultCapacity, "This 01234 to be replaced with other 01234567");
+		replaceAtString.ShrinkToFit();
+		AssertString(replaceAtString, 45, 46, "This 01234 to be replaced with other 01234567");
+		replaceAtString.ReplaceAt(replaceAtString.Size() - 1, String::ToString("789"));
+		AssertString(replaceAtString, 47, ResizedCapacity(46, 47), "This 01234 to be replaced with other 0123456789");
+		replaceAtString.ReplaceAt(0, replaceAtString);
+		AssertString(replaceAtString, 47, ResizedCapacity(46, 47), "This 01234 to be replaced with other 0123456789");
+		replaceAtString.ReplaceAt(10, replaceAtString);
+		AssertString(replaceAtString, 57, ResizedCapacity(46, 47), "This 01234This 01234 to be replaced with other 0123456789");
+
+		replaceAtString = String("I am going to be replaced with other strings!");
+		AssertString(replaceAtString, 45, ResizedCapacity(46, 47), "I am going to be replaced with other strings!");
+		replaceAtString.ReplaceAt(0, "This");
+		AssertString(replaceAtString, 45, ResizedCapacity(46, 47), "This going to be replaced with other strings!");
+		replaceAtString.ReplaceAt(5, "");
+		AssertString(replaceAtString, 45, ResizedCapacity(46, 47), "This going to be replaced with other strings!");
+		replaceAtString.ReplaceAt(9999, "Index too high");
+		AssertString(replaceAtString, 45, ResizedCapacity(46, 47), "This going to be replaced with other strings!");
+		replaceAtString.ReplaceAt(5, "01234");
+		AssertString(replaceAtString, 45, ResizedCapacity(46, 47), "This 01234 to be replaced with other strings!");
+		replaceAtString.ReplaceAt(replaceAtString.Size() - 8, "01234567");
+		AssertString(replaceAtString, 45, ResizedCapacity(46, 47), "This 01234 to be replaced with other 01234567");
+		replaceAtString.ShrinkToFit();
+		AssertString(replaceAtString, 45, 46, "This 01234 to be replaced with other 01234567");
+		replaceAtString.ReplaceAt(replaceAtString.Size() - 1, "789");
+		AssertString(replaceAtString, 47, ResizedCapacity(46, 47), "This 01234 to be replaced with other 0123456789");
+		replaceAtString.ReplaceAt(0, replaceAtString.CString());
+		AssertString(replaceAtString, 47, ResizedCapacity(46, 47), "This 01234 to be replaced with other 0123456789");
+		replaceAtString.ReplaceAt(10, replaceAtString.CString());
+		AssertString(replaceAtString, 57, ResizedCapacity(46, 47), "This 01234This 01234 to be replaced with other 0123456789");
+		replaceAtString.ReplaceAt(10, replaceAtString.CString() + replaceAtString.Size() - 10);
+		AssertString(replaceAtString, 57, ResizedCapacity(46, 47), "This 012340123456789 to be replaced with other 0123456789");
+		replaceAtString.ShrinkToFit();
+		AssertString(replaceAtString, 57, 58, "This 012340123456789 to be replaced with other 0123456789");
+		replaceAtString.ReplaceAt(replaceAtString.Size() - 1, replaceAtString.CString() + replaceAtString.Size() - 10);
+		AssertString(replaceAtString, 66, ResizedCapacity(58, 66), "This 012340123456789 to be replaced with other 0123456780123456789");
+
+		replaceAtString = String("I am going to be replaced with other strings!");
+		AssertString(replaceAtString, 45, ResizedCapacity(58, 66), "I am going to be replaced with other strings!");
+		replaceAtString.ReplaceAt(0, 'c');
+		AssertString(replaceAtString, 45, ResizedCapacity(58, 66), "c am going to be replaced with other strings!");
+		replaceAtString.ReplaceAt(5, 'c');
+		AssertString(replaceAtString, 45, ResizedCapacity(58, 66), "c am coing to be replaced with other strings!");
+		replaceAtString.ReplaceAt(replaceAtString.Size() - 1, 'c');
+		AssertString(replaceAtString, 45, ResizedCapacity(58, 66), "c am coing to be replaced with other stringsc");
+	}
 
 	void TestTrim() {
 		String trim("       vvvvvvvvvvv      xxxxxxmiddlexxxxxxxx        vvvvvvv           ");
@@ -1340,10 +1537,106 @@ namespace Power {
 		AssertString(trim, 0, 70 + String::s_defaultCapacity, "");
 	}
 
-	void TestPadLeft() { }
-	void TestPadRight() { }
-	void TestStartswith() { }
-	void TestEndsWith() { }
+	void TestPad() {
+		String padString("I need some padding...");
+
+		AssertString(padString, 22, 22 + String::s_defaultCapacity, "I need some padding...");
+
+		padString.PadLeft(5);
+		AssertString(padString, 22, 22 + String::s_defaultCapacity, "I need some padding...");
+		padString.PadLeft(30);
+		AssertString(padString, 30, 22 + String::s_defaultCapacity, "        I need some padding...");
+		padString.ShrinkToFit();
+		AssertString(padString, 30, 31, "        I need some padding...");
+		padString.PadLeft(35);
+		AssertString(padString, 35, ResizedCapacity(31, 35), "             I need some padding...");
+		padString = String("I need some padding...");
+		AssertString(padString, 22, ResizedCapacity(31, 35), "I need some padding...");
+		padString.PadLeft(5, 'c');
+		AssertString(padString, 22, ResizedCapacity(31, 35), "I need some padding...");
+		padString.PadLeft(30, 'c');
+		AssertString(padString, 30, ResizedCapacity(31, 35), "ccccccccI need some padding...");
+		padString.ShrinkToFit();
+		AssertString(padString, 30, 31, "ccccccccI need some padding...");
+		padString.PadLeft(35, 'a');
+		AssertString(padString, 35, ResizedCapacity(31, 35), "aaaaaccccccccI need some padding...");
+
+		padString.PadRight(5);
+		AssertString(padString, 35, ResizedCapacity(31, 35), "aaaaaccccccccI need some padding...");
+		padString.PadRight(40);
+		AssertString(padString, 40, ResizedCapacity(31, 35), "aaaaaccccccccI need some padding...     ");
+		padString.ShrinkToFit();
+		AssertString(padString, 40, 41, "aaaaaccccccccI need some padding...     ");
+		padString.PadRight(45);
+		AssertString(padString, 45, ResizedCapacity(41, 45), "aaaaaccccccccI need some padding...          ");
+		padString = String("aaaaaccccccccI need some padding...");
+		AssertString(padString, 35, ResizedCapacity(41, 45), "aaaaaccccccccI need some padding...");
+		padString.PadRight(5, 'c');
+		AssertString(padString, 35, ResizedCapacity(41, 45), "aaaaaccccccccI need some padding...");
+		padString.PadRight(40, 'c');
+		AssertString(padString, 40, ResizedCapacity(41, 45), "aaaaaccccccccI need some padding...ccccc");
+		padString.ShrinkToFit();
+		AssertString(padString, 40, 41, "aaaaaccccccccI need some padding...ccccc");
+		padString.PadRight(45, 'a');
+		AssertString(padString, 45, ResizedCapacity(41, 45), "aaaaaccccccccI need some padding...cccccaaaaa");
+	}
+
+	void TestStartsEndswith() {
+		String startsEndsWithString("Do I start or end with something?");
+
+		AssertString(startsEndsWithString, 33, 33 + String::s_defaultCapacity, "Do I start or end with something?");
+
+		assert(startsEndsWithString.StartsWith(String::ToString("Do I start")));
+		assert(!startsEndsWithString.StartsWith(String::ToString("DDo I start")));
+		assert(startsEndsWithString.StartsWith(String::ToString("D")));
+		assert(!startsEndsWithString.StartsWith(String::ToString("A")));
+		assert(startsEndsWithString.StartsWith(String::ToString("Do I start or end with something?")));
+		assert(!startsEndsWithString.StartsWith(String::ToString("Do I start or end with something!")));
+		assert(startsEndsWithString.StartsWith(startsEndsWithString));
+		assert(!startsEndsWithString.StartsWith(String::ToString("")));
+		assert(!startsEndsWithString.StartsWith(String::ToString("Do I start or end with something?         ")));
+
+		assert(startsEndsWithString.StartsWith("Do I start"));
+		assert(!startsEndsWithString.StartsWith("DDo I start"));
+		assert(startsEndsWithString.StartsWith("D"));
+		assert(!startsEndsWithString.StartsWith("A"));
+		assert(startsEndsWithString.StartsWith("Do I start or end with something?"));
+		assert(!startsEndsWithString.StartsWith("Do I start or end with something!"));
+		assert(startsEndsWithString.StartsWith(startsEndsWithString.CString()));
+		assert(!startsEndsWithString.StartsWith(startsEndsWithString.CString() + startsEndsWithString.Size() - 10));
+		assert(!startsEndsWithString.StartsWith(""));
+		assert(!startsEndsWithString.StartsWith("Do I start or end with something?         "));
+
+		assert(startsEndsWithString.StartsWith('D'));
+		assert(!startsEndsWithString.StartsWith('A'));
+		assert(startsEndsWithString.StartsWith(startsEndsWithString[0]));
+
+		assert(startsEndsWithString.EndsWith(String::ToString("or end with something?")));
+		assert(!startsEndsWithString.EndsWith(String::ToString("oor end with something?")));
+		assert(startsEndsWithString.EndsWith(String::ToString("?")));
+		assert(!startsEndsWithString.EndsWith(String::ToString("!")));
+		assert(startsEndsWithString.EndsWith(String::ToString("Do I start or end with something?")));
+		assert(!startsEndsWithString.EndsWith(String::ToString("Ao I start or end with something?")));
+		assert(startsEndsWithString.EndsWith(startsEndsWithString));
+		assert(!startsEndsWithString.EndsWith(String::ToString("")));
+		assert(!startsEndsWithString.EndsWith(String::ToString("         Do I start or end with something?")));
+
+		assert(startsEndsWithString.EndsWith("or end with something?"));
+		assert(!startsEndsWithString.EndsWith("oor end with something?"));
+		assert(startsEndsWithString.EndsWith("?"));
+		assert(!startsEndsWithString.EndsWith("!"));
+		assert(startsEndsWithString.EndsWith("Do I start or end with something?"));
+		assert(!startsEndsWithString.EndsWith("Ao I start or end with something?"));
+		assert(startsEndsWithString.EndsWith(startsEndsWithString.CString()));
+		assert(startsEndsWithString.EndsWith(startsEndsWithString.CString() + startsEndsWithString.Size() - 10));
+		assert(!startsEndsWithString.EndsWith(""));
+		assert(!startsEndsWithString.EndsWith("         Do I start or end with something?"));
+
+		assert(startsEndsWithString.EndsWith('?'));
+		assert(!startsEndsWithString.EndsWith('!'));
+		assert(startsEndsWithString.EndsWith(startsEndsWithString[startsEndsWithString.Size() - 1]));
+	}
+
 	void TestFill() { }
 
 	void TestSplitAt() {
@@ -1400,10 +1693,8 @@ namespace Power {
 		TestReplace();
 		TestReplaceAt();
 		TestTrim();
-		TestPadLeft();
-		TestPadRight();
-		TestStartswith();
-		TestEndsWith();
+		TestPad();
+		TestStartsEndswith();
 		TestFill();
 		TestSplitAt();
 		TestJoin();
