@@ -2078,8 +2078,15 @@ namespace Power {
 			if (begin >= end || other.size_ == 0) return *this;
 			size_t range = end - begin;
 			size_t count = range / other.size_;
-			for (size_t i = 0; i < count; ++i) memcpy(data_ + begin + i * other.size_, other.data_, other.size_);
-			memcpy(data_ + begin + count * other.size_, other.data_, range % other.size_);
+			int64_t offset = other.data_ - data_;
+			if (this->PointerToSelf(offset)) {
+				for (size_t i = 0; i < count; ++i) memcpy(temp_ + i * other.size_, other.data_, other.size_);
+				memcpy(temp_ + count * other.size_, other.data_, range % other.size_);
+				memcpy(data_ + begin, temp_, range);
+			} else {
+				for (size_t i = 0; i < count; ++i) memcpy(data_ + begin + i * other.size_, other.data_, other.size_);
+				memcpy(data_ + begin + count * other.size_, other.data_, range % other.size_);
+			}
 			return *this;
 		}
 
