@@ -2075,10 +2075,11 @@ namespace Power {
 		///
 		inline String& Fill(const String& other, size_t begin, size_t end) {
 			if (end > size_) end = size_;
-			if (begin >= end) return *this;
-			int32_t count = static_cast<int32_t>((end - begin) / other.size_);
-			for (int32_t i = 0; i < count; ++i) memcpy(data_ + begin + i * other.size_, other.data_, other.size_);
-			memcpy(data_ + begin + count + other.size_, other.data_, (end - begin) % other.size_);
+			if (begin >= end || other.size_ == 0) return *this;
+			size_t range = end - begin;
+			size_t count = range / other.size_;
+			for (size_t i = 0; i < count; ++i) memcpy(data_ + begin + i * other.size_, other.data_, other.size_);
+			memcpy(data_ + begin + count * other.size_, other.data_, range % other.size_);
 			return *this;
 		}
 
@@ -2148,10 +2149,18 @@ namespace Power {
 		///
 		inline String& Fill(size_t size, const char* const other, size_t begin, size_t end) {
 			if (end > size_) end = size_;
-			if (begin >= end) return *this;
-			int32_t count = static_cast<int32_t>((end - begin) / size);
-			for (int32_t i = 0; i < count; ++i) this->MemCpyCheckData(begin + i * size, other, size);
-			this->MemCpyCheckData(begin + count * size, other, (end - begin) % size);
+			if (begin >= end || size == 0) return *this;
+			size_t range = end - begin;
+			size_t count = range / size;
+			int64_t offset = other - data_;
+			if (this->PointerToSelf(offset)) {
+				for (size_t i = 0; i < count; ++i) memcpy(temp_ + i * size, other, size);
+				memcpy(temp_ + count * size, other, range % size);
+				memcpy(data_ + begin, temp_, range);
+			} else {
+				for (size_t i = 0; i < count; ++i) memcpy(data_ + begin + i * size, other, size);
+				memcpy(data_ + begin + count * size, other, range % size);
+			}
 			return *this;
 		}
 
@@ -2171,7 +2180,7 @@ namespace Power {
 		///
 		inline String& Fill(const char c, size_t begin) {
 			if (begin >= size_) return *this;
-			memset(data_, c, size_ - begin);
+			memset(data_ + begin, c, size_ - begin);
 			return *this;
 		}
 
@@ -2187,7 +2196,7 @@ namespace Power {
 		inline String& Fill(const char c, size_t begin, size_t end) {
 			if (end > size_) end = size_;
 			if (begin >= end) return *this;
-			memset(data_, c, end - begin);
+			memset(data_ + begin, c, end - begin);
 			return *this;
 		}
 
