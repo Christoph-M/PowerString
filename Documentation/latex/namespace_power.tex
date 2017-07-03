@@ -8,7 +8,9 @@ class \hyperlink{class_power_1_1_string}{String}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \hyperlink{namespace_power_a94cb0120c19b1c711fcf5959130efc67}{Assert\+String} (const \hyperlink{class_power_1_1_string}{String} \&string, size\+\_\+t length, size\+\_\+t size=0, const char $\ast$const data=nullptr)
+void \hyperlink{namespace_power_a518010e2cb8ba2afb94237640eb33bc8}{Assert\+String} (const \hyperlink{class_power_1_1_string}{String} \&string, size\+\_\+t size, size\+\_\+t capacity=0, const char $\ast$const data=nullptr)
+\item 
+size\+\_\+t \hyperlink{namespace_power_a0ca24021af2fa47b4c93c6a909731bd1}{Resized\+Capacity} (size\+\_\+t old\+Capcity, size\+\_\+t new\+Size)
 \item 
 void \hyperlink{namespace_power_a93bc9ffcd35542cdc32911f0ab15240f}{Test\+Comparison\+Operators} ()
 \item 
@@ -36,16 +38,48 @@ void \hyperlink{namespace_power_a15f3bf497eb9f54378f0e2b590802bd4}{Test\+Substri
 \item 
 void \hyperlink{namespace_power_a8fab005f68597905871a451bac70eb1d}{Test\+To\+Upper\+Lower} ()
 \item 
+void \hyperlink{namespace_power_a97269203badd9375fab60db5f5b11dc5}{Test\+Concatenate} ()
+\item 
+void \hyperlink{namespace_power_ae4542ac2c3572f11b82b87325716284c}{Test\+Count} ()
+\item 
+void \hyperlink{namespace_power_a14fd95cb9dec263deb7131de8337a930}{Test\+Insert} ()
+\item 
+void \hyperlink{namespace_power_a4119a2b48f2dff71b6ca87cc2f94b71e}{Test\+Remove} ()
+\item 
+void \hyperlink{namespace_power_ac4dfc487f0585994b48205120571f03a}{Test\+Remove\+All} ()
+\item 
+void \hyperlink{namespace_power_aa5f53535e79018dee986c4d6c732dfa2}{Test\+Replace} ()
+\item 
+void \hyperlink{namespace_power_a8bfbc26ed7a2c9816a299ed990302283}{Test\+Replace\+At} ()
+\item 
+void \hyperlink{namespace_power_ae3b2ca85b1754df91c10a59ed383a9ba}{Test\+Trim} ()
+\item 
+void \hyperlink{namespace_power_a3d4ab2663e62978f111c66a1dfeabace}{Test\+Pad} ()
+\item 
+void \hyperlink{namespace_power_a8624c60b65b1b0f8859122599816d25b}{Test\+Starts\+Endswith} ()
+\item 
+void \hyperlink{namespace_power_ac75f67a1bb1ba76b63fb032055217d0a}{Test\+Fill} ()
+\item 
+void \hyperlink{namespace_power_a7319d9f5b0f4f0a3773c4c7efe7a4759}{Test\+Split\+At} ()
+\item 
+void \hyperlink{namespace_power_a5cc8bd07de43764591174f75a8da14fe}{Test\+Join} ()
+\item 
 void \hyperlink{namespace_power_a98ecb039bc50b27644cdee95dff097d3}{Run\+Unit\+Tests} ()
 \end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
-\mbox{\Hypertarget{namespace_power_a94cb0120c19b1c711fcf5959130efc67}\label{namespace_power_a94cb0120c19b1c711fcf5959130efc67}} 
+\mbox{\Hypertarget{namespace_power_a518010e2cb8ba2afb94237640eb33bc8}\label{namespace_power_a518010e2cb8ba2afb94237640eb33bc8}} 
 \index{Power@{Power}!Assert\+String@{Assert\+String}}
 \index{Assert\+String@{Assert\+String}!Power@{Power}}
 \subsubsection{\texorpdfstring{Assert\+String()}{AssertString()}}
-{\footnotesize\ttfamily void Power\+::\+Assert\+String (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{string,  }\item[{size\+\_\+t}]{length,  }\item[{size\+\_\+t}]{size = {\ttfamily 0},  }\item[{const char $\ast$const}]{data = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Power\+::\+Assert\+String (\begin{DoxyParamCaption}\item[{const \hyperlink{class_power_1_1_string}{String} \&}]{string,  }\item[{size\+\_\+t}]{size,  }\item[{size\+\_\+t}]{capacity = {\ttfamily 0},  }\item[{const char $\ast$const}]{data = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespace_power_a0ca24021af2fa47b4c93c6a909731bd1}\label{namespace_power_a0ca24021af2fa47b4c93c6a909731bd1}} 
+\index{Power@{Power}!Resized\+Capacity@{Resized\+Capacity}}
+\index{Resized\+Capacity@{Resized\+Capacity}!Power@{Power}}
+\subsubsection{\texorpdfstring{Resized\+Capacity()}{ResizedCapacity()}}
+{\footnotesize\ttfamily size\+\_\+t Power\+::\+Resized\+Capacity (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{old\+Capcity,  }\item[{size\+\_\+t}]{new\+Size }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespace_power_a98ecb039bc50b27644cdee95dff097d3}\label{namespace_power_a98ecb039bc50b27644cdee95dff097d3}} 
 \index{Power@{Power}!Run\+Unit\+Tests@{Run\+Unit\+Tests}}
@@ -83,6 +117,12 @@ void \hyperlink{namespace_power_a98ecb039bc50b27644cdee95dff097d3}{Run\+Unit\+Te
 \subsubsection{\texorpdfstring{Test\+Compound\+Assignment\+Operators()}{TestCompoundAssignmentOperators()}}
 {\footnotesize\ttfamily void Power\+::\+Test\+Compound\+Assignment\+Operators (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{namespace_power_a97269203badd9375fab60db5f5b11dc5}\label{namespace_power_a97269203badd9375fab60db5f5b11dc5}} 
+\index{Power@{Power}!Test\+Concatenate@{Test\+Concatenate}}
+\index{Test\+Concatenate@{Test\+Concatenate}!Power@{Power}}
+\subsubsection{\texorpdfstring{Test\+Concatenate()}{TestConcatenate()}}
+{\footnotesize\ttfamily void Power\+::\+Test\+Concatenate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{namespace_power_ac74fec7f3704b9c554276fa307de5bc5}\label{namespace_power_ac74fec7f3704b9c554276fa307de5bc5}} 
 \index{Power@{Power}!Test\+Constructors@{Test\+Constructors}}
 \index{Test\+Constructors@{Test\+Constructors}!Power@{Power}}
@@ -95,11 +135,35 @@ void \hyperlink{namespace_power_a98ecb039bc50b27644cdee95dff097d3}{Run\+Unit\+Te
 \subsubsection{\texorpdfstring{Test\+Contains()}{TestContains()}}
 {\footnotesize\ttfamily void Power\+::\+Test\+Contains (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{namespace_power_ae4542ac2c3572f11b82b87325716284c}\label{namespace_power_ae4542ac2c3572f11b82b87325716284c}} 
+\index{Power@{Power}!Test\+Count@{Test\+Count}}
+\index{Test\+Count@{Test\+Count}!Power@{Power}}
+\subsubsection{\texorpdfstring{Test\+Count()}{TestCount()}}
+{\footnotesize\ttfamily void Power\+::\+Test\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespace_power_ac75f67a1bb1ba76b63fb032055217d0a}\label{namespace_power_ac75f67a1bb1ba76b63fb032055217d0a}} 
+\index{Power@{Power}!Test\+Fill@{Test\+Fill}}
+\index{Test\+Fill@{Test\+Fill}!Power@{Power}}
+\subsubsection{\texorpdfstring{Test\+Fill()}{TestFill()}}
+{\footnotesize\ttfamily void Power\+::\+Test\+Fill (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{namespace_power_a6dc388a4544e6d59e43eab4625af166f}\label{namespace_power_a6dc388a4544e6d59e43eab4625af166f}} 
 \index{Power@{Power}!Test\+Index\+Of@{Test\+Index\+Of}}
 \index{Test\+Index\+Of@{Test\+Index\+Of}!Power@{Power}}
 \subsubsection{\texorpdfstring{Test\+Index\+Of()}{TestIndexOf()}}
 {\footnotesize\ttfamily void Power\+::\+Test\+Index\+Of (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespace_power_a14fd95cb9dec263deb7131de8337a930}\label{namespace_power_a14fd95cb9dec263deb7131de8337a930}} 
+\index{Power@{Power}!Test\+Insert@{Test\+Insert}}
+\index{Test\+Insert@{Test\+Insert}!Power@{Power}}
+\subsubsection{\texorpdfstring{Test\+Insert()}{TestInsert()}}
+{\footnotesize\ttfamily void Power\+::\+Test\+Insert (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespace_power_a5cc8bd07de43764591174f75a8da14fe}\label{namespace_power_a5cc8bd07de43764591174f75a8da14fe}} 
+\index{Power@{Power}!Test\+Join@{Test\+Join}}
+\index{Test\+Join@{Test\+Join}!Power@{Power}}
+\subsubsection{\texorpdfstring{Test\+Join()}{TestJoin()}}
+{\footnotesize\ttfamily void Power\+::\+Test\+Join (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespace_power_a11303f4f04e214f86e20de0b5b7c01fa}\label{namespace_power_a11303f4f04e214f86e20de0b5b7c01fa}} 
 \index{Power@{Power}!Test\+Last\+Index\+Of@{Test\+Last\+Index\+Of}}
@@ -107,11 +171,53 @@ void \hyperlink{namespace_power_a98ecb039bc50b27644cdee95dff097d3}{Run\+Unit\+Te
 \subsubsection{\texorpdfstring{Test\+Last\+Index\+Of()}{TestLastIndexOf()}}
 {\footnotesize\ttfamily void Power\+::\+Test\+Last\+Index\+Of (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+\mbox{\Hypertarget{namespace_power_a3d4ab2663e62978f111c66a1dfeabace}\label{namespace_power_a3d4ab2663e62978f111c66a1dfeabace}} 
+\index{Power@{Power}!Test\+Pad@{Test\+Pad}}
+\index{Test\+Pad@{Test\+Pad}!Power@{Power}}
+\subsubsection{\texorpdfstring{Test\+Pad()}{TestPad()}}
+{\footnotesize\ttfamily void Power\+::\+Test\+Pad (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespace_power_a4119a2b48f2dff71b6ca87cc2f94b71e}\label{namespace_power_a4119a2b48f2dff71b6ca87cc2f94b71e}} 
+\index{Power@{Power}!Test\+Remove@{Test\+Remove}}
+\index{Test\+Remove@{Test\+Remove}!Power@{Power}}
+\subsubsection{\texorpdfstring{Test\+Remove()}{TestRemove()}}
+{\footnotesize\ttfamily void Power\+::\+Test\+Remove (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespace_power_ac4dfc487f0585994b48205120571f03a}\label{namespace_power_ac4dfc487f0585994b48205120571f03a}} 
+\index{Power@{Power}!Test\+Remove\+All@{Test\+Remove\+All}}
+\index{Test\+Remove\+All@{Test\+Remove\+All}!Power@{Power}}
+\subsubsection{\texorpdfstring{Test\+Remove\+All()}{TestRemoveAll()}}
+{\footnotesize\ttfamily void Power\+::\+Test\+Remove\+All (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespace_power_aa5f53535e79018dee986c4d6c732dfa2}\label{namespace_power_aa5f53535e79018dee986c4d6c732dfa2}} 
+\index{Power@{Power}!Test\+Replace@{Test\+Replace}}
+\index{Test\+Replace@{Test\+Replace}!Power@{Power}}
+\subsubsection{\texorpdfstring{Test\+Replace()}{TestReplace()}}
+{\footnotesize\ttfamily void Power\+::\+Test\+Replace (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespace_power_a8bfbc26ed7a2c9816a299ed990302283}\label{namespace_power_a8bfbc26ed7a2c9816a299ed990302283}} 
+\index{Power@{Power}!Test\+Replace\+At@{Test\+Replace\+At}}
+\index{Test\+Replace\+At@{Test\+Replace\+At}!Power@{Power}}
+\subsubsection{\texorpdfstring{Test\+Replace\+At()}{TestReplaceAt()}}
+{\footnotesize\ttfamily void Power\+::\+Test\+Replace\+At (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
 \mbox{\Hypertarget{namespace_power_ae23123cd183d3656e9fcdb0ca4b54aab}\label{namespace_power_ae23123cd183d3656e9fcdb0ca4b54aab}} 
 \index{Power@{Power}!Test\+Shrink\+To\+Fit@{Test\+Shrink\+To\+Fit}}
 \index{Test\+Shrink\+To\+Fit@{Test\+Shrink\+To\+Fit}!Power@{Power}}
 \subsubsection{\texorpdfstring{Test\+Shrink\+To\+Fit()}{TestShrinkToFit()}}
 {\footnotesize\ttfamily void Power\+::\+Test\+Shrink\+To\+Fit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespace_power_a7319d9f5b0f4f0a3773c4c7efe7a4759}\label{namespace_power_a7319d9f5b0f4f0a3773c4c7efe7a4759}} 
+\index{Power@{Power}!Test\+Split\+At@{Test\+Split\+At}}
+\index{Test\+Split\+At@{Test\+Split\+At}!Power@{Power}}
+\subsubsection{\texorpdfstring{Test\+Split\+At()}{TestSplitAt()}}
+{\footnotesize\ttfamily void Power\+::\+Test\+Split\+At (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespace_power_a8624c60b65b1b0f8859122599816d25b}\label{namespace_power_a8624c60b65b1b0f8859122599816d25b}} 
+\index{Power@{Power}!Test\+Starts\+Endswith@{Test\+Starts\+Endswith}}
+\index{Test\+Starts\+Endswith@{Test\+Starts\+Endswith}!Power@{Power}}
+\subsubsection{\texorpdfstring{Test\+Starts\+Endswith()}{TestStartsEndswith()}}
+{\footnotesize\ttfamily void Power\+::\+Test\+Starts\+Endswith (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 \mbox{\Hypertarget{namespace_power_a15f3bf497eb9f54378f0e2b590802bd4}\label{namespace_power_a15f3bf497eb9f54378f0e2b590802bd4}} 
 \index{Power@{Power}!Test\+Substring@{Test\+Substring}}
@@ -130,4 +236,10 @@ void \hyperlink{namespace_power_a98ecb039bc50b27644cdee95dff097d3}{Run\+Unit\+Te
 \index{Test\+To\+Upper\+Lower@{Test\+To\+Upper\+Lower}!Power@{Power}}
 \subsubsection{\texorpdfstring{Test\+To\+Upper\+Lower()}{TestToUpperLower()}}
 {\footnotesize\ttfamily void Power\+::\+Test\+To\+Upper\+Lower (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{namespace_power_ae3b2ca85b1754df91c10a59ed383a9ba}\label{namespace_power_ae3b2ca85b1754df91c10a59ed383a9ba}} 
+\index{Power@{Power}!Test\+Trim@{Test\+Trim}}
+\index{Test\+Trim@{Test\+Trim}!Power@{Power}}
+\subsubsection{\texorpdfstring{Test\+Trim()}{TestTrim()}}
+{\footnotesize\ttfamily void Power\+::\+Test\+Trim (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
