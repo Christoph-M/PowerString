@@ -18,6 +18,7 @@
 
 namespace Power {
 	/// @brief A mutable string class with similar functionality to the C# string.
+	/// @brief This string is capable of storing SIZE_MAX / 2 characters, but operation is only guaranteed up to INT32_MAX characters.
 	///
 	class String {
 	public:
@@ -341,6 +342,26 @@ namespace Power {
 			if (index > source.size_) return;
 			lhs = String(source.data_, index);
 			rhs = String(source.data_ + index, source.size_ - index);
+		}
+		
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	<!--LoadFileIntoString-->
+		/// @brief Loads the specified file directly into a new Power::String.
+		/// @param filePath The path of the file to be loaded.
+		/// @return A new Power::String containing the file data.
+		///
+		inline static String LoadFileIntoString(const String& filePath) {
+			FILE* fp = nullptr;
+			return String(fp, filePath.CString());
+		}
+
+		/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/// @brief Loads the specified file directly into a new Power::String.
+		/// @param filePath The path of the file to be loaded.
+		/// @return A new Power::String containing the file data.
+		///
+		inline static String LoadFileIntoString(const char* const filePath) {
+			FILE* fp = nullptr;
+			return String(fp, filePath);
 		}
 
 	public:
@@ -2449,6 +2470,25 @@ namespace Power {
 			memcpy(data_ + lhs.size_, buffer, rhsSize);
 			data_[size_] = '\0';
 			this->IncInstCounter();
+		}
+		String(FILE* fp, const char* const filePath) :
+			capacity_(0),
+			size_(0),
+			data_(nullptr),
+			temp_(nullptr)
+		{
+			if (!fopen_s(&fp, filePath, "r")) {
+				fseek(fp, 0, SEEK_END);
+				size_ = ftell(fp);
+				capacity_ = size_ + s_defaultCapacity;
+				fseek(fp, 0, 0);
+				data_ = static_cast<char*>(malloc(capacity_ * 2));
+				this->IncInstCounter();
+				temp_ = data_ + capacity_;
+				fread_s(data_, size_, 1, size_, fp);
+				fclose(fp);
+				data_[size_] = '\0';
+			}
 		}
 
 		inline void IncInstCounter() const {

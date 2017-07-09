@@ -338,6 +338,20 @@ int main() {
 			deltaTimes[i] = endCount - startCount;
 		}
 		printf("LastIndexOf for-loop average cycles taken: %lld\n", CalcAverageTSC(deltaTimes, measureCount));
+
+		Power::String fileString = Power::String::LoadFileIntoString("test.txt");
+
+		printf("Size: %zd\n", fileString.Capacity());
+		printf("Count of f: %d\n", fileString.Count('f'));
+		{
+			uint64_t startCount = __rdtsc();
+			fileString.ToUpper();
+			fileString.ToLower();
+			fileString.Fill("I am a new string ");
+			fileString.ToUpper();
+			uint64_t endCount = __rdtsc();
+			printf("Large string operation average cycles taken: %lld\n", endCount - startCount);
+		}
 	}
 
 	printf("Total instances created: %zd; Remaining instances: %zd\n", Power::String::s_totalInstancesCreated_, Power::String::s_instanceCounter_);
